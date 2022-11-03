@@ -1,1 +1,1 @@
-# openshelves-frontend
+# Frontend for OpenShelves Warehouse Management System written in Flutter
