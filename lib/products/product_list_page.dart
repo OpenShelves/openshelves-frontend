@@ -16,43 +16,59 @@ class ProductPage extends StatefulWidget {
 class _ProductPageState extends State<ProductPage> {
   Future<List<Product>> getProduct = getProducts();
 
-  createTableRows(List<Product> products) {
-    List<TableRow> rows = [];
+  createDataTableRows(List<Product> products) {
+    List<DataRow> rows = [];
     var i = 0;
     products.forEach((product) {
       var color = i % 2 == 0 ? Colors.grey[100] : Colors.grey[200];
       i++;
-      rows.add(TableRow(children: [
-        ElevatedButton(onPressed: () {}, child: Icon(Icons.edit)),
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Text(product.id.toString()),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Text(product.sku.toString()),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Text(product.name),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Text(product.weight.toString()),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Text(product.width.toString()),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Text(product.height.toString()),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Text(product.depth.toString()),
-        ),
-      ], decoration: BoxDecoration(color: color)));
+      rows.add(DataRow(
+          color: MaterialStateProperty.resolveWith<Color?>(
+              (Set<MaterialState> states) {
+            // All rows will have the same selected color.
+            if (states.contains(MaterialState.selected)) {
+              return Theme.of(context).colorScheme.primary.withOpacity(0.08);
+            }
+            // Even rows will have a grey color.
+
+            if (i % 2 == 0) {
+              return Colors.grey.withOpacity(0.3);
+            }
+            return null; // Use default value for other states and odd rows.
+          }),
+          cells: [
+            DataCell(
+              IconButton(icon: Icon(Icons.edit), onPressed: () {}),
+            ),
+            DataCell(
+              Text(product.id.toString()),
+            ),
+            DataCell(Text(product.sku.toString())),
+            DataCell(
+              Text(product.name),
+            ),
+            DataCell(
+              Text(product.price.toString()),
+            ),
+            DataCell(
+              Text(product.ean.toString()),
+            ),
+            DataCell(
+              Text(product.width.toString()),
+            ),
+            DataCell(
+              Text(product.height.toString()),
+            ),
+            DataCell(
+              Text(product.depth.toString()),
+            ),
+            DataCell(
+              Text(product.weight.toString()),
+            ),
+            DataCell(
+              Checkbox(value: product.active, onChanged: (value) {}),
+            ),
+          ]));
     });
 
     return rows;
@@ -78,10 +94,19 @@ class _ProductPageState extends State<ProductPage> {
                   future: getProduct,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                      return Table(
-                        // border: TableBorder.all(color: Colors.grey),
-                        children: createTableRows(snapshot.data!),
-                      );
+                      return DataTable(columns: [
+                        DataColumn(label: Expanded(child: Text('#'))),
+                        DataColumn(label: Expanded(child: Text('ID'))),
+                        DataColumn(label: Expanded(child: Text('SKU'))),
+                        DataColumn(label: Expanded(child: Text('Productname'))),
+                        DataColumn(label: Expanded(child: Text('Price'))),
+                        DataColumn(label: Expanded(child: Text('EAN'))),
+                        DataColumn(label: Expanded(child: Text('Width'))),
+                        DataColumn(label: Expanded(child: Text('Height'))),
+                        DataColumn(label: Expanded(child: Text('Depth'))),
+                        DataColumn(label: Expanded(child: Text('Weight'))),
+                        DataColumn(label: Expanded(child: Text('Active'))),
+                      ], rows: createDataTableRows(snapshot.data!));
                     } else if (snapshot.hasError) {
                       return Text('Fehler');
                     } else {
