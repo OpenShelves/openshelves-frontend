@@ -12,7 +12,7 @@ class _MobileScaffoldState extends State<MobileScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: openShelvesDrawer,
+        drawer: getOpenShelvesDrawer(context),
         appBar: openShelvesAppBar,
         body: Row(
           children: [],

@@ -14,7 +14,10 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Row(
-      children: [openShelvesDrawer, productMainDataForm, productTechDataForm],
+      children: [
+        getOpenShelvesDrawer(context),
+        Text('D A S H B O A R D'),
+      ],
     ));
   }
 }

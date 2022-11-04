@@ -8,6 +8,8 @@ class Product {
   num? depth;
   num? weight;
   bool active;
+  num? price;
+  String? sku;
 
   String toString() {
     return 'Product: {ean: ${ean}, count: ${name}}';
@@ -24,6 +26,8 @@ class Product {
     this.width,
     this.weight,
     required this.active,
+    this.price,
+    this.sku,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
@@ -38,6 +42,8 @@ class Product {
       width: json['width'] != null ? json['width'] : null,
       weight: json['weight'] != null ? json['weight'] : null,
       active: (json['active'] != null && json['active'] == 1) ? true : false,
+      price: json['price'] != null ? json['price'] : null,
+      sku: json['sku'] != null ? json['sku'] : null,
     );
   }
 }

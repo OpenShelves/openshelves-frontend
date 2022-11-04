@@ -19,3 +19,15 @@ Future<Product> storeProduct(Product product) async {
     throw Exception('Failed to store product');
   }
 }
+
+Future<List<Product>> getProducts() async {
+  final response = await http.get(Uri.parse(URL + '/products'));
+  if (response.statusCode == 200) {
+    Iterable l = json.decode(response.body);
+    return List<Product>.from(l.map((model) => Product.fromJson(model)));
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load product');
+  }
+}

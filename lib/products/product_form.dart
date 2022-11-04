@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:openshelves/constants.dart';
 import 'package:openshelves/products/product_service.dart';
+import 'package:openshelves/responsive/responsive_layout.dart';
 
 var productTechDataForm = Expanded(
   flex: 1,
@@ -93,3 +95,29 @@ var productMainDataForm = Expanded(
         ],
       ),
     ));
+
+class ProductFormPage extends StatefulWidget {
+  const ProductFormPage({Key? key}) : super(key: key);
+  static const String url = 'product/form';
+  @override
+  State<ProductFormPage> createState() => _ProductFormPageState();
+}
+
+class _ProductFormPageState extends State<ProductFormPage> {
+  @override
+  Widget build(BuildContext context) {
+    return ResponsiveLayout(
+      mobileBody: Text("TO BE DONE"),
+      tabletBody: Text("TO BE DONE"),
+      desktopBody: Scaffold(
+          // appBar: openShelvesAppBar,
+          floatingActionButton:
+              FloatingActionButton(child: Icon(Icons.add), onPressed: () {}),
+          body: Row(children: [
+            getOpenShelvesDrawer(context),
+            Expanded(flex: 1, child: productMainDataForm),
+            Expanded(flex: 1, child: productTechDataForm)
+          ])),
+    );
+  }
+}
