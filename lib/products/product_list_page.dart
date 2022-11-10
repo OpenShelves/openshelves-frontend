@@ -89,7 +89,7 @@ class _ProductPageState extends State<ProductPage> {
                   children: [
                     Text('Price: '),
                     Text(snapshot.data![index].price.toString()),
-                    Text(' / SKu: '),
+                    Text(' / Sku: '),
                     Text(snapshot.data![index].sku.toString()),
                     Text(' / Active: '),
                     Text(snapshot.data![index].active.toString())
@@ -101,7 +101,7 @@ class _ProductPageState extends State<ProductPage> {
         } else if (snapshot.hasError) {
           return Text('Fehler');
         } else {
-          return CircularProgressIndicator();
+          return loadingData;
         }
       },
     );
@@ -149,7 +149,7 @@ class _ProductPageState extends State<ProductPage> {
                     } else if (snapshot.hasError) {
                       return Text('Fehler');
                     } else {
-                      return CircularProgressIndicator();
+                      return loadingData;
                     }
                   },
                 ),

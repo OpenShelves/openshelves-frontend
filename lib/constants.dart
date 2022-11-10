@@ -62,4 +62,18 @@ var openShelvesAppBar = AppBar(
   title: Text('OpenShelves'),
   centerTitle: false,
 );
+
+var loadingData = Center(
+    child: Column(children: [
+  Padding(padding: EdgeInsets.only(top: 50)),
+  SizedBox(
+    width: 60,
+    height: 60,
+    child: CircularProgressIndicator(),
+  ),
+  Padding(
+    padding: EdgeInsets.only(top: 20),
+    child: Text('Awaiting result...'),
+  )
+]));
 var URL = 'http://localhost:4090/api';
