@@ -74,11 +74,50 @@ class _ProductPageState extends State<ProductPage> {
     return rows;
   }
 
+  getList() {
+    return FutureBuilder<List<Product>>(
+      future: getProduct,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return ListView.builder(
+            itemCount: snapshot.data!.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                leading: Text(snapshot.data![index].id.toString()),
+                title: Text(snapshot.data![index].name),
+                subtitle: Row(
+                  children: [
+                    Text('Price: '),
+                    Text(snapshot.data![index].price.toString()),
+                    Text(' / SKu: '),
+                    Text(snapshot.data![index].sku.toString()),
+                    Text(' / Active: '),
+                    Text(snapshot.data![index].active.toString())
+                  ],
+                ),
+              );
+            },
+          );
+        } else if (snapshot.hasError) {
+          return Text('Fehler');
+        } else {
+          return CircularProgressIndicator();
+        }
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return ResponsiveLayout(
-        mobileBody: Text("TO BE DONE"),
-        tabletBody: Text("TO BE DONE"),
+        mobileBody: Scaffold(
+            appBar: openShelvesAppBar,
+            drawer: getOpenShelvesDrawer(context),
+            body: getList()),
+        tabletBody: Scaffold(
+            appBar: openShelvesAppBar,
+            drawer: getOpenShelvesDrawer(context),
+            body: getList()),
         desktopBody: Scaffold(
             // appBar: openShelvesAppBar,
             floatingActionButton: FloatingActionButton(
