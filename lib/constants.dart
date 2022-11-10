@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:openshelves/home.dart';
+import 'package:openshelves/login/login.dart';
 import 'package:openshelves/products/product_list_page.dart';
+
+final storage = const FlutterSecureStorage();
+
+getToken() async {
+  var test = await storage.read(key: 'token').then((value) => value);
+
+  return test;
+}
 
 getOpenShelvesDrawer(context) {
   return Drawer(
@@ -13,6 +23,13 @@ getOpenShelvesDrawer(context) {
           ),
           Divider(
             height: 10,
+          ),
+          ListTile(
+            leading: Icon(Icons.login),
+            title: Text('L O G I N'),
+            onTap: () {
+              Navigator.pushNamed(context, LoginPage.url);
+            },
           ),
           ListTile(
             leading: Icon(Icons.dashboard),

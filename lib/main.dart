@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:openshelves/constants.dart';
 import 'package:openshelves/home.dart';
+import 'package:openshelves/login/login.dart';
 import 'package:openshelves/products/product_form.dart';
 import 'package:openshelves/products/product_list_page.dart';
 import 'package:openshelves/responsive/desktop.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         HomePage.url: (context) => const HomePage(),
         ProductPage.url: (context) => const ProductPage(),
         ProductFormPage.url: (context) => const ProductFormPage(),
+        LoginPage.url: (context) => const LoginPage(),
       },
       // home: ResponsiveLayout(
       //   desktopBody: DesktopScaffold(),

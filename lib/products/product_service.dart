@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:openshelves/constants.dart';
 import 'package:openshelves/products/product_model.dart';
@@ -21,7 +22,12 @@ Future<Product> storeProduct(Product product) async {
 }
 
 Future<List<Product>> getProducts() async {
-  final response = await http.get(Uri.parse(URL + '/products'));
+  var token = await getToken();
+  final response = await http.get(Uri.parse(URL + '/products'),
+      headers: <String, String>{
+        'Accept-Language': 'application/json',
+        'Authorization': 'Bearer ' + token
+      });
   if (response.statusCode == 200) {
     Iterable l = json.decode(response.body);
     return List<Product>.from(l.map((model) => Product.fromJson(model)));
