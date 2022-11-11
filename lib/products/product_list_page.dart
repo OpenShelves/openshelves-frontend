@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:openshelves/constants.dart';
+import 'package:openshelves/helper/debouncer.dart';
 import 'package:openshelves/products/product_form.dart';
 import 'package:openshelves/products/product_model.dart';
 import 'package:openshelves/products/product_service.dart';
@@ -119,7 +122,6 @@ class _ProductPageState extends State<ProductPage> {
             drawer: getOpenShelvesDrawer(context),
             body: getList()),
         desktopBody: Scaffold(
-            // appBar: openShelvesAppBar,
             floatingActionButton: FloatingActionButton(
                 child: Icon(Icons.add),
                 onPressed: () {
@@ -128,32 +130,53 @@ class _ProductPageState extends State<ProductPage> {
             body: Row(children: [
               getOpenShelvesDrawer(context),
               Expanded(
-                  child: ListView(children: [
-                FutureBuilder<List<Product>>(
-                  future: getProduct,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return DataTable(columns: [
-                        DataColumn(label: Expanded(child: Text('#'))),
-                        DataColumn(label: Expanded(child: Text('ID'))),
-                        DataColumn(label: Expanded(child: Text('SKU'))),
-                        DataColumn(label: Expanded(child: Text('Productname'))),
-                        DataColumn(label: Expanded(child: Text('Price'))),
-                        DataColumn(label: Expanded(child: Text('EAN'))),
-                        DataColumn(label: Expanded(child: Text('Width'))),
-                        DataColumn(label: Expanded(child: Text('Height'))),
-                        DataColumn(label: Expanded(child: Text('Depth'))),
-                        DataColumn(label: Expanded(child: Text('Weight'))),
-                        DataColumn(label: Expanded(child: Text('Active'))),
-                      ], rows: createDataTableRows(snapshot.data!));
-                    } else if (snapshot.hasError) {
-                      return Text('Fehler');
-                    } else {
-                      return loadingData;
-                    }
-                  },
-                ),
-              ])),
+                child: ListView(children: [
+                  TextField(
+                    decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.search),
+                        hintText: 'At least 2 Characters'),
+                    onChanged: (value) => {
+                      if (value.length > 1)
+                        {
+                          setState(() {
+                            getProduct = searchProducts(value);
+                          }),
+                        },
+                      if (value.length == 0)
+                        {
+                          setState(() {
+                            getProduct = getProducts();
+                          })
+                        },
+                    },
+                  ),
+                  FutureBuilder<List<Product>>(
+                    future: getProduct,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return DataTable(columns: [
+                          DataColumn(label: Expanded(child: Text('#'))),
+                          DataColumn(label: Expanded(child: Text('ID'))),
+                          DataColumn(label: Expanded(child: Text('SKU'))),
+                          DataColumn(
+                              label: Expanded(child: Text('Productname'))),
+                          DataColumn(label: Expanded(child: Text('Price'))),
+                          DataColumn(label: Expanded(child: Text('EAN'))),
+                          DataColumn(label: Expanded(child: Text('Width'))),
+                          DataColumn(label: Expanded(child: Text('Height'))),
+                          DataColumn(label: Expanded(child: Text('Depth'))),
+                          DataColumn(label: Expanded(child: Text('Weight'))),
+                          DataColumn(label: Expanded(child: Text('Active'))),
+                        ], rows: createDataTableRows(snapshot.data!));
+                      } else if (snapshot.hasError) {
+                        return Text('Fehler');
+                      } else {
+                        return loadingData;
+                      }
+                    },
+                  ),
+                ]),
+              )
             ])));
   }
 }
