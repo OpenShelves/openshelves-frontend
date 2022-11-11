@@ -25,6 +25,7 @@ class _ProductPageState extends State<ProductPage> {
     products.forEach((product) {
       var color = i % 2 == 0 ? Colors.grey[100] : Colors.grey[200];
       i++;
+      print(i);
       rows.add(DataRow(
           color: MaterialStateProperty.resolveWith<Color?>(
               (Set<MaterialState> states) {
@@ -33,11 +34,11 @@ class _ProductPageState extends State<ProductPage> {
               return Theme.of(context).colorScheme.primary.withOpacity(0.08);
             }
             // Even rows will have a grey color.
-
             if (i % 2 == 0) {
-              return Colors.grey.withOpacity(0.3);
+              return color;
             }
-            return null; // Use default value for other states and odd rows.
+
+            // return null; // Use default value for other states and odd rows.
           }),
           cells: [
             DataCell(
@@ -134,9 +135,9 @@ class _ProductPageState extends State<ProductPage> {
                   TextField(
                     decoration: InputDecoration(
                         prefixIcon: Icon(Icons.search),
-                        hintText: 'At least 2 Characters'),
+                        hintText: 'At least 3 Characters'),
                     onChanged: (value) => {
-                      if (value.length > 1)
+                      if (value.length > 2)
                         {
                           setState(() {
                             getProduct = searchProducts(value);
