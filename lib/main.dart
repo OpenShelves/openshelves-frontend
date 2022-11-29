@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:openshelves/constants.dart';
 import 'package:openshelves/home.dart';
 import 'package:openshelves/login/login.dart';
 import 'package:openshelves/products/product_form.dart';
 import 'package:openshelves/products/product_list_page.dart';
-import 'package:openshelves/responsive/desktop.dart';
-import 'package:openshelves/responsive/mobile.dart';
-import 'package:openshelves/responsive/tablet.dart';
-import 'package:openshelves/responsive/responsive_layout.dart';
 
 void main() {
   runApp(const MyApp());

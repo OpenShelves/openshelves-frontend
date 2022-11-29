@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:openshelves/constants.dart';
-import 'package:openshelves/products/product_form.dart';
 
 class DesktopScaffold extends StatefulWidget {
   const DesktopScaffold({Key? key}) : super(key: key);

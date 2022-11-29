@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:openshelves/constants.dart';
-import 'package:openshelves/helper/debouncer.dart';
 import 'package:openshelves/products/product_form.dart';
 import 'package:openshelves/products/product_model.dart';
 import 'package:openshelves/products/product_service.dart';
@@ -19,13 +18,12 @@ class ProductPage extends StatefulWidget {
 class _ProductPageState extends State<ProductPage> {
   Future<List<Product>> getProduct = getProducts();
 
-  createDataTableRows(List<Product> products) {
+  createDataTableRows(List<Product> products, context) {
     List<DataRow> rows = [];
     var i = 0;
     products.forEach((product) {
       var color = i % 2 == 0 ? Colors.grey[100] : Colors.grey[200];
       i++;
-      print(i);
       rows.add(DataRow(
           color: MaterialStateProperty.resolveWith<Color?>(
               (Set<MaterialState> states) {
@@ -37,12 +35,15 @@ class _ProductPageState extends State<ProductPage> {
             if (i % 2 == 0) {
               return color;
             }
-
-            // return null; // Use default value for other states and odd rows.
           }),
           cells: [
             DataCell(
-              IconButton(icon: Icon(Icons.edit), onPressed: () {}),
+              IconButton(
+                  icon: const Icon(Icons.edit),
+                  onPressed: () {
+                    Navigator.pushNamed(context, ProductFormPage.url,
+                        arguments: ProductPageArguments(product));
+                  }),
             ),
             DataCell(
               Text(product.id.toString()),
@@ -91,11 +92,11 @@ class _ProductPageState extends State<ProductPage> {
                 title: Text(snapshot.data![index].name),
                 subtitle: Row(
                   children: [
-                    Text('Price: '),
+                    const Text('Price: '),
                     Text(snapshot.data![index].price.toString()),
-                    Text(' / Sku: '),
+                    const Text(' / Sku: '),
                     Text(snapshot.data![index].sku.toString()),
-                    Text(' / Active: '),
+                    const Text(' / Active: '),
                     Text(snapshot.data![index].active.toString())
                   ],
                 ),
@@ -103,7 +104,7 @@ class _ProductPageState extends State<ProductPage> {
             },
           );
         } else if (snapshot.hasError) {
-          return Text('Fehler');
+          return const Text('Fehler');
         } else {
           return loadingData;
         }
@@ -124,16 +125,17 @@ class _ProductPageState extends State<ProductPage> {
             body: getList()),
         desktopBody: Scaffold(
             floatingActionButton: FloatingActionButton(
-                child: Icon(Icons.add),
+                child: const Icon(Icons.add),
                 onPressed: () {
-                  Navigator.pushNamed(context, ProductFormPage.url);
+                  Navigator.pushNamed(context, ProductFormPage.url,
+                      arguments: ProductPageArguments(Product(name: '')));
                 }),
             body: Row(children: [
               getOpenShelvesDrawer(context),
               Expanded(
                 child: ListView(children: [
                   TextField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         prefixIcon: Icon(Icons.search),
                         hintText: 'At least 3 Characters'),
                     onChanged: (value) => {
@@ -143,7 +145,7 @@ class _ProductPageState extends State<ProductPage> {
                             getProduct = searchProducts(value);
                           }),
                         },
-                      if (value.length == 0)
+                      if (value.isEmpty)
                         {
                           setState(() {
                             getProduct = getProducts();
@@ -155,7 +157,7 @@ class _ProductPageState extends State<ProductPage> {
                     future: getProduct,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        return DataTable(columns: [
+                        return DataTable(columns: const [
                           DataColumn(label: Expanded(child: Text('#'))),
                           DataColumn(label: Expanded(child: Text('ID'))),
                           DataColumn(label: Expanded(child: Text('SKU'))),
@@ -168,9 +170,9 @@ class _ProductPageState extends State<ProductPage> {
                           DataColumn(label: Expanded(child: Text('Depth'))),
                           DataColumn(label: Expanded(child: Text('Weight'))),
                           DataColumn(label: Expanded(child: Text('Active'))),
-                        ], rows: createDataTableRows(snapshot.data!));
+                        ], rows: createDataTableRows(snapshot.data!, context));
                       } else if (snapshot.hasError) {
-                        return Text('Fehler');
+                        return const Text('Fehler');
                       } else {
                         return loadingData;
                       }

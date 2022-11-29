@@ -17,19 +17,19 @@ class _LoginPageState extends State<LoginPage> {
   final storage = const FlutterSecureStorage();
 
   Future<void> getToken() {
-    return storage.read(key: 'token').then((value) => print(value));
+    return storage.read(key: 'token');
   }
 
   @override
   Widget build(BuildContext context) {
     getToken();
     return ResponsiveLayout(
-      mobileBody: Text("TO BE DONE"),
-      tabletBody: Text("TO BE DONE"),
+      mobileBody: const Text("TO BE DONE"),
+      tabletBody: const Text("TO BE DONE"),
       desktopBody: Scaffold(
           appBar: openShelvesAppBar,
-          floatingActionButton:
-              FloatingActionButton(child: Icon(Icons.add), onPressed: () {}),
+          floatingActionButton: FloatingActionButton(
+              child: const Icon(Icons.add), onPressed: () {}),
           body: Row(children: [
             getOpenShelvesDrawer(context),
             Expanded(
@@ -38,26 +38,30 @@ class _LoginPageState extends State<LoginPage> {
                     padding: const EdgeInsets.all(20.0),
                     child: Column(
                       children: [
-                        Text('Please Login'),
+                        const Text('Please Login'),
                         TextField(
                           controller: emailController,
-                          decoration: InputDecoration(label: Text('E-Mail')),
+                          decoration:
+                              const InputDecoration(label: Text('E-Mail')),
                         ),
                         TextField(
                           controller: passwordController,
-                          decoration: InputDecoration(label: Text('Password')),
+                          decoration:
+                              const InputDecoration(label: Text('Password')),
                         ),
                         ElevatedButton(
                             onPressed: () {
                               var token = login(emailController.text,
                                   passwordController.text);
                               token.then((strtoken) => {
-                                    print(strtoken),
                                     storage.write(key: 'token', value: strtoken)
                                   });
                             },
                             child: Row(
-                              children: [Icon(Icons.login), Text('Login')],
+                              children: const [
+                                Icon(Icons.login),
+                                Text('Login')
+                              ],
                             ))
                       ],
                     )))

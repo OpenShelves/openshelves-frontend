@@ -4,7 +4,7 @@ import 'package:openshelves/home.dart';
 import 'package:openshelves/login/login.dart';
 import 'package:openshelves/products/product_list_page.dart';
 
-final storage = const FlutterSecureStorage();
+const storage = FlutterSecureStorage();
 
 getToken() async {
   var test = await storage.read(key: 'token').then((value) => value);
@@ -17,40 +17,40 @@ getOpenShelvesDrawer(context) {
       backgroundColor: Colors.grey[300],
       child: Column(
         children: [
-          Text(
+          const Text(
             'OpenShelves',
             style: TextStyle(fontSize: 30),
           ),
-          Divider(
+          const Divider(
             height: 10,
           ),
           ListTile(
-            leading: Icon(Icons.login),
-            title: Text('L O G I N'),
+            leading: const Icon(Icons.login),
+            title: const Text('L O G I N'),
             onTap: () {
               Navigator.pushNamed(context, LoginPage.url);
             },
           ),
           ListTile(
-            leading: Icon(Icons.dashboard),
-            title: Text('D A S H B O A R D'),
+            leading: const Icon(Icons.dashboard),
+            title: const Text('D A S H B O A R D'),
             onTap: () {
               Navigator.pushNamed(context, HomePage.url);
             },
           ),
           ListTile(
-            leading: Icon(Icons.table_rows),
-            title: Text('P R O D U C T S'),
+            leading: const Icon(Icons.table_rows),
+            title: const Text('P R O D U C T S'),
             onTap: () {
               Navigator.pushNamed(context, ProductPage.url);
             },
           ),
-          ListTile(
+          const ListTile(
             leading: Icon(Icons.shopping_basket),
             title: Text('O R D E R S'),
             // trailing: Icon(Icons.add),
           ),
-          ListTile(
+          const ListTile(
             leading: Icon(Icons.settings),
             title: Text('S E T T I N G S'),
           )
@@ -59,12 +59,12 @@ getOpenShelvesDrawer(context) {
 }
 
 var openShelvesAppBar = AppBar(
-  title: Text('OpenShelves'),
+  title: const Text('OpenShelves'),
   centerTitle: false,
 );
 
 var loadingData = Center(
-    child: Column(children: [
+    child: Column(children: const [
   Padding(padding: EdgeInsets.only(top: 50)),
   SizedBox(
     width: 60,

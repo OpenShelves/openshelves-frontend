@@ -1,9 +1,7 @@
 import 'dart:convert';
 
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:openshelves/constants.dart';
-import 'package:openshelves/products/product_model.dart';
 
 Future<String> login(String email, String password) async {
   final response = await http.post(Uri.parse(URL + '/login'),
