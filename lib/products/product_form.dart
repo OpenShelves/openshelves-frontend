@@ -47,7 +47,6 @@ getProductMainDataForm(Product product) {
             child: Column(
           children: [
             const Text('Main Product Data'),
-
             TextField(
               decoration: const InputDecoration(label: Text('ID')),
               enabled: false,
@@ -76,21 +75,6 @@ getProductMainDataForm(Product product) {
                   margin: const EdgeInsets.all(20.0),
                   child: const Icon(Icons.save)),
             )
-            // Row(children: [
-            //   Text('Active'),
-            //   Switch(
-            //     // This bool value toggles the switch.
-            //     // value: data.active,
-            //     activeColor: Colors.green,
-
-            //     onChanged: (bool value) {
-            //       // This is called when the user toggles the switch.
-            //       setState(() {
-            //         data.active = value;
-            //       });
-            //     },
-            //   )
-            // ])
           ],
         )),
       ));
