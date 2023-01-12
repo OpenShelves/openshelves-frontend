@@ -6,8 +6,8 @@ part 'warehouseplace_model.g.dart';
 @JsonSerializable()
 class WarehousePlace {
   final int? id;
-  final String name;
-  final Warehouse warehouse;
+  late final String name;
+  late final Warehouse warehouse;
 
   WarehousePlace({this.id, required this.name, required this.warehouse});
 

@@ -55,6 +55,23 @@ Future<Product> getProductById(int id) async {
   }
 }
 
+Future<Product> getProductByCode(String code) async {
+  var token = await getToken();
+  final response = await http.post(Uri.parse(URL + '/productbycode'),
+      headers: <String, String>{
+        'Accept-Language': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+      body: jsonEncode({"code": code}));
+  if (response.statusCode == 200) {
+    return Product.fromJson(jsonDecode(response.body));
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load product');
+  }
+}
+
 Future<List<Product>> searchProducts(String query) async {
   var token = await getToken();
   final response = await http.get(

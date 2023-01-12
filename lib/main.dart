@@ -5,6 +5,7 @@ import 'package:openshelves/products/product_form.dart';
 import 'package:openshelves/products/product_list_page.dart';
 import 'package:openshelves/warehouse/warehouse_form.dart';
 import 'package:openshelves/warehouse/warehouse_list_page.dart';
+import 'package:openshelves/warehouseplace/warehouseplace_form.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_list_page.dart';
 
 void main() {
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         WarhouseForm.url: (context) => const WarhouseForm(),
         WarehouseListPage.url: (context) => const WarehouseListPage(),
         WarehousePlaceListPage.url: (context) => const WarehousePlaceListPage(),
+        WarehousePlacePage.url: (context) => const WarehousePlacePage(),
       },
 
       // home: ResponsiveLayout(

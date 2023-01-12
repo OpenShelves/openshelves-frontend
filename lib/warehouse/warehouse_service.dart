@@ -70,6 +70,6 @@ Future deleteWarehouse(int id) async {
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
-    throw Exception('Failed to delete Warehouse');
+    throw Exception('Failed to delete WarehousePlace');
   }
 }

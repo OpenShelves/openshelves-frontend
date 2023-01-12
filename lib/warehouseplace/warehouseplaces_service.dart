@@ -6,23 +6,24 @@ import 'package:openshelves/products/product_model.dart';
 import 'package:openshelves/warehouse/warehouse_model.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_model.dart';
 
-// Future<Warehouse> storeWarehouse(Warehouse warehouse) async {
-//   var token = await getToken();
-//   final response = await http.post(Uri.parse(URL + '/warehouse'),
-//       headers: <String, String>{
-//         'Content-Type': 'application/json; charset=UTF-8',
-//         'Authorization': 'Bearer ' + token
-//       },
-//       body: jsonEncode(warehouse));
+Future<WarehousePlace> storeWarehousePlace(
+    WarehousePlace warehousePlace) async {
+  var token = await getToken();
+  final response = await http.post(Uri.parse(URL + '/warehouseplace'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer ' + token
+      },
+      body: jsonEncode(warehousePlace));
 
-//   if (response.statusCode == 200) {
-//     return Warehouse.fromJson(jsonDecode(response.body));
-//   } else {
-//     // If the server did not return a 200 OK response,
-//     // then throw an exception.
-//     throw Exception('Failed to store product');
-//   }
-// }
+  if (response.statusCode == 200) {
+    return WarehousePlace.fromJson(jsonDecode(response.body));
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to store product');
+  }
+}
 
 Future<List<WarehousePlace>> getWarehousePlaces() async {
   var token = await getToken();
@@ -41,6 +42,24 @@ Future<List<WarehousePlace>> getWarehousePlaces() async {
     throw Exception('Failed to load warehouses');
   }
 }
+
+Future deleteWarehousePlace(int id) async {
+  var token = await getToken();
+  final response = await http.delete(
+      Uri.parse(URL + '/warehouseplace/' + id.toString()),
+      headers: <String, String>{
+        'Accept-Language': 'application/json',
+        'Authorization': 'Bearer ' + token
+      });
+  if (response.statusCode == 200) {
+    return jsonDecode(response.body);
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to delete Warehouse');
+  }
+}
+
 
 // Future<Warehouse> getWarehouse(int id) async {
 //   var token = await getToken();
