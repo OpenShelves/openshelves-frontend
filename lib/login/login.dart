@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:openshelves/constants.dart';
 import 'package:openshelves/login/login_service.dart';
+import 'package:openshelves/main.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';
+import 'package:redux/redux.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  final Store<AppState> store;
+  const LoginPage({Key? key, required this.store}) : super(key: key);
   static const String url = '/login';
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -15,10 +18,6 @@ class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final storage = const FlutterSecureStorage();
-
-  Future<void> getToken() {
-    return storage.read(key: 'token');
-  }
 
   getLoginForm() {
     return Container(
@@ -40,8 +39,11 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: () {
                   var token =
                       login(emailController.text, passwordController.text);
-                  token.then((strtoken) =>
-                      {storage.write(key: 'token', value: strtoken)});
+                  token.then((strtoken) {
+                    widget.store.dispatch(LogInAction(strtoken));
+                    print(widget.store.state.loginToken);
+                    storage.write(key: 'token', value: strtoken);
+                  });
                 },
                 child: Row(
                   children: const [Icon(Icons.login), Text('Login')],
