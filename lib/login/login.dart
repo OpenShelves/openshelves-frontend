@@ -20,11 +20,45 @@ class _LoginPageState extends State<LoginPage> {
     return storage.read(key: 'token');
   }
 
+  getLoginForm() {
+    return Container(
+        margin: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          children: [
+            const Text('Please Login'),
+            TextField(
+              controller: emailController,
+              decoration: const InputDecoration(label: Text('E-Mail')),
+              keyboardType: TextInputType.emailAddress,
+            ),
+            TextField(
+              controller: passwordController,
+              decoration: const InputDecoration(label: Text('Password')),
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  var token =
+                      login(emailController.text, passwordController.text);
+                  token.then((strtoken) =>
+                      {storage.write(key: 'token', value: strtoken)});
+                },
+                child: Row(
+                  children: const [Icon(Icons.login), Text('Login')],
+                ))
+          ],
+        ));
+  }
+
   @override
   Widget build(BuildContext context) {
     getToken();
     return ResponsiveLayout(
-      mobileBody: const Text("TO BE DONE"),
+      mobileBody: Scaffold(
+        appBar: openShelvesAppBar,
+        drawer: getOpenShelvesDrawer(context),
+        body: ListView(children: [getLoginForm()]),
+      ),
       tabletBody: const Text("TO BE DONE"),
       desktopBody: Scaffold(
           appBar: openShelvesAppBar,
@@ -32,39 +66,7 @@ class _LoginPageState extends State<LoginPage> {
               child: const Icon(Icons.add), onPressed: () {}),
           body: Row(children: [
             getOpenShelvesDrawer(context),
-            Expanded(
-                child: Container(
-                    margin: const EdgeInsets.all(20.0),
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      children: [
-                        const Text('Please Login'),
-                        TextField(
-                          controller: emailController,
-                          decoration:
-                              const InputDecoration(label: Text('E-Mail')),
-                        ),
-                        TextField(
-                          controller: passwordController,
-                          decoration:
-                              const InputDecoration(label: Text('Password')),
-                        ),
-                        ElevatedButton(
-                            onPressed: () {
-                              var token = login(emailController.text,
-                                  passwordController.text);
-                              token.then((strtoken) => {
-                                    storage.write(key: 'token', value: strtoken)
-                                  });
-                            },
-                            child: Row(
-                              children: const [
-                                Icon(Icons.login),
-                                Text('Login')
-                              ],
-                            ))
-                      ],
-                    )))
+            Expanded(child: getLoginForm())
             // Expanded(flex: 1, child: productTechDataForm)
           ])),
     );

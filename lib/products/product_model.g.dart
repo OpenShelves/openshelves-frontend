@@ -15,7 +15,7 @@ Product _$ProductFromJson(Map<String, dynamic> json) => Product(
       height: json['height'] as num?,
       width: json['width'] as num?,
       weight: json['weight'] as num?,
-      active: json['active'] as bool?,
+      active: Product._boolFromInt(json['active'] as int),
       price: json['price'] as num?,
       sku: json['sku'] as String?,
     );
@@ -29,7 +29,7 @@ Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
       'height': instance.height,
       'depth': instance.depth,
       'weight': instance.weight,
-      'active': instance.active,
+      'active': Product._boolToInt(instance.active),
       'price': instance.price,
       'sku': instance.sku,
     };

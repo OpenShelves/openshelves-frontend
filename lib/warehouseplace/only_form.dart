@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:openshelves/helper/delete.dart';
 import 'package:openshelves/warehouse/warehouse_model.dart';
@@ -44,10 +42,6 @@ class _WarehousePlaceFormOnlyState extends State<WarehousePlaceFormOnly> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'W A R E H O U S E P L A C E',
-                textAlign: TextAlign.center,
-              ),
               TextFormField(
                 controller: idController,
                 decoration:

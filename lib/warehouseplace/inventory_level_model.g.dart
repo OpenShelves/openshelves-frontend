@@ -8,7 +8,7 @@ part of 'inventory_level_model.dart';
 
 InventoryLevel _$InventoryLevelFromJson(Map<String, dynamic> json) =>
     InventoryLevel(
-      quantity: json['quantity'] as int,
+      quantity: json['quantity'] as String,
       warehousePlacesId: json['warehouse_places_id'] as int,
       productsId: json['products_id'] as int,
       productsName: json['products_name'] as String,

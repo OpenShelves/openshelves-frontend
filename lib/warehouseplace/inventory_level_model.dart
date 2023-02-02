@@ -3,7 +3,8 @@ part 'inventory_level_model.g.dart';
 
 @JsonSerializable()
 class InventoryLevel {
-  int quantity;
+  @JsonKey(name: 'quantity')
+  String quantity;
   @JsonKey(name: 'warehouse_places_id')
   int warehousePlacesId;
   @JsonKey(name: 'products_id')
@@ -21,5 +22,6 @@ class InventoryLevel {
 
   factory InventoryLevel.fromJson(Map<String, dynamic> json) =>
       _$InventoryLevelFromJson(json);
+
   Map<String, dynamic> toJson() => _$InventoryLevelToJson(this);
 }

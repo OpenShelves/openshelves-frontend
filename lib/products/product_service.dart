@@ -13,7 +13,7 @@ Future<Product> storeProduct(Product product) async {
       },
       body: jsonEncode(product));
 
-  if (response.statusCode == 200) {
+  if (response.statusCode == 200 || response.statusCode == 201) {
     return Product.fromJson(jsonDecode(response.body));
   } else {
     // If the server did not return a 200 OK response,
@@ -41,7 +41,7 @@ Future<List<Product>> getProducts() async {
 
 Future<Product> getProductById(int id) async {
   var token = await getToken();
-  final response = await http.get(Uri.parse(URL + '/products'),
+  final response = await http.get(Uri.parse(URL + '/product/' + id.toString()),
       headers: <String, String>{
         'Accept-Language': 'application/json',
         'Authorization': 'Bearer ' + token

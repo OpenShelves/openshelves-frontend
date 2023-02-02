@@ -26,7 +26,8 @@ Future<Inventory> storeInventory(Inventory inventory) async {
   }
 }
 
-Future<List<InventoryLevel>> getInventoryLevels(int inventoryId) async {
+Future<List<InventoryLevel>> getInventoryLevelsByInventoryId(
+    int inventoryId) async {
   var token = await getToken();
   final response = await http.get(
       Uri.parse(URL + '/inventory/' + inventoryId.toString() + '/products'),
@@ -36,6 +37,31 @@ Future<List<InventoryLevel>> getInventoryLevels(int inventoryId) async {
       });
   if (response.statusCode == 200) {
     Iterable l = json.decode(response.body);
+    // List<InventoryLevel> list = [InventoryLevel(quantity: '1')];
+    // return list;
+    return List<InventoryLevel>.from(
+        l.map((model) => InventoryLevel.fromJson(model)));
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load InventoryLevel');
+  }
+}
+
+Future<List<InventoryLevel>> getInventoryLevelsByProductId(
+    int inventoryId) async {
+  var token = await getToken();
+  final response = await http.get(
+      Uri.parse(
+          URL + '/inventory/' + inventoryId.toString() + '/warehouseplaces'),
+      headers: <String, String>{
+        'Accept-Language': 'application/json',
+        'Authorization': 'Bearer ' + token
+      });
+  if (response.statusCode == 200) {
+    Iterable l = json.decode(response.body);
+    // List<InventoryLevel> list = [InventoryLevel(quantity: '1')];
+    // return list;
     return List<InventoryLevel>.from(
         l.map((model) => InventoryLevel.fromJson(model)));
   } else {

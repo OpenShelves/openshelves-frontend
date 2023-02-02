@@ -3,9 +3,14 @@ import 'package:openshelves/products/product_model.dart';
 import 'package:openshelves/products/product_service.dart';
 import 'package:openshelves/warehouseplace/inventory_model.dart';
 import 'package:openshelves/warehouseplace/inventory_service.dart';
+import 'package:openshelves/warehouseplace/warehouseplaces_service.dart';
+
+typedef void ProductCallback(Product product);
 
 class ChangeInventoryForm extends StatefulWidget {
-  const ChangeInventoryForm({Key? key}) : super(key: key);
+  final ProductCallback? onProductChanged;
+  const ChangeInventoryForm({Key? key, this.onProductChanged})
+      : super(key: key);
 
   @override
   State<ChangeInventoryForm> createState() => _ChangeInventoryFormState();
@@ -15,7 +20,10 @@ class _ChangeInventoryFormState extends State<ChangeInventoryForm> {
   String productName = '';
   late Product product;
   int warehouse_id = 0;
+  String warehouse_name = '';
   int quantity = 0;
+  TextEditingController productController = TextEditingController();
+  FocusNode productFocus = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +31,24 @@ class _ChangeInventoryFormState extends State<ChangeInventoryForm> {
         child: Form(
             child: Column(
       children: [
-        Text(productName),
         TextFormField(
+          decoration: InputDecoration(label: Text('WarehousePlaceId')),
+          onChanged: (value) {
+            setState(() {
+              warehouse_id = int.parse(value);
+              getWarehousePlace(warehouse_id).then((warehouse) {
+                print(warehouse);
+                setState(() {
+                  warehouse_name = warehouse.name;
+                });
+              });
+            });
+          },
+        ),
+        Text(warehouse_name),
+        TextFormField(
+          controller: productController,
+          focusNode: productFocus,
           decoration: InputDecoration(label: Text('Product')),
           onChanged: (value) {
             if (value.length == 13) {
@@ -32,6 +56,11 @@ class _ChangeInventoryFormState extends State<ChangeInventoryForm> {
                 setState(() {
                   productName = value.name;
                   product = value;
+                  if (widget.onProductChanged != null) {
+                    widget.onProductChanged!(value);
+                  }
+                  productController.text = '';
+                  productFocus.requestFocus();
                 });
               });
             }
@@ -42,14 +71,6 @@ class _ChangeInventoryFormState extends State<ChangeInventoryForm> {
           onChanged: (value) {
             setState(() {
               quantity = int.parse(value);
-            });
-          },
-        ),
-        TextFormField(
-          decoration: InputDecoration(label: Text('WarehousePlaceId')),
-          onChanged: (value) {
-            setState(() {
-              warehouse_id = int.parse(value);
             });
           },
         ),

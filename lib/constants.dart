@@ -3,6 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:openshelves/home.dart';
 import 'package:openshelves/login/login.dart';
 import 'package:openshelves/products/product_list_page.dart';
+import 'package:openshelves/scanner/income/income_form.dart';
 import 'package:openshelves/warehouse/warehouse_form.dart';
 import 'package:openshelves/warehouse/warehouse_list_page.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_list_page.dart';
@@ -69,15 +70,22 @@ getOpenShelvesDrawer(context) {
               Navigator.pushNamed(context, WarehousePlaceListPage.url);
             },
           ),
-          const ListTile(
-            leading: Icon(Icons.shopping_basket),
-            title: Text('O R D E R S'),
-            // trailing: Icon(Icons.add),
+          ListTile(
+            leading: const Icon(Icons.qr_code),
+            title: const Text('I N C O M I N G'),
+            onTap: () {
+              Navigator.pushNamed(context, IncomePage.url);
+            },
           ),
-          const ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('S E T T I N G S'),
-          )
+          // const ListTile(
+          //   leading: Icon(Icons.shopping_basket),
+          //   title: Text('O R D E R S'),
+          //   // trailing: Icon(Icons.add),
+          // ),
+          // const ListTile(
+          //   leading: Icon(Icons.settings),
+          //   title: Text('S E T T I N G S'),
+          // )
         ],
       ));
 }
@@ -100,4 +108,5 @@ var loadingData = Center(
     child: Text('Awaiting result...'),
   )
 ]));
+// var URL = 'http://192.168.158.135:4090/api';
 var URL = 'http://localhost:4090/api';

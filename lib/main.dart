@@ -3,6 +3,7 @@ import 'package:openshelves/home.dart';
 import 'package:openshelves/login/login.dart';
 import 'package:openshelves/products/product_form.dart';
 import 'package:openshelves/products/product_list_page.dart';
+import 'package:openshelves/scanner/income/income_form.dart';
 import 'package:openshelves/warehouse/warehouse_form.dart';
 import 'package:openshelves/warehouse/warehouse_list_page.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_form.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         WarehouseListPage.url: (context) => const WarehouseListPage(),
         WarehousePlaceListPage.url: (context) => const WarehousePlaceListPage(),
         WarehousePlacePage.url: (context) => const WarehousePlacePage(),
+        IncomePage.url: (context) => const IncomePage(),
       },
 
       // home: ResponsiveLayout(

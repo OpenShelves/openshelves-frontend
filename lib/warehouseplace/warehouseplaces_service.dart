@@ -60,20 +60,19 @@ Future deleteWarehousePlace(int id) async {
   }
 }
 
-
-// Future<Warehouse> getWarehouse(int id) async {
-//   var token = await getToken();
-//   final response = await http.get(
-//       Uri.parse(URL + '/warehouse/' + id.toString()),
-//       headers: <String, String>{
-//         'Accept-Language': 'application/json',
-//         'Authorization': 'Bearer ' + token
-//       });
-//   if (response.statusCode == 200) {
-//     return Warehouse.fromJson(jsonDecode(response.body));
-//   } else {
-//     // If the server did not return a 200 OK response,
-//     // then throw an exception.
-//     throw Exception('Failed to load product');
-//   }
-// }
+Future<WarehousePlace> getWarehousePlace(int id) async {
+  var token = await getToken();
+  final response = await http.get(
+      Uri.parse(URL + '/warehouseplace/' + id.toString()),
+      headers: <String, String>{
+        'Accept-Language': 'application/json',
+        'Authorization': 'Bearer ' + token
+      });
+  if (response.statusCode == 200) {
+    return WarehousePlace.fromJson(jsonDecode(response.body));
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load prodWarehouseuct');
+  }
+}

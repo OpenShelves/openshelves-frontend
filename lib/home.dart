@@ -13,7 +13,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return ResponsiveLayout(
-      mobileBody: const Text("TO BE DONE"),
+      mobileBody: Scaffold(
+        appBar: openShelvesAppBar,
+        drawer: getOpenShelvesDrawer(context),
+        body: Text('D A S H B O A R D '),
+      ),
       tabletBody: const Text("TO BE DONE"),
       desktopBody: Scaffold(
           // appBar: openShelvesAppBar,
