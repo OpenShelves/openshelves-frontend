@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:openshelves/constants.dart';
+import 'package:openshelves/main.dart';
 import 'package:openshelves/products/prodform.dart';
 import 'package:openshelves/products/product_list_page.dart';
 import 'package:openshelves/products/product_model.dart';
@@ -10,6 +11,7 @@ import 'package:openshelves/warehouseplace/inventory_level_model.dart';
 import 'package:openshelves/warehouseplace/inventory_service.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_form.dart';
 import 'package:openshelves/warehouseplace/warehouseplaces_service.dart';
+import 'package:redux/redux.dart';
 
 getProductTechDataForm(Product product) {
   return Container(
@@ -46,13 +48,9 @@ getRow(String label, String value) {
   );
 }
 
-class ProductPageArguments {
-  final Product product;
-  ProductPageArguments(this.product);
-}
-
 class ProductFormPage extends StatefulWidget {
-  const ProductFormPage({Key? key}) : super(key: key);
+  final Store<AppState> store;
+  const ProductFormPage({Key? key, required this.store}) : super(key: key);
   static const String url = 'product/form';
   @override
   State<ProductFormPage> createState() => _ProductFormPageState();
@@ -66,8 +64,12 @@ class _ProductFormPageState extends State<ProductFormPage> {
   @override
   initState() {
     super.initState();
-
-    print("initState");
+    if (widget.store.state.selectedProduct != null) {
+      product = widget.store.state.selectedProduct!;
+      futureInventoryLevel = getInventoryLevelsByProductId(product.id!);
+    } else {
+      product = Product(name: '', asin: '', ean: '');
+    }
   }
 
   getProductMainDataForm(Product product) {
@@ -152,34 +154,6 @@ class _ProductFormPageState extends State<ProductFormPage> {
   @override
   Widget build(BuildContext context) {
     print("rebuild");
-    var settings = ModalRoute.of(context)!.settings;
-    ProductPageArguments? args;
-    if (settings.arguments != null) {
-      args = settings.arguments as ProductPageArguments;
-      product = args.product;
-      if (args.product.id != null) {
-        futureInventoryLevel = getInventoryLevelsByProductId(args.product.id!);
-      } else {
-        editMode = true;
-      }
-    }
-    if (args == null) {
-      return Scaffold(
-        appBar: openShelvesAppBar,
-        body: Center(
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-              Text('Nothing found go'),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, ProductPage.url);
-                  },
-                  child: Text('Back to Prodcts'))
-            ])),
-      );
-    }
 
     return ResponsiveLayout(
       mobileBody: Scaffold(
@@ -206,9 +180,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
                           if (snapshot.hasData) {
-                            // setState(() {
                             total = snapshot.data!.length;
-                            // });
                             return Card(
                                 margin: const EdgeInsets.all(8.0),
                                 child: WarehousePlaceList(
@@ -218,7 +190,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
                                 child: Text('No Inventory found'));
                           }
                         } else {
-                          return const Center(child: Text('Waiting for data'));
+                          return const Center(child: Text('Waiting for data1'));
                         }
                         // return Center(child: CircularProgressIndicator());
                       })

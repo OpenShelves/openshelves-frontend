@@ -2,13 +2,16 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:openshelves/constants.dart';
+import 'package:openshelves/main.dart';
 import 'package:openshelves/products/product_form.dart';
 import 'package:openshelves/products/product_model.dart';
 import 'package:openshelves/products/product_service.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';
+import 'package:redux/redux.dart';
 
 class ProductPage extends StatefulWidget {
-  const ProductPage({Key? key}) : super(key: key);
+  final Store<AppState> store;
+  const ProductPage({Key? key, required this.store}) : super(key: key);
   static const String url = 'product';
 
   @override
@@ -18,7 +21,9 @@ class ProductPage extends StatefulWidget {
 class ProductTableSource extends DataTableSource {
   List<Product> data;
   BuildContext context;
-  ProductTableSource({required this.data, required this.context});
+  Store store;
+  ProductTableSource(
+      {required this.data, required this.context, required this.store});
   @override
   DataRow? getRow(int index) {
     final product = data[index];
@@ -26,8 +31,13 @@ class ProductTableSource extends DataTableSource {
       DataCell(IconButton(
         icon: Icon(Icons.edit),
         onPressed: () {
-          Navigator.pushNamed(context, ProductFormPage.url,
-              arguments: ProductPageArguments(product));
+          store.dispatch(
+            SelectProductAction(product),
+          );
+          Navigator.pushNamed(
+            context,
+            ProductFormPage.url,
+          );
         },
       )),
       DataCell(Text('${product.id}')),
@@ -61,65 +71,67 @@ class _ProductPageState extends State<ProductPage> {
   final productTablekey = new GlobalKey<PaginatedDataTableState>();
   int total = 0;
 
-  createDataTableRows(List<Product> products, context) {
-    List<DataRow> rows = [];
-    var i = 0;
-    products.forEach((product) {
-      var color = i % 2 == 0 ? Colors.grey[100] : Colors.grey[200];
-      i++;
-      rows.add(DataRow(
-          color: MaterialStateProperty.resolveWith<Color?>(
-              (Set<MaterialState> states) {
-            // All rows will have the same selected color.
-            if (states.contains(MaterialState.selected)) {
-              return Theme.of(context).colorScheme.primary.withOpacity(0.08);
-            }
-            // Even rows will have a grey color.
-            if (i % 2 == 0) {
-              return color;
-            }
-          }),
-          cells: [
-            DataCell(
-              IconButton(
-                  icon: const Icon(Icons.edit),
-                  onPressed: () {
-                    Navigator.pushNamed(context, ProductFormPage.url,
-                        arguments: ProductPageArguments(product));
-                  }),
-            ),
-            DataCell(
-              Text(product.id.toString()),
-            ),
-            DataCell(Text(product.sku.toString())),
-            DataCell(
-              Text(product.name),
-            ),
-            DataCell(
-              Text(product.price.toString()),
-            ),
-            DataCell(
-              Text(product.ean.toString()),
-            ),
-            DataCell(
-              Text(product.width.toString()),
-            ),
-            DataCell(
-              Text(product.height.toString()),
-            ),
-            DataCell(
-              Text(product.depth.toString()),
-            ),
-            DataCell(
-              Text(product.weight.toString()),
-            ),
-            DataCell(
-              Checkbox(value: product.active, onChanged: (value) {}),
-            ),
-          ]));
-    });
-    return rows;
-  }
+  // createDataTableRows(List<Product> products, context) {
+  //   List<DataRow> rows = [];
+  //   var i = 0;
+  //   products.forEach((product) {
+  //     var color = i % 2 == 0 ? Colors.grey[100] : Colors.grey[200];
+  //     i++;
+  //     rows.add(DataRow(
+  //         color: MaterialStateProperty.resolveWith<Color?>(
+  //             (Set<MaterialState> states) {
+  //           // All rows will have the same selected color.
+  //           if (states.contains(MaterialState.selected)) {
+  //             return Theme.of(context).colorScheme.primary.withOpacity(0.08);
+  //           }
+  //           // Even rows will have a grey color.
+  //           if (i % 2 == 0) {
+  //             return color;
+  //           }
+  //         }),
+  //         cells: [
+  //           DataCell(
+  //             IconButton(
+  //                 icon: const Icon(Icons.edit),
+  //                 onPressed: () {
+  //                   widget.store.dispatch(SelectProductAction(product));
+  //                   print(widget.store.state);
+  //                   Navigator.pushNamed(context, ProductFormPage.url,
+  //                       arguments: ProductPageArguments(product));
+  //                 }),
+  //           ),
+  //           DataCell(
+  //             Text(product.id.toString()),
+  //           ),
+  //           DataCell(Text(product.sku.toString())),
+  //           DataCell(
+  //             Text(product.name),
+  //           ),
+  //           DataCell(
+  //             Text(product.price.toString()),
+  //           ),
+  //           DataCell(
+  //             Text(product.ean.toString()),
+  //           ),
+  //           DataCell(
+  //             Text(product.width.toString()),
+  //           ),
+  //           DataCell(
+  //             Text(product.height.toString()),
+  //           ),
+  //           DataCell(
+  //             Text(product.depth.toString()),
+  //           ),
+  //           DataCell(
+  //             Text(product.weight.toString()),
+  //           ),
+  //           DataCell(
+  //             Checkbox(value: product.active, onChanged: (value) {}),
+  //           ),
+  //         ]));
+  //   });
+  //   return rows;
+  // }
 
   TextEditingController searchController = TextEditingController();
   getList() {
@@ -135,8 +147,12 @@ class _ProductPageState extends State<ProductPage> {
                 leading: Text(snapshot.data![index].id.toString()),
                 title: Text(snapshot.data![index].name),
                 onTap: () {
-                  Navigator.pushNamed(context, ProductFormPage.url,
-                      arguments: ProductPageArguments(snapshot.data![index]));
+                  widget.store
+                      .dispatch(SelectProductAction(snapshot.data![index]));
+                  Navigator.pushNamed(
+                    context,
+                    ProductFormPage.url,
+                  );
                 },
                 subtitle: Row(
                   children: [
@@ -212,8 +228,10 @@ class _ProductPageState extends State<ProductPage> {
             floatingActionButton: FloatingActionButton(
                 child: const Icon(Icons.add),
                 onPressed: () {
-                  Navigator.pushNamed(context, ProductFormPage.url,
-                      arguments: ProductPageArguments(Product(name: '')));
+                  Navigator.pushNamed(
+                    context,
+                    ProductFormPage.url,
+                  );
                 }),
             body: Column(
                 children: [getSearchfield(), Expanded(child: getList())])),
@@ -225,8 +243,10 @@ class _ProductPageState extends State<ProductPage> {
             floatingActionButton: FloatingActionButton(
                 child: const Icon(Icons.add),
                 onPressed: () {
-                  Navigator.pushNamed(context, ProductFormPage.url,
-                      arguments: ProductPageArguments(Product(name: '')));
+                  Navigator.pushNamed(
+                    context,
+                    ProductFormPage.url,
+                  );
                 }),
             body: Row(children: [
               getOpenShelvesDrawer(context),
@@ -258,21 +278,9 @@ class _ProductPageState extends State<ProductPage> {
                               DataColumn(label: Text('Active')),
                             ],
                             source: ProductTableSource(
-                                data: snapshot.data!, context: context));
-                        // return DataTable(columns: const [
-                        //   DataColumn(label: Expanded(child: Text('#'))),
-                        //   DataColumn(label: Expanded(child: Text('ID'))),
-                        //   DataColumn(label: Expanded(child: Text('SKU'))),
-                        //   DataColumn(
-                        //       label: Expanded(child: Text('Productname'))),
-                        //   DataColumn(label: Expanded(child: Text('Price'))),
-                        //   DataColumn(label: Expanded(child: Text('EAN'))),
-                        //   DataColumn(label: Expanded(child: Text('Width'))),
-                        //   DataColumn(label: Expanded(child: Text('Height'))),
-                        //   DataColumn(label: Expanded(child: Text('Depth'))),
-                        //   DataColumn(label: Expanded(child: Text('Weight'))),
-                        //   DataColumn(label: Expanded(child: Text('Active'))),
-                        // ], rows: createDataTableRows(snapshot.data!, context));
+                                data: snapshot.data!,
+                                context: context,
+                                store: widget.store));
                       } else if (snapshot.hasError) {
                         return const Text('No Products found');
                       } else {

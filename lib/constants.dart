@@ -108,5 +108,5 @@ var loadingData = Center(
     child: Text('Awaiting result...'),
   )
 ]));
-// var URL = 'http://192.168.158.135:4090/api';
-var URL = 'http://localhost:4090/api';
+var URL = 'http://192.168.2.154:4090/api';
+// var URL = 'http://localhost:4090/api';

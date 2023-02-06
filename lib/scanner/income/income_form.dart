@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:openshelves/constants.dart';
+import 'package:openshelves/main.dart';
 import 'package:openshelves/products/product_model.dart';
 import 'package:openshelves/products/product_service.dart';
 import 'package:openshelves/warehouseplace/change_inventory.dart';
@@ -7,9 +8,11 @@ import 'package:openshelves/warehouseplace/inventory_model.dart';
 import 'package:openshelves/warehouseplace/inventory_service.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_model.dart';
 import 'package:openshelves/warehouseplace/warehouseplaces_service.dart';
+import 'package:redux/redux.dart';
 
 class IncomePage extends StatefulWidget {
-  const IncomePage({Key? key}) : super(key: key);
+  final Store<AppState> store;
+  const IncomePage({Key? key, required this.store}) : super(key: key);
   static const String url = 'income';
   @override
   State<IncomePage> createState() => _IncomePageState();
@@ -70,12 +73,6 @@ class _IncomePageState extends State<IncomePage> {
       appBar: openShelvesAppBar,
       drawer: getOpenShelvesDrawer(context),
       body: Column(children: [
-        // ChangeInventoryForm(
-        //   onProductChanged: (p) {
-        //     print(p);
-        //     addProduct(p);
-        //   },
-        // ),
         Card(
             child: Form(
                 child: Column(

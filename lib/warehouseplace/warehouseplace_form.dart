@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:openshelves/address_model.dart';
 import 'package:openshelves/constants.dart';
+import 'package:openshelves/main.dart';
 import 'package:openshelves/products/product_form.dart';
 import 'package:openshelves/products/product_service.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';
@@ -15,6 +16,7 @@ import 'package:openshelves/warehouseplace/only_form.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_list_page.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_model.dart';
 import 'package:openshelves/warehouseplace/warehouseplaces_service.dart';
+import 'package:redux/redux.dart';
 
 class WarehousePlacePageArguments {
   final WarehousePlace warehousePlace;
@@ -22,7 +24,8 @@ class WarehousePlacePageArguments {
 }
 
 class WarehousePlacePage extends StatefulWidget {
-  const WarehousePlacePage({Key? key}) : super(key: key);
+  final Store<AppState> store;
+  const WarehousePlacePage({Key? key, required this.store}) : super(key: key);
   @override
   _WarehousePlacePageState createState() => _WarehousePlacePageState();
   static const String url = 'warehouseplace/form';
@@ -163,13 +166,12 @@ class _WarehousePlacePageState extends State<WarehousePlacePage> {
                                             getProductById(snapshot
                                                     .data![index].productsId)
                                                 .then((product) {
-                                              print(product);
-
+                                              widget.store.dispatch(
+                                                  SelectProductAction(product));
                                               Navigator.pushNamed(
-                                                  context, ProductFormPage.url,
-                                                  arguments:
-                                                      ProductPageArguments(
-                                                          product));
+                                                context,
+                                                ProductFormPage.url,
+                                              );
                                             });
                                           },
                                           title: Text(snapshot
