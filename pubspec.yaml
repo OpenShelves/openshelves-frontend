@@ -1,5 +1,5 @@
 name: openshelves
-description: A new Flutter project.
+description: A Flutter Warehouse Management System.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -34,6 +34,13 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  http: ^0.13.5
+  flutter_secure_storage: ^6.0.0
+  json_serializable: ^6.3.1
+  build_runner: ^2.2.0
+  json_annotation: ^4.6.0
+  redux: ^5.0.0
+  flutter_redux: ^0.8.0
 
 dev_dependencies:
   flutter_test:

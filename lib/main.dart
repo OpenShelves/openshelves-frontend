@@ -1,115 +1,121 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:openshelves/home.dart';
+import 'package:openshelves/login/login.dart';
+import 'package:openshelves/products/product_form.dart';
+import 'package:openshelves/products/product_list_page.dart';
+import 'package:openshelves/products/product_model.dart';
+import 'package:openshelves/scanner/income/income_form.dart';
+import 'package:openshelves/warehouse/warehouse_form.dart';
+import 'package:openshelves/warehouse/warehouse_list_page.dart';
+import 'package:openshelves/warehouseplace/warehouseplace_form.dart';
+import 'package:openshelves/warehouseplace/warehouseplace_list_page.dart';
+import 'package:redux/redux.dart';
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
+
+@immutable
+class AppState {
+  final String _animal;
+  final String _loginToken;
+  final List<IncomingModel> _incoming = [];
+  Product? _selectedProduct;
+  AppState(this._animal, this._loginToken, this._selectedProduct);
+  AppState.initialState()
+      : _animal = "Koala",
+        _loginToken = "";
+  String get animal => _animal;
+  String get loginToken => _loginToken;
+  Product? get selectedProduct => _selectedProduct;
+  List<IncomingModel> get incoming => _incoming;
+}
+
+class TestAction {
+  final String _animal;
+
+  TestAction(this._animal);
+}
+
+class LogInAction {
+  final String _loginToken;
+
+  LogInAction(this._loginToken);
+}
+
+class SelectProductAction {
+  final Product _product;
+
+  SelectProductAction(this._product);
+}
+
+AppState reducer(AppState prev, dynamic action) {
+  print('reducer called with action: $action');
+  if (action is LogInAction) {
+    return loginReducer(prev, action);
+  } else if (action is SelectProductAction) {
+    return selectProductReducer(prev, action);
+  } else {
+    return prev;
+  }
+}
+
+AppState loginReducer(AppState prev, dynamic action) {
+  print('loginreducer called with action: $action');
+  return AppState(prev.animal, action._loginToken, prev.selectedProduct);
+}
+
+AppState selectProductReducer(AppState prev, dynamic action) {
+  print('loginreducer called with action: $action');
+  return AppState(prev.animal, prev.loginToken, action._product);
+}
 
 void main() {
-  runApp(const MyApp());
+  HttpOverrides.global = new MyHttpOverrides();
+  final store = Store(reducer, initialState: AppState.initialState());
+  runApp(StoreProvider(store: store, child: MyApp(store: store)));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key, required this.store}) : super(key: key);
+  final Store<AppState> store;
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'OpenShelves',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+      routes: {
+        HomePage.url: (context) => HomePage(
+              store: store,
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+        ProductPage.url: (context) => ProductPage(
+              store: store,
             ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+        ProductFormPage.url: (context) => ProductFormPage(
+              store: store,
+            ),
+        LoginPage.url: (context) => LoginPage(
+              store: store,
+            ),
+        WarhouseForm.url: (context) => const WarhouseForm(),
+        WarehouseListPage.url: (context) => const WarehouseListPage(),
+        WarehousePlaceListPage.url: (context) => const WarehousePlaceListPage(),
+        WarehousePlacePage.url: (context) => WarehousePlacePage(store: store),
+        IncomePage.url: (context) => IncomePage(
+              store: store,
+            ),
+      },
     );
   }
 }
