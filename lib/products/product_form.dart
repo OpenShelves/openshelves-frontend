@@ -67,6 +67,15 @@ class _ProductFormPageState extends State<ProductFormPage> {
     if (widget.store.state.selectedProduct != null) {
       product = widget.store.state.selectedProduct!;
       futureInventoryLevel = getInventoryLevelsByProductId(product.id!);
+
+      futureInventoryLevel?.then((levels) {
+        levels.forEach((element) {
+          total += int.parse(element.quantity);
+        });
+        setState(() {
+          total = total;
+        });
+      }).onError((error, stackTrace) => null);
     } else {
       product = Product(name: '', asin: '', ean: '');
     }
@@ -107,7 +116,6 @@ class _ProductFormPageState extends State<ProductFormPage> {
                 setState(() {
                   product = productBackend;
                 });
-                print(product);
               });
             },
             child: Container(
