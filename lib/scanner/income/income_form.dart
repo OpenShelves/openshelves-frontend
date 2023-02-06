@@ -107,8 +107,7 @@ class _IncomePageState extends State<IncomePage> {
               controller: productController,
               focusNode: productFocus,
               decoration: InputDecoration(label: Text('Product')),
-              onChanged: (value) {
-                print('changevalue');
+              onFieldSubmitted: (value) {
                 if (value.length == 13) {
                   var localProd = checkEANLocal(value);
                   if (localProd is IncomingModel) {
@@ -124,6 +123,12 @@ class _IncomePageState extends State<IncomePage> {
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     });
                   }
+                } else {
+                  // productFocus.requestFocus();
+                  productController.selection = TextSelection(
+                      baseOffset: 0,
+                      extentOffset: productController.text.length);
+                  productFocus.requestFocus();
                 }
               },
             ),
