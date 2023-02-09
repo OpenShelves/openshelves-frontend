@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:openshelves/constants.dart';
 import 'package:openshelves/main.dart';
+import 'package:openshelves/products/product_service.dart';
+import 'package:openshelves/products/products_total_model.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';
+import 'package:openshelves/widgets/statcard.dart';
 import 'package:redux/redux.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,13 +17,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final totalProductsFuture = getTotalProducts();
   @override
   Widget build(BuildContext context) {
     return ResponsiveLayout(
         mobileBody: Scaffold(
           appBar: openShelvesAppBar,
           drawer: getOpenShelvesDrawer(context),
-          body: Column(children: [Text('D A S H B O A R D ')]),
+          body: Column(children: [const Text('D A S H B O A R D ')]),
         ),
         tabletBody: const Text("TO BE DONE"),
         desktopBody: Scaffold(
@@ -31,19 +35,45 @@ class _HomePageState extends State<HomePage> {
             getOpenShelvesDrawer(context),
             Column(
               children: [
-                Text('D A S H B O A R D '),
-                StoreConnector<AppState, AppState>(
-                  converter: (store) => store.state,
-                  builder: (context, state) {
-                    print('${state.animal}');
-                    return Text(state.animal);
+                FutureBuilder(
+                  future: totalProductsFuture,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      if (snapshot.hasData) {
+                        final totalProducts = snapshot.data as ProductsTotal;
+                        return StatCard(
+                            headline: 'Products',
+                            body: Column(children: [
+                              const Text('Different:'),
+                              Text(
+                                totalProducts.products.toString(),
+                                style: const TextStyle(
+                                    fontSize: 40, fontWeight: FontWeight.bold),
+                              ),
+                              const Text('Quantity:'),
+                              Text(
+                                totalProducts.quantity.toString(),
+                                style: const TextStyle(
+                                    fontSize: 40, fontWeight: FontWeight.bold),
+                              )
+                            ]),
+                            headlineColor: Colors.blue);
+                      } else {
+                        return const Center(child: Text('No data found'));
+                      }
+                    } else {
+                      return Center(
+                          child: StatCard(
+                        headline: 'Products',
+                        body: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                        headlineColor: Colors.blue,
+                      ));
+                    }
+                    // return Center(child: CircularProgressIndicator());
                   },
                 ),
-                ElevatedButton(
-                    onPressed: () {
-                      widget.store.dispatch(TestAction('Cat'));
-                    },
-                    child: const Text('Cat')),
               ],
             )
           ]),
