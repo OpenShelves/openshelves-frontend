@@ -30,7 +30,11 @@ class StatCard extends StatelessWidget {
             height: 40,
             decoration: BoxDecoration(
               color: headlineColor,
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                  bottomLeft: Radius.zero,
+                  bottomRight: Radius.zero),
             ),
             child: Center(
                 child: Text(

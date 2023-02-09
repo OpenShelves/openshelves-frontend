@@ -33,49 +33,91 @@ class _HomePageState extends State<HomePage> {
               child: const Icon(Icons.add), onPressed: () {}),
           body: Row(children: [
             getOpenShelvesDrawer(context),
-            Column(
-              children: [
-                FutureBuilder(
-                  future: totalProductsFuture,
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      if (snapshot.hasData) {
-                        final totalProducts = snapshot.data as ProductsTotal;
-                        return StatCard(
-                            headline: 'Products',
-                            body: Column(children: [
-                              const Text('Different:'),
-                              Text(
-                                totalProducts.products.toString(),
-                                style: const TextStyle(
-                                    fontSize: 40, fontWeight: FontWeight.bold),
+            Container(
+                padding: const EdgeInsets.all(20),
+                child: Column(children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      FutureBuilder(
+                        future: totalProductsFuture,
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            if (snapshot.hasData) {
+                              final totalProducts =
+                                  snapshot.data as ProductsTotal;
+                              return StatCard(
+                                  headline: 'Products',
+                                  body: Column(children: [
+                                    const Text('Different:'),
+                                    Text(
+                                      totalProducts.products.toString(),
+                                      style: const TextStyle(
+                                          fontSize: 40,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    const Text('Quantity:'),
+                                    Text(
+                                      totalProducts.quantity.toString(),
+                                      style: const TextStyle(
+                                          fontSize: 40,
+                                          fontWeight: FontWeight.bold),
+                                    )
+                                  ]),
+                                  headlineColor: Colors.blue);
+                            } else {
+                              return const Center(child: Text('No data found'));
+                            }
+                          } else {
+                            return Center(
+                                child: StatCard(
+                              headline: 'Products',
+                              body: Center(
+                                child: CircularProgressIndicator(),
                               ),
-                              const Text('Quantity:'),
-                              Text(
-                                totalProducts.quantity.toString(),
-                                style: const TextStyle(
-                                    fontSize: 40, fontWeight: FontWeight.bold),
-                              )
-                            ]),
-                            headlineColor: Colors.blue);
-                      } else {
-                        return const Center(child: Text('No data found'));
-                      }
-                    } else {
-                      return Center(
-                          child: StatCard(
-                        headline: 'Products',
-                        body: Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                        headlineColor: Colors.blue,
-                      ));
-                    }
-                    // return Center(child: CircularProgressIndicator());
-                  },
-                ),
-              ],
-            )
+                              headlineColor: Colors.blue,
+                            ));
+                          }
+                          // return Center(child: CircularProgressIndicator());
+                        },
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      StatCard(
+                          headline: 'Orders',
+                          body: Text(
+                            '19',
+                            style: const TextStyle(
+                                fontSize: 40, fontWeight: FontWeight.bold),
+                          ),
+                          headlineColor: Colors.green),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      StatCard(
+                          headline: 'Earnings',
+                          body: Text(
+                            "2402\$",
+                            style: const TextStyle(
+                                fontSize: 40, fontWeight: FontWeight.bold),
+                          ),
+                          headlineColor: Colors.purple),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      StatCard(
+                          headline: 'Expenses',
+                          body: Text(
+                            "-1241\$",
+                            style: const TextStyle(
+                                fontSize: 40, fontWeight: FontWeight.bold),
+                          ),
+                          headlineColor: Colors.red),
+                    ],
+                  )
+                ]))
           ]),
         ));
   }
