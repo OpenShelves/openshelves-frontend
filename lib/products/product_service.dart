@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:openshelves/constants.dart';
 import 'package:openshelves/products/product_model.dart';
+import 'package:openshelves/products/products_total_model.dart';
 
 Future<Product> storeProduct(Product product) async {
   var token = await getToken();
@@ -48,6 +49,22 @@ Future<Product> getProductById(int id) async {
       });
   if (response.statusCode == 200) {
     return Product.fromJson(jsonDecode(response.body));
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load product');
+  }
+}
+
+Future<ProductsTotal> getTotalProducts() async {
+  var token = await getToken();
+  final response = await http.get(Uri.parse(URL + '/products/total'),
+      headers: <String, String>{
+        'Accept-Language': 'application/json',
+        'Authorization': 'Bearer ' + token
+      });
+  if (response.statusCode == 200) {
+    return ProductsTotal.fromJson(jsonDecode(response.body));
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
