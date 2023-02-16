@@ -71,28 +71,48 @@ class _AddressFormState extends State<AddressForm> {
                     widget.address.name2 = value!;
                     widget.onSubmit(widget.address);
                   }),
-              TextField(
+              TextFormField(
                   decoration: const InputDecoration(label: Text('Name3')),
-                  controller: addressName3),
-              TextField(
+                  controller: addressName3,
+                  onSaved: (value) {
+                    widget.address.name3 = value!;
+                    widget.onSubmit(widget.address);
+                  }),
+              TextFormField(
                   decoration: const InputDecoration(label: Text('Street')),
-                  controller: addressStreet),
-              TextField(
-                decoration: const InputDecoration(label: Text('Housenumber')),
-                controller: addressHousenumber,
-              ),
-              TextField(
-                decoration: const InputDecoration(label: Text('Zip')),
-                controller: addressZip,
-              ),
-              TextField(
-                decoration: const InputDecoration(label: Text('City')),
-                controller: addressCity,
-              ),
-              TextField(
-                decoration: const InputDecoration(label: Text('Country')),
-                controller: addressCountry,
-              ),
+                  controller: addressStreet,
+                  onSaved: (value) {
+                    widget.address.street = value!;
+                    widget.onSubmit(widget.address);
+                  }),
+              TextFormField(
+                  decoration: const InputDecoration(label: Text('Housenumber')),
+                  controller: addressHousenumber,
+                  onSaved: (value) {
+                    widget.address.housenumber = value!;
+                    widget.onSubmit(widget.address);
+                  }),
+              TextFormField(
+                  decoration: const InputDecoration(label: Text('Zip')),
+                  controller: addressZip,
+                  onSaved: (value) {
+                    widget.address.zip = value!;
+                    widget.onSubmit(widget.address);
+                  }),
+              TextFormField(
+                  decoration: const InputDecoration(label: Text('City')),
+                  controller: addressCity,
+                  onSaved: (value) {
+                    widget.address.city = value!;
+                    widget.onSubmit(widget.address);
+                  }),
+              TextFormField(
+                  decoration: const InputDecoration(label: Text('Country')),
+                  controller: addressCountry,
+                  onSaved: (value) {
+                    widget.address.country = value!;
+                    widget.onSubmit(widget.address);
+                  }),
             ],
           ),
         ));

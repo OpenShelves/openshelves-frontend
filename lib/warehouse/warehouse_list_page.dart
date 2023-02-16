@@ -74,6 +74,11 @@ class _WarehouseListPageState extends State<WarehouseListPage> {
             floatingActionButton: FloatingActionButton(
                 child: const Icon(Icons.add),
                 onPressed: () {
+                  widget.store.dispatch(SelectWarehouseAction(Warehouse(
+                      name: '',
+                      address: Address(
+                        name1: '',
+                      ))));
                   Navigator.pushNamed(
                     context,
                     WarhouseForm.url,

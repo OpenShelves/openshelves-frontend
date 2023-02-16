@@ -39,7 +39,7 @@ class _WarhouseFormState extends State<WarhouseForm> {
     if (widget.store.state.selectedWarehouse != null) {
       warehouse = widget.store.state.selectedWarehouse!;
       warehouseName.text = warehouse.name;
-      warehouseId.text = warehouse.id.toString();
+      warehouseId.text = warehouse.id != null ? warehouse.id.toString() : '';
     } else {
       warehouse = Warehouse(name: '', address: Address(name1: ''));
     }
@@ -96,7 +96,10 @@ class _WarhouseFormState extends State<WarhouseForm> {
                             _addressFormKey.currentState!.validate();
                             _addressFormKey.currentState!.save();
                             warehouse.name = warehouseName.text;
-                            warehouse.id = int.parse(warehouseId.text);
+                            if (warehouseId.text != null &&
+                                warehouseId.text != '') {
+                              warehouse.id = int.parse(warehouseId.text);
+                            }
                             warehouse.address = address;
                             storeWarehouse(warehouse).then((value) => {});
                           }
