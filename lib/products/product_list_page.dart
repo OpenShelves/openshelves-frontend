@@ -36,22 +36,26 @@ class ProductTableSource extends DataTableSource {
           if (index.isEven) {
             return Colors.grey.withOpacity(0.05);
           }
-          return Colors.white;
+          return Colors.white.withOpacity(0.05);
         }),
         index: index,
         cells: [
-          DataCell(IconButton(
-            icon: const Icon(Icons.edit),
-            onPressed: () {
-              store.dispatch(
-                SelectProductAction(product),
-              );
-              Navigator.pushNamed(
-                context,
-                ProductFormPage.url,
-              );
-            },
-          )),
+          DataCell(
+            IconButton(
+              splashRadius: 20,
+              hoverColor: Colors.teal.shade100,
+              icon: const Icon(Icons.edit),
+              onPressed: () {
+                store.dispatch(
+                  SelectProductAction(product),
+                );
+                Navigator.pushNamed(
+                  context,
+                  ProductFormPage.url,
+                );
+              },
+            ),
+          ),
           DataCell(Text('${product.id}')),
           DataCell(Text('${product.sku}')),
           DataCell(Text(product.name)),
