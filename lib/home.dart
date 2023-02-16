@@ -5,6 +5,7 @@ import 'package:openshelves/main.dart';
 import 'package:openshelves/products/product_service.dart';
 import 'package:openshelves/products/products_total_model.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';
+import 'package:openshelves/widgets/drawer.dart';
 import 'package:openshelves/widgets/statcard.dart';
 import 'package:redux/redux.dart';
 
@@ -23,7 +24,7 @@ class _HomePageState extends State<HomePage> {
     return ResponsiveLayout(
         mobileBody: Scaffold(
           appBar: openShelvesAppBar,
-          drawer: getOpenShelvesDrawer(context),
+          drawer: const OpenShelvesDrawer(),
           body: Column(children: [const Text('D A S H B O A R D ')]),
         ),
         tabletBody: const Text("TO BE DONE"),
@@ -31,7 +32,7 @@ class _HomePageState extends State<HomePage> {
           floatingActionButton: FloatingActionButton(
               child: const Icon(Icons.add), onPressed: () {}),
           body: Row(children: [
-            getOpenShelvesDrawer(context),
+            const OpenShelvesDrawer(),
             Container(
                 padding: const EdgeInsets.all(20),
                 child: Column(children: [

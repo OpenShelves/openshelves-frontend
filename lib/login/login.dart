@@ -4,6 +4,7 @@ import 'package:openshelves/constants.dart';
 import 'package:openshelves/login/login_service.dart';
 import 'package:openshelves/main.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';
+import 'package:openshelves/widgets/drawer.dart';
 import 'package:redux/redux.dart';
 
 class LoginPage extends StatefulWidget {
@@ -58,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
     return ResponsiveLayout(
       mobileBody: Scaffold(
         appBar: openShelvesAppBar,
-        drawer: getOpenShelvesDrawer(context),
+        drawer: const OpenShelvesDrawer(),
         body: ListView(children: [getLoginForm()]),
       ),
       tabletBody: const Text("TO BE DONE"),
@@ -67,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
           floatingActionButton: FloatingActionButton(
               child: const Icon(Icons.add), onPressed: () {}),
           body: Row(children: [
-            getOpenShelvesDrawer(context),
+            const OpenShelvesDrawer(),
             Expanded(child: getLoginForm())
             // Expanded(flex: 1, child: productTechDataForm)
           ])),

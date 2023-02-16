@@ -7,6 +7,7 @@ import 'package:openshelves/responsive/responsive_layout.dart';
 import 'package:openshelves/warehouse/warehouse_model.dart';
 import 'package:openshelves/warehouse/warehouse_service.dart';
 import 'package:openshelves/warehouse/widgets/address_form.dart';
+import 'package:openshelves/widgets/drawer.dart';
 import 'package:redux/redux.dart';
 
 class WarhouseForm extends StatefulWidget {
@@ -55,7 +56,7 @@ class _WarhouseFormState extends State<WarhouseForm> {
           // floatingActionButton: FloatingActionButton(
           //     child: const Icon(Icons.add), onPressed: () {}),
           body: Row(children: [
-        getOpenShelvesDrawer(context),
+        const OpenShelvesDrawer(),
         Expanded(
             flex: 1,
             child: Form(

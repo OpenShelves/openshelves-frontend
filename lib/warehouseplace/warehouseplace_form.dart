@@ -16,6 +16,7 @@ import 'package:openshelves/warehouseplace/only_form.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_list_page.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_model.dart';
 import 'package:openshelves/warehouseplace/warehouseplaces_service.dart';
+import 'package:openshelves/widgets/drawer.dart';
 import 'package:redux/redux.dart';
 
 class WarehousePlacePageArguments {
@@ -138,7 +139,7 @@ class _WarehousePlacePageState extends State<WarehousePlacePage> {
     return ResponsiveLayout(
         mobileBody: Scaffold(
             appBar: openShelvesAppBar,
-            drawer: getOpenShelvesDrawer(context),
+            drawer: const OpenShelvesDrawer(),
             body: ListView(children: [
               getExpanded(),
               FutureBuilder<List<InventoryLevel>>(
@@ -196,11 +197,11 @@ class _WarehousePlacePageState extends State<WarehousePlacePage> {
             ])),
         tabletBody: Scaffold(
             appBar: openShelvesAppBar,
-            drawer: getOpenShelvesDrawer(context),
+            drawer: const OpenShelvesDrawer(),
             body: getExpanded()),
         desktopBody: Scaffold(
             body: Row(children: [
-          getOpenShelvesDrawer(context),
+          const OpenShelvesDrawer(),
           Expanded(
               child: ListView(children: [
             getExpanded(),

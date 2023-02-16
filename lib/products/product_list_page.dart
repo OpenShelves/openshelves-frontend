@@ -7,6 +7,7 @@ import 'package:openshelves/products/product_form.dart';
 import 'package:openshelves/products/product_model.dart';
 import 'package:openshelves/products/product_service.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';
+import 'package:openshelves/widgets/drawer.dart';
 import 'package:redux/redux.dart';
 
 class ProductPage extends StatefulWidget {
@@ -29,7 +30,7 @@ class ProductTableSource extends DataTableSource {
     final product = data[index];
     return DataRow.byIndex(index: index, cells: [
       DataCell(IconButton(
-        icon: Icon(Icons.edit),
+        icon: const Icon(Icons.edit),
         onPressed: () {
           store.dispatch(
             SelectProductAction(product),
@@ -117,14 +118,14 @@ class _ProductPageState extends State<ProductPage> {
         controller: searchController,
         decoration: InputDecoration(
             suffixIcon: IconButton(
-                icon: Icon(Icons.clear),
+                icon: const Icon(Icons.clear),
                 onPressed: () {
                   searchController.clear();
                   setState(() {
                     getProduct = getProducts();
                   });
                 }),
-            prefixIcon: Icon(Icons.search),
+            prefixIcon: const Icon(Icons.search),
             hintText: 'At least 3 Characters'),
         onChanged: (value) => {
           if (value.length == 13)
@@ -159,7 +160,7 @@ class _ProductPageState extends State<ProductPage> {
     return ResponsiveLayout(
         mobileBody: Scaffold(
             appBar: openShelvesAppBar,
-            drawer: getOpenShelvesDrawer(context),
+            drawer: const OpenShelvesDrawer(),
             floatingActionButton: FloatingActionButton(
                 child: const Icon(Icons.add),
                 onPressed: () {
@@ -172,7 +173,7 @@ class _ProductPageState extends State<ProductPage> {
                 children: [getSearchfield(), Expanded(child: getList())])),
         tabletBody: Scaffold(
             appBar: openShelvesAppBar,
-            drawer: getOpenShelvesDrawer(context),
+            drawer: const OpenShelvesDrawer(),
             body: getList()),
         desktopBody: Scaffold(
             floatingActionButton: FloatingActionButton(
@@ -184,7 +185,7 @@ class _ProductPageState extends State<ProductPage> {
                   );
                 }),
             body: Row(children: [
-              getOpenShelvesDrawer(context),
+              const OpenShelvesDrawer(),
               Expanded(
                 child: ListView(children: [
                   getSearchfield(),

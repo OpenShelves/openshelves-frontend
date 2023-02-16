@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:openshelves/constants.dart';
+import 'package:openshelves/widgets/drawer.dart';
 
 class TabletScaffold extends StatefulWidget {
   const TabletScaffold({Key? key}) : super(key: key);
@@ -12,7 +13,7 @@ class _TabletScaffoldState extends State<TabletScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: getOpenShelvesDrawer(context),
+        drawer: const OpenShelvesDrawer(),
         appBar: openShelvesAppBar,
         body: Row(
           children: [],

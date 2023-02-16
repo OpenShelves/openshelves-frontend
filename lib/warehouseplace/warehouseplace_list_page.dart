@@ -8,6 +8,7 @@ import 'package:openshelves/warehouse/warehouse_service.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_form.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_model.dart';
 import 'package:openshelves/warehouseplace/warehouseplaces_service.dart';
+import 'package:openshelves/widgets/drawer.dart';
 
 class WarehousePlaceListPage extends StatefulWidget {
   const WarehousePlaceListPage({Key? key}) : super(key: key);
@@ -36,7 +37,7 @@ class _WarehousePlaceListPageState extends State<WarehousePlaceListPage> {
         mobileBody: Scaffold(
             appBar: openShelvesAppBar,
             floatingActionButton: getfb(context),
-            drawer: getOpenShelvesDrawer(context),
+            drawer: const OpenShelvesDrawer(),
             body: FutureBuilder<List<WarehousePlace>>(
               future: getWarehousePlaces(),
               builder: (context, snapshot) {
@@ -68,12 +69,12 @@ class _WarehousePlaceListPageState extends State<WarehousePlaceListPage> {
         tabletBody: Scaffold(
             floatingActionButton: getfb(context),
             appBar: openShelvesAppBar,
-            drawer: getOpenShelvesDrawer(context),
+            drawer: const OpenShelvesDrawer(),
             body: Text("was2")),
         desktopBody: Scaffold(
             floatingActionButton: getfb(context),
             body: Row(children: [
-              getOpenShelvesDrawer(context),
+              const OpenShelvesDrawer(),
               Expanded(
                   child: Padding(
                       padding: const EdgeInsets.all(16.0),

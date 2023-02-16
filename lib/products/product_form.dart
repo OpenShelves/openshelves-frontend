@@ -11,6 +11,7 @@ import 'package:openshelves/warehouseplace/inventory_level_model.dart';
 import 'package:openshelves/warehouseplace/inventory_service.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_form.dart';
 import 'package:openshelves/warehouseplace/warehouseplaces_service.dart';
+import 'package:openshelves/widgets/drawer.dart';
 import 'package:redux/redux.dart';
 
 getProductTechDataForm(Product product) {
@@ -146,8 +147,8 @@ class _ProductFormPageState extends State<ProductFormPage> {
                   Text(product.name,
                       overflow: TextOverflow.fade,
                       softWrap: true,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 18)),
                   Text(
                     "EAN:" + product.ean.toString(),
                   ),
@@ -165,7 +166,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
 
     return ResponsiveLayout(
       mobileBody: Scaffold(
-          drawer: getOpenShelvesDrawer(context),
+          drawer: const OpenShelvesDrawer(),
           appBar: openShelvesAppBar,
           body: ListView(
             children: [
@@ -202,7 +203,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
                         }
                         // return Center(child: CircularProgressIndicator());
                       })
-                  : Text('No data'),
+                  : const Text('No data'),
             ],
           )),
       tabletBody: const Text("TO BE DONE"),
@@ -211,7 +212,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
           floatingActionButton: FloatingActionButton(
               child: const Icon(Icons.add), onPressed: () {}),
           body: Row(children: [
-            getOpenShelvesDrawer(context),
+            const OpenShelvesDrawer(),
             Expanded(flex: 1, child: getProductMainDataForm(product)),
             Expanded(flex: 1, child: getProductTechDataForm(product))
           ])),

@@ -6,6 +6,7 @@ import 'package:openshelves/responsive/responsive_layout.dart';
 import 'package:openshelves/warehouse/warehouse_form.dart';
 import 'package:openshelves/warehouse/warehouse_model.dart';
 import 'package:openshelves/warehouse/warehouse_service.dart';
+import 'package:openshelves/widgets/drawer.dart';
 import 'package:redux/redux.dart';
 
 class WarehouseListPage extends StatefulWidget {
@@ -22,7 +23,7 @@ getList() {}
 class _WarehouseListPageState extends State<WarehouseListPage> {
   getList() {
     return Row(children: [
-      getOpenShelvesDrawer(context),
+      const OpenShelvesDrawer(),
       Expanded(
           child: FutureBuilder<List<Warehouse>>(
         future: getProducts,
@@ -64,21 +65,16 @@ class _WarehouseListPageState extends State<WarehouseListPage> {
     return ResponsiveLayout(
         mobileBody: Scaffold(
             appBar: openShelvesAppBar,
-            drawer: getOpenShelvesDrawer(context),
+            drawer: const OpenShelvesDrawer(),
             body: getList()),
         tabletBody: Scaffold(
             appBar: openShelvesAppBar,
-            drawer: getOpenShelvesDrawer(context),
+            drawer: const OpenShelvesDrawer(),
             body: getList()),
         desktopBody: Scaffold(
             floatingActionButton: FloatingActionButton(
                 child: const Icon(Icons.add),
                 onPressed: () {
-                  widget.store.dispatch(SelectWarehouseAction(Warehouse(
-                      name: '',
-                      address: Address(
-                        name1: '',
-                      ))));
                   Navigator.pushNamed(
                     context,
                     WarhouseForm.url,

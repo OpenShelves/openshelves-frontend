@@ -8,6 +8,7 @@ import 'package:openshelves/warehouseplace/inventory_model.dart';
 import 'package:openshelves/warehouseplace/inventory_service.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_model.dart';
 import 'package:openshelves/warehouseplace/warehouseplaces_service.dart';
+import 'package:openshelves/widgets/drawer.dart';
 import 'package:redux/redux.dart';
 
 class IncomePage extends StatefulWidget {
@@ -71,7 +72,7 @@ class _IncomePageState extends State<IncomePage> {
     print("build");
     return Scaffold(
       appBar: openShelvesAppBar,
-      drawer: getOpenShelvesDrawer(context),
+      drawer: const OpenShelvesDrawer(),
       body: Column(children: [
         Card(
             child: Form(

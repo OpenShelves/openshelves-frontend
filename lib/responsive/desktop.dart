@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:openshelves/constants.dart';
+import 'package:openshelves/widgets/drawer.dart';
 
 class DesktopScaffold extends StatefulWidget {
   const DesktopScaffold({Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
     return Scaffold(
         body: Row(
       children: [
-        getOpenShelvesDrawer(context),
+        const OpenShelvesDrawer(),
         Text('D A S H B O A R D'),
       ],
     ));
