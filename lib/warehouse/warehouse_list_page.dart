@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:openshelves/address_model.dart';
 import 'package:openshelves/constants.dart';
+import 'package:openshelves/main.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';
 import 'package:openshelves/warehouse/warehouse_form.dart';
 import 'package:openshelves/warehouse/warehouse_model.dart';
 import 'package:openshelves/warehouse/warehouse_service.dart';
+import 'package:redux/redux.dart';
 
 class WarehouseListPage extends StatefulWidget {
-  const WarehouseListPage({Key? key}) : super(key: key);
+  final Store<AppState> store;
+  const WarehouseListPage({Key? key, required this.store}) : super(key: key);
   static const String url = 'warehouses';
 
   @override
@@ -35,9 +38,13 @@ class _WarehouseListPageState extends State<WarehouseListPage> {
                         snapshot.data![index].address.city.toString()),
                     onTap: () {
                       print('go');
-                      Navigator.pushNamed(context, WarhouseForm.url,
-                          arguments:
-                              WarehousePageArguments(snapshot.data![index]));
+                      widget.store.dispatch(
+                        SelectWarehouseAction(snapshot.data![index]),
+                      );
+                      Navigator.pushNamed(
+                        context,
+                        WarhouseForm.url,
+                      );
                     },
                   );
                 });
@@ -67,9 +74,10 @@ class _WarehouseListPageState extends State<WarehouseListPage> {
             floatingActionButton: FloatingActionButton(
                 child: const Icon(Icons.add),
                 onPressed: () {
-                  Navigator.pushNamed(context, WarhouseForm.url,
-                      arguments: WarehousePageArguments(
-                          Warehouse(name: '', address: Address(name1: ''))));
+                  Navigator.pushNamed(
+                    context,
+                    WarhouseForm.url,
+                  );
                 }),
             body: getList()));
   }

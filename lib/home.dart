@@ -28,7 +28,6 @@ class _HomePageState extends State<HomePage> {
         ),
         tabletBody: const Text("TO BE DONE"),
         desktopBody: Scaffold(
-          // appBar: openShelvesAppBar,
           floatingActionButton: FloatingActionButton(
               child: const Icon(Icons.add), onPressed: () {}),
           body: Row(children: [
@@ -73,8 +72,8 @@ class _HomePageState extends State<HomePage> {
                             return Center(
                                 child: StatCard(
                               headline: 'Products',
-                              body: Center(
-                                child: CircularProgressIndicator(),
+                              body: const Center(
+                                child: const CircularProgressIndicator(),
                               ),
                               headlineColor: Colors.blue,
                             ));
@@ -82,36 +81,36 @@ class _HomePageState extends State<HomePage> {
                           // return Center(child: CircularProgressIndicator());
                         },
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       StatCard(
                           headline: 'Orders',
-                          body: Text(
+                          body: const Text(
                             '19',
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontSize: 40, fontWeight: FontWeight.bold),
                           ),
                           headlineColor: Colors.green),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       StatCard(
                           headline: 'Earnings',
-                          body: Text(
+                          body: const Text(
                             "2402\$",
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontSize: 40, fontWeight: FontWeight.bold),
                           ),
                           headlineColor: Colors.purple),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       StatCard(
                           headline: 'Expenses',
-                          body: Text(
+                          body: const Text(
                             "-1241\$",
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontSize: 40, fontWeight: FontWeight.bold),
                           ),
                           headlineColor: Colors.red),

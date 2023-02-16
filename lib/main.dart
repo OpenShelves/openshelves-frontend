@@ -10,6 +10,7 @@ import 'package:openshelves/products/product_model.dart';
 import 'package:openshelves/scanner/income/income_form.dart';
 import 'package:openshelves/warehouse/warehouse_form.dart';
 import 'package:openshelves/warehouse/warehouse_list_page.dart';
+import 'package:openshelves/warehouse/warehouse_model.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_form.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_list_page.dart';
 import 'package:redux/redux.dart';
@@ -25,24 +26,16 @@ class MyHttpOverrides extends HttpOverrides {
 
 @immutable
 class AppState {
-  final String _animal;
   final String _loginToken;
   final List<IncomingModel> _incoming = [];
   Product? _selectedProduct;
-  AppState(this._animal, this._loginToken, this._selectedProduct);
-  AppState.initialState()
-      : _animal = "Koala",
-        _loginToken = "";
-  String get animal => _animal;
+  Warehouse? _selectedWarehouse;
+  AppState(this._loginToken, this._selectedProduct, this._selectedWarehouse);
+  AppState.initialState() : _loginToken = "";
   String get loginToken => _loginToken;
   Product? get selectedProduct => _selectedProduct;
+  Warehouse? get selectedWarehouse => _selectedWarehouse;
   List<IncomingModel> get incoming => _incoming;
-}
-
-class TestAction {
-  final String _animal;
-
-  TestAction(this._animal);
 }
 
 class LogInAction {
@@ -57,25 +50,39 @@ class SelectProductAction {
   SelectProductAction(this._product);
 }
 
+class SelectWarehouseAction {
+  final Warehouse _warehouse;
+
+  SelectWarehouseAction(this._warehouse);
+}
+
 AppState reducer(AppState prev, dynamic action) {
   print('reducer called with action: $action');
   if (action is LogInAction) {
     return loginReducer(prev, action);
   } else if (action is SelectProductAction) {
     return selectProductReducer(prev, action);
+  } else if (action is SelectWarehouseAction) {
+    return selectWarehouseReducer(prev, action);
   } else {
     return prev;
   }
 }
 
+AppState selectWarehouseReducer(AppState prev, dynamic action) {
+  print('selectWarehouseReducer called with action: $action');
+  return AppState(prev._loginToken, prev.selectedProduct, action._warehouse);
+}
+
 AppState loginReducer(AppState prev, dynamic action) {
   print('loginreducer called with action: $action');
-  return AppState(prev.animal, action._loginToken, prev.selectedProduct);
+  return AppState(
+      action._loginToken, prev.selectedProduct, prev._selectedWarehouse);
 }
 
 AppState selectProductReducer(AppState prev, dynamic action) {
   print('loginreducer called with action: $action');
-  return AppState(prev.animal, prev.loginToken, action._product);
+  return AppState(prev.loginToken, action._product, prev._selectedWarehouse);
 }
 
 void main() {
@@ -108,8 +115,10 @@ class MyApp extends StatelessWidget {
         LoginPage.url: (context) => LoginPage(
               store: store,
             ),
-        WarhouseForm.url: (context) => const WarhouseForm(),
-        WarehouseListPage.url: (context) => const WarehouseListPage(),
+        WarhouseForm.url: (context) => WarhouseForm(
+              store: store,
+            ),
+        WarehouseListPage.url: (context) => WarehouseListPage(store: store),
         WarehousePlaceListPage.url: (context) => const WarehousePlaceListPage(),
         WarehousePlacePage.url: (context) => WarehousePlacePage(store: store),
         IncomePage.url: (context) => IncomePage(
