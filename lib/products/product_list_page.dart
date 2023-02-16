@@ -54,15 +54,12 @@ class ProductTableSource extends DataTableSource {
   }
 
   @override
-  // TODO: implement isRowCountApproximate
   bool get isRowCountApproximate => false;
 
   @override
-  // TODO: implement rowCount
   int get rowCount => data.length;
 
   @override
-  // TODO: implement selectedRowCount
   int get selectedRowCount => 0;
 }
 
@@ -70,68 +67,6 @@ class _ProductPageState extends State<ProductPage> {
   Future<List<Product>> getProduct = getProducts();
   final productTablekey = new GlobalKey<PaginatedDataTableState>();
   int total = 0;
-
-  // createDataTableRows(List<Product> products, context) {
-  //   List<DataRow> rows = [];
-  //   var i = 0;
-  //   products.forEach((product) {
-  //     var color = i % 2 == 0 ? Colors.grey[100] : Colors.grey[200];
-  //     i++;
-  //     rows.add(DataRow(
-  //         color: MaterialStateProperty.resolveWith<Color?>(
-  //             (Set<MaterialState> states) {
-  //           // All rows will have the same selected color.
-  //           if (states.contains(MaterialState.selected)) {
-  //             return Theme.of(context).colorScheme.primary.withOpacity(0.08);
-  //           }
-  //           // Even rows will have a grey color.
-  //           if (i % 2 == 0) {
-  //             return color;
-  //           }
-  //         }),
-  //         cells: [
-  //           DataCell(
-  //             IconButton(
-  //                 icon: const Icon(Icons.edit),
-  //                 onPressed: () {
-  //                   widget.store.dispatch(SelectProductAction(product));
-  //                   print(widget.store.state);
-  //                   Navigator.pushNamed(context, ProductFormPage.url,
-  //                       arguments: ProductPageArguments(product));
-  //                 }),
-  //           ),
-  //           DataCell(
-  //             Text(product.id.toString()),
-  //           ),
-  //           DataCell(Text(product.sku.toString())),
-  //           DataCell(
-  //             Text(product.name),
-  //           ),
-  //           DataCell(
-  //             Text(product.price.toString()),
-  //           ),
-  //           DataCell(
-  //             Text(product.ean.toString()),
-  //           ),
-  //           DataCell(
-  //             Text(product.width.toString()),
-  //           ),
-  //           DataCell(
-  //             Text(product.height.toString()),
-  //           ),
-  //           DataCell(
-  //             Text(product.depth.toString()),
-  //           ),
-  //           DataCell(
-  //             Text(product.weight.toString()),
-  //           ),
-  //           DataCell(
-  //             Checkbox(value: product.active, onChanged: (value) {}),
-  //           ),
-  //         ]));
-  //   });
-  //   return rows;
-  // }
 
   TextEditingController searchController = TextEditingController();
   getList() {
