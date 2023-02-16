@@ -28,30 +28,41 @@ class ProductTableSource extends DataTableSource {
   @override
   DataRow? getRow(int index) {
     final product = data[index];
-    return DataRow.byIndex(index: index, cells: [
-      DataCell(IconButton(
-        icon: const Icon(Icons.edit),
-        onPressed: () {
-          store.dispatch(
-            SelectProductAction(product),
-          );
-          Navigator.pushNamed(
-            context,
-            ProductFormPage.url,
-          );
-        },
-      )),
-      DataCell(Text('${product.id}')),
-      DataCell(Text('${product.sku}')),
-      DataCell(Text('${product.name}')),
-      DataCell(Text('${product.price}')),
-      DataCell(Text('${product.ean}')),
-      DataCell(Text('${product.width}')),
-      DataCell(Text('${product.height}')),
-      DataCell(Text('${product.depth}')),
-      DataCell(Text('${product.weight}')),
-      DataCell(Text('${product.active}')),
-    ]);
+    return DataRow.byIndex(
+        color: MaterialStateColor.resolveWith((states) {
+          if (states.contains(MaterialState.selected)) {
+            return Theme.of(context).colorScheme.primary.withOpacity(0.08);
+          }
+          if (index.isEven) {
+            return Colors.grey.withOpacity(0.05);
+          }
+          return Colors.white;
+        }),
+        index: index,
+        cells: [
+          DataCell(IconButton(
+            icon: const Icon(Icons.edit),
+            onPressed: () {
+              store.dispatch(
+                SelectProductAction(product),
+              );
+              Navigator.pushNamed(
+                context,
+                ProductFormPage.url,
+              );
+            },
+          )),
+          DataCell(Text('${product.id}')),
+          DataCell(Text('${product.sku}')),
+          DataCell(Text(product.name)),
+          DataCell(Text('${product.price}')),
+          DataCell(Text('${product.ean}')),
+          DataCell(Text('${product.width}')),
+          DataCell(Text('${product.height}')),
+          DataCell(Text('${product.depth}')),
+          DataCell(Text('${product.weight}')),
+          DataCell(Text('${product.active}')),
+        ]);
   }
 
   @override
@@ -132,14 +143,12 @@ class _ProductPageState extends State<ProductPage> {
             {
               setState(() {
                 getProductByCode(value).then((value) => print);
-                // productTablekey.currentState!.pageTo(0);
               }),
             }
           else if (value.length > 2)
             {
               setState(() {
                 getProduct = searchProducts(value);
-                // productTablekey.currentState!.pageTo(0);
               }),
             },
           if (value.isEmpty)
