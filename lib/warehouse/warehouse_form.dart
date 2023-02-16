@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:openshelves/address_model.dart';
 import 'package:openshelves/constants.dart';
-import 'package:openshelves/helper/delete.dart';
 import 'package:openshelves/main.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';
 import 'package:openshelves/warehouse/warehouse_model.dart';
 import 'package:openshelves/warehouse/warehouse_service.dart';
 import 'package:openshelves/warehouse/widgets/address_form.dart';
+import 'package:openshelves/widgets/delete_overlay.dart';
 import 'package:openshelves/widgets/drawer.dart';
 import 'package:redux/redux.dart';
 
@@ -77,8 +77,6 @@ class _WarhouseFormState extends State<WarhouseForm> {
                         return null;
                       },
                       controller: warehouseName,
-                      // enabled: false,
-                      // controller: TextEditingController(text: product.id.toString()),
                     ),
                     AddressForm(
                       formKey: _addressFormKey,
@@ -105,17 +103,21 @@ class _WarhouseFormState extends State<WarhouseForm> {
                             storeWarehouse(warehouse).then((value) => {});
                           }
                         },
-                        icon: Icon(Icons.save)),
+                        icon: const Icon(Icons.save)),
                     IconButton(
                         onPressed: () {
-                          getDeleteButton(context).then((value) {
-                            print(value);
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return const DeleteDialog();
+                            },
+                          ).then((value) {
                             if (value && warehouse.id != null) {
                               deleteWarehouse(warehouse.id!);
                             }
                           });
                         },
-                        icon: Icon(Icons.delete))
+                        icon: const Icon(Icons.delete))
                   ],
                 ))),
       ])),

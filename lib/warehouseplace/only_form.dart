@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:openshelves/helper/delete.dart';
 import 'package:openshelves/warehouse/warehouse_model.dart';
 import 'package:openshelves/warehouse/warehouse_service.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_list_page.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_model.dart';
 import 'package:openshelves/warehouseplace/warehouseplaces_service.dart';
+import 'package:openshelves/widgets/delete_overlay.dart';
 
 class WarehousePlaceFormOnly extends StatefulWidget {
   const WarehousePlaceFormOnly(
@@ -124,7 +124,11 @@ class _WarehousePlaceFormOnlyState extends State<WarehousePlaceFormOnly> {
               ),
               IconButton(
                   onPressed: () {
-                    getDeleteButton(context).then((value) {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return DeleteDialog();
+                        }).then((value) {
                       print(value);
                       if (value && warehousePlace.id != null) {
                         deleteWarehousePlace(warehousePlace.id!).then((value) {
