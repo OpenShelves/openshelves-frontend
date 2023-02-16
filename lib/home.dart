@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
                                           fontSize: 40,
                                           fontWeight: FontWeight.bold),
                                     ),
-                                    const Text('Quantity:'),
+                                    const Text('In Stock:'),
                                     Text(
                                       totalProducts.quantity.toString(),
                                       style: const TextStyle(
