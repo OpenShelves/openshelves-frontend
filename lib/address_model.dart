@@ -13,8 +13,9 @@ class Address {
   String? city;
   String? country;
 
+  @override
   String toString() {
-    return 'Address: {id: ${id}, name1: ${name1}}';
+    return 'Address: {id: $id, name1: $name1}';
   }
 
   Address({

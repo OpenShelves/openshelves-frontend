@@ -16,7 +16,7 @@ class _TabletScaffoldState extends State<TabletScaffold> {
         drawer: const OpenShelvesDrawer(),
         appBar: openShelvesAppBar,
         body: Row(
-          children: [],
+          children: const [],
         ));
   }
 }

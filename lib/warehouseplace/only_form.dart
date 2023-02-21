@@ -23,7 +23,6 @@ class _WarehousePlaceFormOnlyState extends State<WarehousePlaceFormOnly> {
   final _formKey1 = GlobalKey<FormState>();
   final futureWarehouses = getWarehouses();
   String _name = '';
-  int _id = 0;
   Warehouse? _warehouse;
   TextEditingController idController = TextEditingController(text: '');
   @override
@@ -142,6 +141,5 @@ class _WarehousePlaceFormOnlyState extends State<WarehousePlaceFormOnly> {
             ],
           ),
         ));
-    ;
   }
 }

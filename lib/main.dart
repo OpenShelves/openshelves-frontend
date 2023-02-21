@@ -88,7 +88,7 @@ AppState selectProductReducer(AppState prev, dynamic action) {
 }
 
 void main() {
-  HttpOverrides.global = new MyHttpOverrides();
+  HttpOverrides.global = MyHttpOverrides();
   final store = Store(reducer, initialState: AppState.initialState());
   runApp(StoreProvider(store: store, child: MyApp(store: store)));
 }
@@ -100,15 +100,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      localizationsDelegates: [
+      localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: [
-        const Locale('en'), // English
-        const Locale('de'), // Spanish
+      supportedLocales: const [
+        Locale('en'), // English
+        Locale('de'), // Spanish
       ],
       title: 'OpenShelves',
       theme: ThemeData(

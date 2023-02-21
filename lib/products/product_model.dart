@@ -16,8 +16,9 @@ class Product {
   num? price;
   String? sku;
 
+  @override
   String toString() {
-    return 'Product: {ean: ${ean}, count: ${name}}';
+    return 'Product: {ean: $ean, count: $name}';
   }
   // int warehouses_id;
 

@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:openshelves/constants.dart';
-import 'package:openshelves/products/product_model.dart';
 import 'package:openshelves/warehouse/warehouse_model.dart';
 
 Future<Warehouse> storeWarehouse(Warehouse warehouse) async {

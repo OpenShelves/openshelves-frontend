@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:openshelves/address_model.dart';
 import 'package:openshelves/constants.dart';
 import 'package:openshelves/main.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';
@@ -49,8 +48,6 @@ class _WarehouseListPageState extends State<WarehouseListPage> {
                     },
                   );
                 });
-            // print(snapshot.data);
-            return const Text("data");
           }
           return const Center(child: CircularProgressIndicator());
         },

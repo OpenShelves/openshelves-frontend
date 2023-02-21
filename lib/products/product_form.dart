@@ -131,10 +131,10 @@ class _ProductFormPageState extends State<ProductFormPage> {
         child: Padding(
             padding: const EdgeInsets.all(8),
             child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Container(
+              const SizedBox(
                 width: 80,
                 height: 80,
-                child: const Image(
+                child: Image(
                     image: NetworkImage('https://picsum.photos/id/1/200/300')),
               ),
               Flexible(

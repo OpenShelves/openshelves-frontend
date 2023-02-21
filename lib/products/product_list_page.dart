@@ -100,7 +100,7 @@ class ProductTableSource extends DataTableSource {
 
 class _ProductPageState extends State<ProductPage> {
   Future<List<Product>> getProduct = getProducts();
-  final productTablekey = new GlobalKey<PaginatedDataTableState>();
+  final productTablekey = GlobalKey<PaginatedDataTableState>();
   int total = 0;
 
   TextEditingController searchController = TextEditingController();
@@ -231,18 +231,18 @@ class _ProductPageState extends State<ProductPage> {
                                 ? snapshot.data!.length
                                 : 20,
                             showFirstLastButtons: true,
-                            availableRowsPerPage: [10, 20, 50],
+                            availableRowsPerPage: const [10, 20, 50],
                             columns: [
-                              DataColumn(label: Text('#')),
-                              DataColumn(label: Text('ID')),
-                              DataColumn(label: Text('SKU')),
+                              const DataColumn(label: Text('#')),
+                              const DataColumn(label: Text('ID')),
+                              const DataColumn(label: Text('SKU')),
                               DataColumn(
                                   label: Text(AppLocalizations.of(context)!
                                       .productName)),
                               DataColumn(
                                   label: Text(
                                       AppLocalizations.of(context)!.price)),
-                              DataColumn(label: Text('EAN')),
+                              const DataColumn(label: Text('EAN')),
                               DataColumn(
                                   label: Text(
                                       AppLocalizations.of(context)!.width)),

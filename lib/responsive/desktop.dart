@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:openshelves/constants.dart';
 import 'package:openshelves/widgets/drawer.dart';
 
 class DesktopScaffold extends StatefulWidget {

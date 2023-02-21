@@ -63,8 +63,6 @@ class _IncomePageState extends State<IncomePage> {
     print('aftersetstaze');
   }
 
-  final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
-
   List<IncomingModel> incoming = [];
   @override
   Widget build(BuildContext context) {
@@ -77,10 +75,10 @@ class _IncomePageState extends State<IncomePage> {
             child: Form(
                 child: Column(
           children: [
-            warehousePlaceName.length == 0
+            warehousePlaceName.isEmpty
                 ? TextFormField(
-                    decoration: const InputDecoration(
-                        label: const Text('WarehousePlaceId')),
+                    decoration:
+                        const InputDecoration(label: Text('WarehousePlaceId')),
                     onChanged: (value) {
                       //   setState(() {
                       //     warehouse_id = int.parse(value);
@@ -162,7 +160,7 @@ class _IncomePageState extends State<IncomePage> {
                           value: 'deleteItem',
                         ),
                         const PopupMenuItem(
-                            child: const Text('change Quantity'),
+                            child: Text('change Quantity'),
                             value: 'changeQuantity')
                       ];
                     },

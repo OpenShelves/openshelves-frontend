@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 import 'package:openshelves/constants.dart';
 import 'package:openshelves/main.dart';
 import 'package:openshelves/products/product_service.dart';
@@ -26,7 +25,7 @@ class _HomePageState extends State<HomePage> {
         mobileBody: Scaffold(
           appBar: openShelvesAppBar,
           drawer: const OpenShelvesDrawer(),
-          body: Column(children: [const Text('D A S H B O A R D ')]),
+          body: Column(children: const [Text('D A S H B O A R D ')]),
         ),
         tabletBody: const Text("TO BE DONE"),
         desktopBody: Scaffold(
@@ -73,11 +72,11 @@ class _HomePageState extends State<HomePage> {
                               return const Center(child: Text('No data found'));
                             }
                           } else {
-                            return Center(
+                            return const Center(
                                 child: StatCard(
                               headline: 'Products',
-                              body: const Center(
-                                child: const CircularProgressIndicator(),
+                              body: Center(
+                                child: CircularProgressIndicator(),
                               ),
                               headlineColor: Colors.blue,
                             ));

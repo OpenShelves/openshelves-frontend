@@ -34,9 +34,9 @@ class InventoryTableSource extends DataTableSource {
   DataRow? getRow(int index) {
     final inventory = data[index];
     return DataRow.byIndex(index: index, cells: [
-      DataCell(Text('${inventory.quantity}')),
-      DataCell(Text('${inventory.productsName}')),
-      DataCell(Text('${inventory.warehousePlacesName}'))
+      DataCell(Text(inventory.quantity)),
+      DataCell(Text(inventory.productsName)),
+      DataCell(Text(inventory.warehousePlacesName))
     ]);
   }
 
@@ -56,7 +56,6 @@ class _WarehousePlacePageState extends State<WarehousePlacePage> {
 
   bool editMode = false;
 
-  final _formKey = GlobalKey<FormState>();
   WarehousePlace? wp;
 
   List<Warehouse> _warehouses = [];
@@ -81,7 +80,7 @@ class _WarehousePlacePageState extends State<WarehousePlacePage> {
                         margin: const EdgeInsets.all(8),
                         child: Column(children: [
                           Row(children: [
-                            Text('W A R E H O U S E P L A C E'),
+                            const Text('W A R E H O U S E P L A C E'),
                             Switch(
                               value: editMode,
                               onChanged: (val) {
@@ -172,7 +171,8 @@ class _WarehousePlacePageState extends State<WarehousePlacePage> {
                                               style: (Theme.of(context)
                                                   .textTheme
                                                   .headline5)),
-                                          trailing: Icon(Icons.arrow_right),
+                                          trailing:
+                                              const Icon(Icons.arrow_right),
                                         ),
                                       );
                                     })));

@@ -8,6 +8,7 @@ class Warehouse {
   String name;
   Address address;
 
+  @override
   String toString() {
     return toJson().toString();
   }

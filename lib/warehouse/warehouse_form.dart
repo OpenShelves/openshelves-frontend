@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:openshelves/address_model.dart';
-import 'package:openshelves/constants.dart';
 import 'package:openshelves/main.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';
 import 'package:openshelves/warehouse/warehouse_model.dart';
@@ -95,8 +94,7 @@ class _WarhouseFormState extends State<WarhouseForm> {
                             _addressFormKey.currentState!.validate();
                             _addressFormKey.currentState!.save();
                             warehouse.name = warehouseName.text;
-                            if (warehouseId.text != null &&
-                                warehouseId.text != '') {
+                            if (warehouseId.text != '') {
                               warehouse.id = int.parse(warehouseId.text);
                             }
                             warehouse.address = address;
