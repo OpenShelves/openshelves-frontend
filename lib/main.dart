@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:openshelves/home.dart';
 import 'package:openshelves/login/login.dart';
@@ -14,6 +15,7 @@ import 'package:openshelves/warehouse/warehouse_model.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_form.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_list_page.dart';
 import 'package:redux/redux.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -98,6 +100,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('en'), // English
+        const Locale('de'), // Spanish
+      ],
       title: 'OpenShelves',
       theme: ThemeData(
         primarySwatch: Colors.blue,

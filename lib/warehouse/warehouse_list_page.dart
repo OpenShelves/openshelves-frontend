@@ -50,9 +50,9 @@ class _WarehouseListPageState extends State<WarehouseListPage> {
                   );
                 });
             // print(snapshot.data);
-            return Text("data");
+            return const Text("data");
           }
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         },
       ))
     ]);

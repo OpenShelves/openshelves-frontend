@@ -1,0 +1,26 @@
+{
+    "products": "Products",
+    "@products": {
+      "description": "The noun for products"
+    },
+    "orders": "Orders",
+    "@orders": {
+      "description": "The noun for orders"
+    },
+    "earnings": "Earnings ",
+    "@earnings": {
+      "description": "The noun for earnings"
+    },
+    "expenses": "Expenses ",
+    "@expenses": {
+      "description": "The noun for expenses"
+    },
+    "inStock": "In Stock",
+    "@inStock": {
+      "description": "The total in stock items"
+    },
+    "differentItems": "Different",
+    "@differentItems": {
+      "description": "Different items in Stock"
+    }
+  }

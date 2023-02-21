@@ -7,8 +7,11 @@ import 'package:openshelves/products/product_form.dart';
 import 'package:openshelves/products/product_model.dart';
 import 'package:openshelves/products/product_service.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';
+import 'package:openshelves/widgets/data_cell_number.dart';
 import 'package:openshelves/widgets/drawer.dart';
 import 'package:redux/redux.dart';
+
+import '../widgets/data_cell_currency.dart';
 
 class ProductPage extends StatefulWidget {
   final Store<AppState> store;
@@ -56,15 +59,30 @@ class ProductTableSource extends DataTableSource {
               },
             ),
           ),
-          DataCell(Text('${product.id}')),
+          DataCell(DataCellNumber(number: product.id ?? 0)),
           DataCell(Text('${product.sku}')),
           DataCell(Text(product.name)),
-          DataCell(Text('${product.price}')),
+          DataCell(DataCellCurrency(
+            currcency: product.price ?? 0,
+            currencySymbol: '€',
+          )),
           DataCell(Text('${product.ean}')),
-          DataCell(Text('${product.width}')),
-          DataCell(Text('${product.height}')),
-          DataCell(Text('${product.depth}')),
-          DataCell(Text('${product.weight}')),
+          DataCell(DataCellNumber(
+            number: product.width ?? 0,
+            trailing: 'cm',
+          )),
+          DataCell(DataCellNumber(
+            number: product.height ?? 0,
+            trailing: 'cm',
+          )),
+          DataCell(DataCellNumber(
+            number: product.depth ?? 0,
+            trailing: 'cm',
+          )),
+          DataCell(DataCellNumber(
+            number: product.weight ?? 0,
+            trailing: 'g',
+          )),
           DataCell(Text('${product.active}')),
         ]);
   }

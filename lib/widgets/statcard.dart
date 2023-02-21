@@ -30,7 +30,7 @@ class StatCard extends StatelessWidget {
             height: 40,
             decoration: BoxDecoration(
               color: headlineColor,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10),
                   bottomLeft: Radius.zero,
@@ -46,7 +46,7 @@ class StatCard extends StatelessWidget {
               ),
             )),
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           Expanded(child: Center(child: body)),
         ],
       ),

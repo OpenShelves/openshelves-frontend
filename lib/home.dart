@@ -8,6 +8,7 @@ import 'package:openshelves/responsive/responsive_layout.dart';
 import 'package:openshelves/widgets/drawer.dart';
 import 'package:openshelves/widgets/statcard.dart';
 import 'package:redux/redux.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePage extends StatefulWidget {
   final Store<AppState> store;
@@ -48,16 +49,18 @@ class _HomePageState extends State<HomePage> {
                               final totalProducts =
                                   snapshot.data as ProductsTotal;
                               return StatCard(
-                                  headline: 'Products',
+                                  headline:
+                                      AppLocalizations.of(context)!.products,
                                   body: Column(children: [
-                                    const Text('Different:'),
+                                    Text(AppLocalizations.of(context)!
+                                        .differentItems),
                                     Text(
                                       totalProducts.products.toString(),
                                       style: const TextStyle(
                                           fontSize: 40,
                                           fontWeight: FontWeight.bold),
                                     ),
-                                    const Text('In Stock:'),
+                                    Text(AppLocalizations.of(context)!.inStock),
                                     Text(
                                       totalProducts.quantity.toString(),
                                       style: const TextStyle(
@@ -86,7 +89,7 @@ class _HomePageState extends State<HomePage> {
                         width: 10,
                       ),
                       StatCard(
-                          headline: 'Orders',
+                          headline: AppLocalizations.of(context)!.orders,
                           body: const Text(
                             '19',
                             style: TextStyle(
@@ -97,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                         width: 10,
                       ),
                       StatCard(
-                          headline: 'Earnings',
+                          headline: AppLocalizations.of(context)!.earnings,
                           body: const Text(
                             "2402\$",
                             style: TextStyle(
@@ -108,7 +111,7 @@ class _HomePageState extends State<HomePage> {
                         width: 10,
                       ),
                       StatCard(
-                          headline: 'Expenses',
+                          headline: AppLocalizations.of(context)!.expenses,
                           body: const Text(
                             "-1241\$",
                             style: TextStyle(
