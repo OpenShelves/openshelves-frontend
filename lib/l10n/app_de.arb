@@ -11,5 +11,6 @@
     "weight": "Gewicht",
     "price": "Preis",
     "active": "Aktiv",
-    "productName": "Produktname"
+    "productName": "Produktname",
+    "searchHintText": "min. 3 Zeichen eingeben"
 }

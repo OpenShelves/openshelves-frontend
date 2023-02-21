@@ -50,6 +50,10 @@
     "productName": "Product Name",
     "@productName": {
       "description": "Product name label"
+    },
+    "searchHintText": "type in at least 3 characters",
+    "@searchHintText": {
+      "description": "Hint text for search to enter a minimum of three characters"
     }
 
   }

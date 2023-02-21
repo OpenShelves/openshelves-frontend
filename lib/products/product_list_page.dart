@@ -160,7 +160,7 @@ class _ProductPageState extends State<ProductPage> {
                   });
                 }),
             prefixIcon: const Icon(Icons.search),
-            hintText: 'At least 3 Characters'),
+            hintText: AppLocalizations.of(context)!.searchHintText),
         onChanged: (value) => {
           if (value.length == 13)
             {
