@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:openshelves/address_model.dart';
 import 'package:openshelves/constants.dart';
 import 'package:openshelves/main.dart';
 import 'package:openshelves/products/product_form.dart';
 import 'package:openshelves/products/product_service.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';
-import 'package:openshelves/warehouse/warehouse_form.dart';
 import 'package:openshelves/warehouse/warehouse_model.dart';
 import 'package:openshelves/warehouse/warehouse_service.dart';
-import 'package:openshelves/warehouseplace/change_inventory.dart';
 import 'package:openshelves/warehouseplace/inventory_level_model.dart';
 import 'package:openshelves/warehouseplace/inventory_service.dart';
 import 'package:openshelves/warehouseplace/only_form.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_list_page.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_model.dart';
-import 'package:openshelves/warehouseplace/warehouseplaces_service.dart';
 import 'package:openshelves/widgets/drawer.dart';
 import 'package:redux/redux.dart';
 
@@ -46,21 +41,17 @@ class InventoryTableSource extends DataTableSource {
   }
 
   @override
-  // TODO: implement isRowCountApproximate
   bool get isRowCountApproximate => false;
 
   @override
-  // TODO: implement rowCount
   int get rowCount => data.length;
 
   @override
-  // TODO: implement selectedRowCount
   int get selectedRowCount => 0;
 }
 
 class _WarehousePlacePageState extends State<WarehousePlacePage> {
   final futureWarehouses = getWarehouses();
-  // final futureInventoryLevel = getInventoryLevels(5);
   late Future<List<InventoryLevel>> futureInventoryLevel;
 
   bool editMode = false;
@@ -147,7 +138,6 @@ class _WarehousePlacePageState extends State<WarehousePlacePage> {
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
                       if (snapshot.hasData) {
-                        print(snapshot.data);
                         return Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Card(
@@ -192,7 +182,6 @@ class _WarehousePlacePageState extends State<WarehousePlacePage> {
                     } else {
                       return const Center(child: Text('connectionsstate'));
                     }
-                    // return Center(child: CircularProgressIndicator());
                   })
             ])),
         tabletBody: Scaffold(

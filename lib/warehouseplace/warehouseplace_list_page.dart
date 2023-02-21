@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:openshelves/address_model.dart';
 import 'package:openshelves/constants.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';
-import 'package:openshelves/warehouse/warehouse_form.dart';
 import 'package:openshelves/warehouse/warehouse_model.dart';
-import 'package:openshelves/warehouse/warehouse_service.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_form.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_model.dart';
 import 'package:openshelves/warehouseplace/warehouseplaces_service.dart';
@@ -63,14 +61,14 @@ class _WarehousePlaceListPageState extends State<WarehousePlaceListPage> {
                   return Text("${snapshot.error}");
                 }
                 // By default, show a loading spinner.
-                return CircularProgressIndicator();
+                return const CircularProgressIndicator();
               },
             )),
         tabletBody: Scaffold(
             floatingActionButton: getfb(context),
             appBar: openShelvesAppBar,
             drawer: const OpenShelvesDrawer(),
-            body: Text("was2")),
+            body: const Text("was2")),
         desktopBody: Scaffold(
             floatingActionButton: getfb(context),
             body: Row(children: [
@@ -106,7 +104,7 @@ class _WarehousePlaceListPageState extends State<WarehousePlaceListPage> {
                             return Text("${snapshot.error}");
                           }
                           // By default, show a loading spinner.
-                          return CircularProgressIndicator();
+                          return const CircularProgressIndicator();
                         },
                       )))
             ])));

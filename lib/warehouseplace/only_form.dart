@@ -36,7 +36,7 @@ class _WarehousePlaceFormOnlyState extends State<WarehousePlaceFormOnly> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Form(
           key: _formKey1,
           child: Column(
@@ -119,7 +119,7 @@ class _WarehousePlaceFormOnlyState extends State<WarehousePlaceFormOnly> {
                       });
                     }
                   },
-                  child: Text('Save'),
+                  child: const Text('Save'),
                 ),
               ),
               IconButton(
@@ -127,7 +127,7 @@ class _WarehousePlaceFormOnlyState extends State<WarehousePlaceFormOnly> {
                     showDialog(
                         context: context,
                         builder: (context) {
-                          return DeleteDialog();
+                          return const DeleteDialog();
                         }).then((value) {
                       print(value);
                       if (value && warehousePlace.id != null) {
@@ -138,7 +138,7 @@ class _WarehousePlaceFormOnlyState extends State<WarehousePlaceFormOnly> {
                       }
                     });
                   },
-                  icon: Icon(Icons.delete))
+                  icon: const Icon(Icons.delete))
             ],
           ),
         ));

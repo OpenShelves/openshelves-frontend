@@ -31,11 +31,11 @@ class WarehousePlaceList extends StatelessWidget {
                 },
                 title: Text(inventoryLevels[index].warehousePlacesName),
                 leading: Padding(
-                    padding: EdgeInsets.all(3),
+                    padding: const EdgeInsets.all(3),
                     child: Column(children: [
                       Text(inventoryLevels[index].quantity,
                           style: (Theme.of(context).textTheme.headline5)),
-                      Text('pcs')
+                      const Text('pcs')
                     ])),
                 trailing: const Icon(Icons.arrow_right),
               ));

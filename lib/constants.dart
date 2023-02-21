@@ -1,12 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:openshelves/home.dart';
-import 'package:openshelves/login/login.dart';
-import 'package:openshelves/products/product_list_page.dart';
-import 'package:openshelves/scanner/income/income_form.dart';
-import 'package:openshelves/warehouse/warehouse_form.dart';
-import 'package:openshelves/warehouse/warehouse_list_page.dart';
-import 'package:openshelves/warehouseplace/warehouseplace_list_page.dart';
 
 const storage = FlutterSecureStorage();
 
@@ -34,5 +27,6 @@ var loadingData = Center(
     child: Text('Awaiting result...'),
   )
 ]));
-var URL = 'http://192.168.2.154:4090/api';
+// var URL = 'http://192.168.2.154:4090/api';
+var URL = 'http://localhost:4090/api';
 // var URL = 'http://localhost:4090/api';

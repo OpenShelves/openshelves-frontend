@@ -1,0 +1,55 @@
+{
+    "products": "Products",
+    "@products": {
+      "description": "The noun for products"
+    },
+    "orders": "Orders",
+    "@orders": {
+      "description": "The noun for orders"
+    },
+    "earnings": "Earnings ",
+    "@earnings": {
+      "description": "The noun for earnings"
+    },
+    "expenses": "Expenses ",
+    "@expenses": {
+      "description": "The noun for expenses"
+    },
+    "inStock": "In Stock",
+    "@inStock": {
+      "description": "The total in stock items"
+    },
+    "differentItems": "Different",
+    "@differentItems": {
+      "description": "Different items in Stock"
+    },
+    "height": "Height",
+    "@height": {
+      "description": "Height of the product"
+    },
+    "depth": "Depth",
+    "@depth": {
+      "description": "Depth of the product"
+    },
+    "width": "Width",
+    "@width": {
+      "description": "Width of the product"
+    },
+    "weight": "Weight",
+    "@weight": {
+      "description": "Weight of the product"
+    },
+    "price": "Price",
+    "@price": {
+      "description": "Price of the product"
+    },
+    "active": "Active",
+    "@active": {
+      "description": "Active Item, Still in Use"
+    },
+    "productName": "Product Name",
+    "@productName": {
+      "description": "Product name label"
+    }
+
+  }

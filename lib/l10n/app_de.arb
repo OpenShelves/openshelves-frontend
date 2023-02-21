@@ -1,0 +1,15 @@
+{
+    "products": "Produkte",
+    "orders": "Bestellungen",
+    "earnings": "Einnahmen",
+    "expenses": "Ausgaben",
+    "inStock": "Auf Lager",
+    "differentItems": "Verschiedene",
+    "height": "Höhe",
+    "depth": "Tiefe",
+    "width": "Breite",
+    "weight": "Gewicht",
+    "price": "Preis",
+    "active": "Aktiv",
+    "productName": "Produktname"
+}

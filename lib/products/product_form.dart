@@ -2,15 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:openshelves/constants.dart';
 import 'package:openshelves/main.dart';
 import 'package:openshelves/products/prodform.dart';
-import 'package:openshelves/products/product_list_page.dart';
 import 'package:openshelves/products/product_model.dart';
 import 'package:openshelves/products/product_service.dart';
 import 'package:openshelves/products/product_warehouse_place_list.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';
 import 'package:openshelves/warehouseplace/inventory_level_model.dart';
 import 'package:openshelves/warehouseplace/inventory_service.dart';
-import 'package:openshelves/warehouseplace/warehouseplace_form.dart';
-import 'package:openshelves/warehouseplace/warehouseplaces_service.dart';
 import 'package:openshelves/widgets/drawer.dart';
 import 'package:redux/redux.dart';
 

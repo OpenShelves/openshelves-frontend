@@ -3,7 +3,6 @@ import 'package:openshelves/constants.dart';
 import 'package:openshelves/main.dart';
 import 'package:openshelves/products/product_model.dart';
 import 'package:openshelves/products/product_service.dart';
-import 'package:openshelves/warehouseplace/change_inventory.dart';
 import 'package:openshelves/warehouseplace/inventory_model.dart';
 import 'package:openshelves/warehouseplace/inventory_service.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_model.dart';
@@ -80,8 +79,8 @@ class _IncomePageState extends State<IncomePage> {
           children: [
             warehousePlaceName.length == 0
                 ? TextFormField(
-                    decoration:
-                        InputDecoration(label: Text('WarehousePlaceId')),
+                    decoration: const InputDecoration(
+                        label: const Text('WarehousePlaceId')),
                     onChanged: (value) {
                       //   setState(() {
                       //     warehouse_id = int.parse(value);
@@ -107,7 +106,7 @@ class _IncomePageState extends State<IncomePage> {
             TextFormField(
               controller: productController,
               focusNode: productFocus,
-              decoration: InputDecoration(label: Text('Product')),
+              decoration: const InputDecoration(label: Text('Product')),
               onFieldSubmitted: (value) {
                 if (value.length == 13) {
                   var localProd = checkEANLocal(value);
@@ -144,7 +143,7 @@ class _IncomePageState extends State<IncomePage> {
                     storeInventory(inventory);
                   });
                 },
-                icon: Icon(Icons.save))
+                icon: const Icon(Icons.save))
           ],
         ))),
         ListView.builder(

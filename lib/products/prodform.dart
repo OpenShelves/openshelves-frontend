@@ -13,6 +13,7 @@ class ProductMainDataForm extends StatefulWidget {
 
 class _ProductMainDataFormState extends State<ProductMainDataForm> {
   late Product product;
+  @override
   initState() {
     super.initState();
     product = widget.product;
