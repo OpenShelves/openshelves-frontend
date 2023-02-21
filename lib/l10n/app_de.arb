@@ -4,5 +4,12 @@
     "earnings": "Einnahmen",
     "expenses": "Ausgaben",
     "inStock": "Auf Lager",
-    "differentItems": "Verschiedene"
+    "differentItems": "Verschiedene",
+    "height": "Höhe",
+    "depth": "Tiefe",
+    "width": "Breite",
+    "weight": "Gewicht",
+    "price": "Preis",
+    "active": "Aktiv",
+    "productName": "Produktname"
 }

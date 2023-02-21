@@ -12,6 +12,7 @@ import 'package:openshelves/widgets/drawer.dart';
 import 'package:redux/redux.dart';
 
 import '../widgets/data_cell_currency.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProductPage extends StatefulWidget {
   final Store<AppState> store;
@@ -231,18 +232,32 @@ class _ProductPageState extends State<ProductPage> {
                                 : 20,
                             showFirstLastButtons: true,
                             availableRowsPerPage: [10, 20, 50],
-                            columns: const [
+                            columns: [
                               DataColumn(label: Text('#')),
                               DataColumn(label: Text('ID')),
                               DataColumn(label: Text('SKU')),
-                              DataColumn(label: Text('Productname')),
-                              DataColumn(label: Text('Price')),
+                              DataColumn(
+                                  label: Text(AppLocalizations.of(context)!
+                                      .productName)),
+                              DataColumn(
+                                  label: Text(
+                                      AppLocalizations.of(context)!.price)),
                               DataColumn(label: Text('EAN')),
-                              DataColumn(label: Text('Width')),
-                              DataColumn(label: Text('Height')),
-                              DataColumn(label: Text('Depth')),
-                              DataColumn(label: Text('Weight')),
-                              DataColumn(label: Text('Active')),
+                              DataColumn(
+                                  label: Text(
+                                      AppLocalizations.of(context)!.width)),
+                              DataColumn(
+                                  label: Text(
+                                      AppLocalizations.of(context)!.height)),
+                              DataColumn(
+                                  label: Text(
+                                      AppLocalizations.of(context)!.depth)),
+                              DataColumn(
+                                  label: Text(
+                                      AppLocalizations.of(context)!.weight)),
+                              DataColumn(
+                                  label: Text(
+                                      AppLocalizations.of(context)!.active)),
                             ],
                             source: ProductTableSource(
                                 data: snapshot.data!,

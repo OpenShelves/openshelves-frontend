@@ -22,5 +22,34 @@
     "differentItems": "Different",
     "@differentItems": {
       "description": "Different items in Stock"
+    },
+    "height": "Height",
+    "@height": {
+      "description": "Height of the product"
+    },
+    "depth": "Depth",
+    "@depth": {
+      "description": "Depth of the product"
+    },
+    "width": "Width",
+    "@width": {
+      "description": "Width of the product"
+    },
+    "weight": "Weight",
+    "@weight": {
+      "description": "Weight of the product"
+    },
+    "price": "Price",
+    "@price": {
+      "description": "Price of the product"
+    },
+    "active": "Active",
+    "@active": {
+      "description": "Active Item, Still in Use"
+    },
+    "productName": "Product Name",
+    "@productName": {
+      "description": "Product name label"
     }
+
   }
