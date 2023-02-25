@@ -66,7 +66,6 @@ class _IncomePageState extends State<IncomePage> {
   List<IncomingModel> incoming = [];
   @override
   Widget build(BuildContext context) {
-    print("build");
     return Scaffold(
       appBar: openShelvesAppBar,
       drawer: const OpenShelvesDrawer(),

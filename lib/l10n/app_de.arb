@@ -12,5 +12,10 @@
     "price": "Preis",
     "active": "Aktiv",
     "productName": "Produktname",
-    "searchHintText": "min. 3 Zeichen eingeben"
+    "searchHintText": "min. 3 Zeichen eingeben",
+    "userPassword": "Password",
+    "pleaseLogin": "Bitte Einloggen",
+    "addServerHeadline": "Neuen Server hinzufügen",
+    "serverLabel": "Server eintragen",
+    "selectServerLabel": "Server auswählen"
 }

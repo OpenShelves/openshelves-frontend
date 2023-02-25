@@ -51,9 +51,6 @@ class _WarhouseFormState extends State<WarhouseForm> {
       mobileBody: const Text("TO BE DONE"),
       tabletBody: const Text("TO BE DONE"),
       desktopBody: Scaffold(
-          // appBar: openShelvesAppBar,
-          // floatingActionButton: FloatingActionButton(
-          //     child: const Icon(Icons.add), onPressed: () {}),
           body: Row(children: [
         const OpenShelvesDrawer(),
         Expanded(

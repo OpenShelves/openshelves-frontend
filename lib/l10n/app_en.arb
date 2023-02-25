@@ -54,6 +54,26 @@
     "searchHintText": "type in at least 3 characters",
     "@searchHintText": {
       "description": "Hint text for search to enter a minimum of three characters"
+    },
+    "userPassword": "Password",
+    "@userPassword": {
+      "description": "Label for Passwordfield"
+    },
+    "pleaseLogin": "Please Login",
+    "@pleaseLogin": {
+      "description": "Label for Login"
+    },
+    "addServerHeadline": "Add a new Server",
+    "@addServerHeadline": {
+      "description": "Headline for adding a new server"
+    },
+    "serverLabel": "HTTP(S) Server Url",
+    "@serverLabel": {
+      "description": "Label for add server form field"
+    },
+    "selectServerLabel": "Select Server",
+    "@selectServerLabel": {
+      "description": "Label for selecting a server"
     }
 
   }
