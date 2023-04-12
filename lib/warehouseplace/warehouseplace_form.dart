@@ -29,14 +29,29 @@ class WarehousePlacePage extends StatefulWidget {
 
 class InventoryTableSource extends DataTableSource {
   List<InventoryLevel> data;
-  InventoryTableSource({required this.data});
+
+  BuildContext context;
+  WarehousePlacePage widget;
+  InventoryTableSource(
+      {required this.data, required this.context, required this.widget});
   @override
   DataRow? getRow(int index) {
     final inventory = data[index];
     return DataRow.byIndex(index: index, cells: [
       DataCell(Text(inventory.quantity)),
       DataCell(Text(inventory.productsName)),
-      DataCell(Text(inventory.warehousePlacesName))
+      DataCell(Text(inventory.warehousePlacesName)),
+      DataCell(IconButton(
+          onPressed: () {
+            getProductById(inventory.productsId).then((product) {
+              widget.store.dispatch(SelectProductAction(product));
+              Navigator.pushNamed(
+                context,
+                ProductFormPage.url,
+              );
+            });
+          },
+          icon: Icon(Icons.arrow_right)))
     ]);
   }
 
@@ -205,8 +220,12 @@ class _WarehousePlacePageState extends State<WarehousePlacePage> {
                           DataColumn(label: Text('Quantity')),
                           DataColumn(label: Text('Product')),
                           DataColumn(label: Text('Warehouse Place')),
+                          DataColumn(label: Text('#')),
                         ],
-                        source: InventoryTableSource(data: snapshot.data!));
+                        source: InventoryTableSource(
+                            data: snapshot.data!,
+                            context: context,
+                            widget: widget));
                   } else {
                     return const Center(child: Text('No Products found'));
                   }
