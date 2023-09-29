@@ -61,7 +61,6 @@ class _ProductMainDataFormState extends State<ProductMainDataForm> {
                         setState(() {
                           product = productBackend;
                         });
-                        print(product);
                       });
                     },
                     child: Container(

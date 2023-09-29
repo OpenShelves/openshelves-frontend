@@ -133,8 +133,6 @@ class _WarehousePlacePageState extends State<WarehousePlacePage> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.store.state.selectedWarehousePlace);
-
     if (widget.store.state.selectedWarehousePlace != null) {
       wp = widget.store.state.selectedWarehousePlace;
     } else {
@@ -190,7 +188,7 @@ class _WarehousePlacePageState extends State<WarehousePlacePage> {
                                               snapshot.data![index].quantity,
                                               style: (Theme.of(context)
                                                   .textTheme
-                                                  .headline5)),
+                                                  .headlineMedium)),
                                           trailing:
                                               const Icon(Icons.arrow_right),
                                         ),
@@ -212,14 +210,8 @@ class _WarehousePlacePageState extends State<WarehousePlacePage> {
             floatingActionButton: FloatingActionButton(
                 child: const Icon(Icons.add),
                 onPressed: () async {
-                  print(wp!.id);
                   await widget.store.dispatch(SelectIncomingStateModelAction(
                       IncomingStateModel(warehousePlaceId: wp?.id ?? 0)));
-                  print(widget.store.state.incomingStateModel);
-                  // Navigator.pushNamed(
-                  //   context,
-                  //   IncomePage.url,
-                  // );
                 }),
             body: Row(children: [
               const OpenShelvesDrawer(),

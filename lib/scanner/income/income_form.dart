@@ -36,19 +36,6 @@ class _IncomePageState extends State<IncomePage> {
   FocusNode productFocus = FocusNode();
   checkEANLocal(String code) {
     return null;
-    int index = incoming.indexWhere(
-      (element) => code == element.product.ean,
-    );
-    print(index);
-    if (index > -1) {
-      var prod = incoming.firstWhere(
-        (element) => code == element.product.ean,
-      );
-      print(prod);
-      return prod;
-    } else {
-      return null;
-    }
   }
 
   addProduct(Product product) {
@@ -145,7 +132,6 @@ class _IncomePageState extends State<IncomePage> {
             IconButton(
                 onPressed: () {
                   incoming.forEach((item) {
-                    print(item);
                     Inventory inventory = Inventory(
                         quantity: item.quantity,
                         warehousePlacesId: warehousePlace!.id!,

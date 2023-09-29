@@ -49,6 +49,16 @@ class _ProductPageState extends State<ProductPage> {
     });
   }
 
+  void onProductFound(Product product) {
+    widget.store.dispatch(
+      SelectProductAction(product),
+    );
+    Navigator.pushNamed(
+      context,
+      ProductFormPage.url,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     getProduct.then((value) => total);
@@ -66,8 +76,7 @@ class _ProductPageState extends State<ProductPage> {
                 }),
             body: Column(children: [
               ProductSearchFieled(
-                onSearch: onSearch,
-              ),
+                  onSearch: onSearch, onProductFound: onProductFound),
               Expanded(child: getList())
             ])),
         tabletBody: Scaffold(
@@ -89,6 +98,7 @@ class _ProductPageState extends State<ProductPage> {
                 child: ListView(children: [
                   ProductSearchFieled(
                     onSearch: onSearch,
+                    onProductFound: onProductFound,
                   ),
                   FutureBuilder<List<Product>>(
                     future: getProduct,

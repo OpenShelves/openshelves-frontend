@@ -16,7 +16,7 @@ class _MobileScaffoldState extends State<MobileScaffold> {
         drawer: const OpenShelvesDrawer(),
         appBar: openShelvesAppBar,
         body: Row(
-          children: [],
+          children: const [],
         ));
   }
 }
