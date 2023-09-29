@@ -6,7 +6,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:openshelves/home.dart';
 import 'package:openshelves/login/login.dart';
 import 'package:openshelves/products/models/product_model.dart';
-import 'package:openshelves/products/product_form.dart';
+import 'package:openshelves/products/form/product_form_page.dart';
 import 'package:openshelves/products/list/product_list_page.dart';
 import 'package:openshelves/scanner/income/income_form.dart';
 import 'package:openshelves/warehouse/warehouse_form.dart';
