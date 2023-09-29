@@ -23,7 +23,7 @@ Future<WarehousePlace> storeWarehousePlace(
   }
 }
 
-Future<List<WarehousePlace>> getWarehousePlaces() async {
+Future<List<WarehousePlace>> getWarehousePlaces(    ) async {
   var token = await getToken();
   final response = await http.get(Uri.parse(URL + '/warehouseplaces'),
       headers: <String, String>{

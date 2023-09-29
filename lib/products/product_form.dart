@@ -8,8 +8,48 @@ import 'package:openshelves/products/product_warehouse_place_list.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';
 import 'package:openshelves/warehouseplace/inventory_level_model.dart';
 import 'package:openshelves/warehouseplace/inventory_service.dart';
+import 'package:openshelves/warehouseplace/invetory_table.dart';
+import 'package:openshelves/warehouseplace/warehouseplace_form.dart';
 import 'package:openshelves/widgets/drawer.dart';
 import 'package:redux/redux.dart';
+
+class InventoryTableSource extends DataTableSource {
+  List<InventoryLevel> data;
+
+  BuildContext context;
+  ProductFormPage widget;
+  InventoryTableSource(
+      {required this.data, required this.context, required this.widget});
+  @override
+  DataRow? getRow(int index) {
+    final inventory = data[index];
+    return DataRow.byIndex(index: index, cells: [
+      DataCell(Text(inventory.quantity)),
+      DataCell(Text(inventory.productsName)),
+      DataCell(Text(inventory.warehousePlacesName)),
+      DataCell(IconButton(
+          onPressed: () {
+            getProductById(inventory.productsId).then((product) {
+              widget.store.dispatch(SelectProductAction(product));
+              Navigator.pushNamed(
+                context,
+                ProductFormPage.url,
+              );
+            });
+          },
+          icon: Icon(Icons.arrow_right)))
+    ]);
+  }
+
+  @override
+  bool get isRowCountApproximate => false;
+
+  @override
+  int get rowCount => data.length;
+
+  @override
+  int get selectedRowCount => 0;
+}
 
 getProductTechDataForm(Product product) {
   return Container(
@@ -77,6 +117,12 @@ class _ProductFormPageState extends State<ProductFormPage> {
     } else {
       product = Product(name: '', asin: '', ean: '');
     }
+  }
+
+  @override
+  dispose() {
+    super.dispose();
+    widget.store.dispatch(SelectProductAction(null));
   }
 
   getProductMainDataForm(Product product) {
@@ -210,8 +256,46 @@ class _ProductFormPageState extends State<ProductFormPage> {
               child: const Icon(Icons.add), onPressed: () {}),
           body: Row(children: [
             const OpenShelvesDrawer(),
-            Expanded(flex: 1, child: getProductMainDataForm(product)),
-            Expanded(flex: 1, child: getProductTechDataForm(product))
+            Expanded(
+                child: ListView(
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(flex: 1, child: getProductMainDataForm(product)),
+                    Expanded(flex: 1, child: getProductTechDataForm(product)),
+                  ],
+                ),
+                Expanded(
+                    child: FutureBuilder<List<InventoryLevel>>(
+                        future: futureInventoryLevel,
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            if (snapshot.hasData) {
+                              return InventoryTable(
+                                  columns: const [
+                                    DataColumn(label: Text('Quantity')),
+                                    DataColumn(label: Text('Product')),
+                                    DataColumn(label: Text('Warehouse Place')),
+                                    DataColumn(label: Text('#')),
+                                  ],
+                                  source: InventoryTableSource(
+                                      data: snapshot.data!,
+                                      context: context,
+                                      widget: widget));
+                            } else {
+                              return const Center(
+                                  child: Text('No Inventory found'));
+                            }
+                          } else {
+                            return const Center(
+                                child: Text('Waiting for data1'));
+                          }
+                          // return Center(child: CircularProgressIndicator());
+                        }))
+              ],
+            ))
           ])),
     );
   }

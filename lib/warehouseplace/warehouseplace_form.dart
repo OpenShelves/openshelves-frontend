@@ -4,6 +4,7 @@ import 'package:openshelves/main.dart';
 import 'package:openshelves/products/product_form.dart';
 import 'package:openshelves/products/product_service.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';
+import 'package:openshelves/scanner/income/income_form.dart';
 import 'package:openshelves/warehouse/warehouse_model.dart';
 import 'package:openshelves/warehouse/warehouse_service.dart';
 import 'package:openshelves/warehouseplace/inventory_level_model.dart';
@@ -29,14 +30,29 @@ class WarehousePlacePage extends StatefulWidget {
 
 class InventoryTableSource extends DataTableSource {
   List<InventoryLevel> data;
-  InventoryTableSource({required this.data});
+
+  BuildContext context;
+  WarehousePlacePage widget;
+  InventoryTableSource(
+      {required this.data, required this.context, required this.widget});
   @override
   DataRow? getRow(int index) {
     final inventory = data[index];
     return DataRow.byIndex(index: index, cells: [
       DataCell(Text(inventory.quantity)),
       DataCell(Text(inventory.productsName)),
-      DataCell(Text(inventory.warehousePlacesName))
+      DataCell(Text(inventory.warehousePlacesName)),
+      DataCell(IconButton(
+          onPressed: () {
+            getProductById(inventory.productsId).then((product) {
+              widget.store.dispatch(SelectProductAction(product));
+              Navigator.pushNamed(
+                context,
+                ProductFormPage.url,
+              );
+            });
+          },
+          icon: Icon(Icons.arrow_right)))
     ]);
   }
 
@@ -85,7 +101,7 @@ class _WarehousePlacePageState extends State<WarehousePlacePage> {
                               value: editMode,
                               onChanged: (val) {
                                 setState(() {
-                                  editMode = val;
+                                  // editMode = val;
                                 });
                               },
                             )
@@ -117,13 +133,17 @@ class _WarehousePlacePageState extends State<WarehousePlacePage> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments;
-    if (args == null) {
-      Navigator.pushNamed(context, WarehousePlaceListPage.url);
-    }
-    final wpa = args as WarehousePlacePageArguments;
+    print(widget.store.state.selectedWarehousePlace);
 
-    wp = args.warehousePlace;
+    if (widget.store.state.selectedWarehousePlace != null) {
+      wp = widget.store.state.selectedWarehousePlace;
+    } else {
+      Navigator.pushNamed(
+        context,
+        WarehousePlaceListPage.url,
+      );
+    }
+
     futureInventoryLevel = getInventoryLevelsByInventoryId(wp!.id!);
 
     return ResponsiveLayout(
@@ -189,33 +209,49 @@ class _WarehousePlacePageState extends State<WarehousePlacePage> {
             drawer: const OpenShelvesDrawer(),
             body: getExpanded()),
         desktopBody: Scaffold(
+            floatingActionButton: FloatingActionButton(
+                child: const Icon(Icons.add),
+                onPressed: () async {
+                  print(wp!.id);
+                  await widget.store.dispatch(SelectIncomingStateModelAction(
+                      IncomingStateModel(warehousePlaceId: wp?.id ?? 0)));
+                  print(widget.store.state.incomingStateModel);
+                  // Navigator.pushNamed(
+                  //   context,
+                  //   IncomePage.url,
+                  // );
+                }),
             body: Row(children: [
-          const OpenShelvesDrawer(),
-          Expanded(
-              child: ListView(children: [
-            getExpanded(),
-            FutureBuilder<List<InventoryLevel>>(
-              future: futureInventoryLevel,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  if (snapshot.hasData) {
-                    return PaginatedDataTable(
-                        rowsPerPage: snapshot.data!.length,
-                        columns: const [
-                          DataColumn(label: Text('Quantity')),
-                          DataColumn(label: Text('Product')),
-                          DataColumn(label: Text('Warehouse Place')),
-                        ],
-                        source: InventoryTableSource(data: snapshot.data!));
-                  } else {
-                    return const Center(child: Text('No Products found'));
-                  }
-                } else {
-                  return const Center(child: CircularProgressIndicator());
-                }
-              },
-            )
-          ]))
-        ])));
+              const OpenShelvesDrawer(),
+              Expanded(
+                  child: ListView(children: [
+                getExpanded(),
+                FutureBuilder<List<InventoryLevel>>(
+                  future: futureInventoryLevel,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      if (snapshot.hasData) {
+                        return PaginatedDataTable(
+                            rowsPerPage: snapshot.data!.length,
+                            columns: const [
+                              DataColumn(label: Text('Quantity')),
+                              DataColumn(label: Text('Product')),
+                              DataColumn(label: Text('Warehouse Place')),
+                              DataColumn(label: Text('#')),
+                            ],
+                            source: InventoryTableSource(
+                                data: snapshot.data!,
+                                context: context,
+                                widget: widget));
+                      } else {
+                        return const Center(child: Text('No Products found'));
+                      }
+                    } else {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                  },
+                )
+              ]))
+            ])));
   }
 }
