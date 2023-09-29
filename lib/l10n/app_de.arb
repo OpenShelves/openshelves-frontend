@@ -25,5 +25,8 @@
     "address_housenumber": "Hausnummer",
     "address_zip": "PLZ",
     "address_city": "Ort",
-    "address_country": "Land"
+    "address_country": "Land",
+    "waiting_for_data": "Lade Daten...",
+    "no_data_found": "Keine Daten gefunden",
+    "product_technical_data": "Technische Daten"
 }

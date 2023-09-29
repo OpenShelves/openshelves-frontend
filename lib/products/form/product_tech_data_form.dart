@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:openshelves/products/models/product_model.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProductTechDataForm extends StatefulWidget {
   final Product product;
@@ -19,24 +21,28 @@ class _ProductTechDataFormState extends State<ProductTechDataForm> {
       decoration: BoxDecoration(border: Border.all()),
       child: Column(
         children: [
-          const Text('Product Tech Data'),
+          Text(AppLocalizations.of(context)!.product_technical_data),
           TextField(
-            decoration: const InputDecoration(label: Text('Width in CM')),
+            decoration: InputDecoration(
+                label: Text(AppLocalizations.of(context)!.width)),
             controller:
                 TextEditingController(text: widget.product.width.toString()),
           ),
           TextField(
-            decoration: const InputDecoration(label: Text('Height in CM')),
+            decoration: InputDecoration(
+                label: Text(AppLocalizations.of(context)!.height)),
             controller:
                 TextEditingController(text: widget.product.height.toString()),
           ),
           TextField(
-            decoration: const InputDecoration(label: Text('Depth in CM')),
+            decoration: InputDecoration(
+                label: Text(AppLocalizations.of(context)!.depth)),
             controller:
                 TextEditingController(text: widget.product.depth.toString()),
           ),
           TextField(
-            decoration: const InputDecoration(label: Text('Weight in Gram')),
+            decoration: InputDecoration(
+                label: Text(AppLocalizations.of(context)!.weight)),
             controller:
                 TextEditingController(text: widget.product.weight.toString()),
           ),

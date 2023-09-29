@@ -4,7 +4,6 @@ import 'package:openshelves/main.dart';
 import 'package:openshelves/products/form/product_tech_data_form.dart';
 import 'package:openshelves/products/models/product_model.dart';
 import 'package:openshelves/products/form/product_main_data_form.dart';
-import 'package:openshelves/products/services/product_service.dart';
 import 'package:openshelves/products/product_warehouse_place_list.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';
 import 'package:openshelves/warehouseplace/inventory_level_model.dart';
@@ -14,6 +13,7 @@ import 'package:openshelves/warehouseplace/warehouseplace_form.dart';
 import 'package:openshelves/warehouseplace/warehouseplaces_service.dart';
 import 'package:openshelves/widgets/drawer.dart';
 import 'package:redux/redux.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class InventoryTableSource extends DataTableSource {
   List<InventoryLevel> data;
@@ -166,13 +166,15 @@ class _ProductFormPageState extends State<ProductFormPage> {
                                   store: widget.store,
                                 ));
                           } else {
-                            return const Center(
-                                child: Text('No Inventory found'));
+                            return Center(
+                                child: Text(AppLocalizations.of(context)!
+                                    .no_data_found));
                           }
                         } else {
-                          return const Center(child: Text('Waiting for data1'));
+                          return Center(
+                              child: Text(AppLocalizations.of(context)!
+                                  .waiting_for_data));
                         }
-                        // return Center(child: CircularProgressIndicator());
                       })
                   : const Text('No data'),
             ],
@@ -215,14 +217,15 @@ class _ProductFormPageState extends State<ProductFormPage> {
                                       context: context,
                                       widget: widget));
                             } else {
-                              return const Center(
-                                  child: Text('No Inventory found'));
+                              return Center(
+                                  child: Text(AppLocalizations.of(context)!
+                                      .no_data_found));
                             }
                           } else {
-                            return const Center(
-                                child: Text('Waiting for data1'));
+                            return Center(
+                                child: Text(AppLocalizations.of(context)!
+                                    .waiting_for_data));
                           }
-                          // return Center(child: CircularProgressIndicator());
                         }))
               ],
             ))

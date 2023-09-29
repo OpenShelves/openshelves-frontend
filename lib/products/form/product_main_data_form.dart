@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:openshelves/products/models/product_model.dart';
 import 'package:openshelves/products/services/product_service.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProductMainDataForm extends StatefulWidget {
   final Product product;
@@ -39,8 +40,8 @@ class _ProductMainDataFormState extends State<ProductMainDataForm> {
                         TextEditingController(text: product.id.toString()),
                   ),
                   TextField(
-                    decoration:
-                        const InputDecoration(label: Text('Produktname')),
+                    decoration: InputDecoration(
+                        label: Text(AppLocalizations.of(context)!.productName)),
                     controller: TextEditingController(text: product.name),
                     onChanged: (value) => {product.name = value},
                   ),
