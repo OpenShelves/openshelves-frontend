@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:openshelves/constants.dart';
-import 'package:openshelves/products/product_model.dart';
-import 'package:openshelves/products/products_total_model.dart';
+import 'package:openshelves/products/models/product_model.dart';
+import 'package:openshelves/products/models/products_total_model.dart';
 
 Future<Product> storeProduct(Product product) async {
   var token = await getToken();

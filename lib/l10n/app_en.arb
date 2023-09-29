@@ -74,6 +74,38 @@
     "selectServerLabel": "Select Server",
     "@selectServerLabel": {
       "description": "Label for selecting a server"
+    },
+    "address_street": "Street",
+    "@address_street": {
+      "description": "Label street in address"
+    },
+    "address_name1": "Street",
+    "@address_name1": {
+      "description": "Label name1 in address"
+    },
+    "address_name2": "Name2",
+    "@address_name2": {
+      "description": "Label name2 in address"
+    },
+    "address_name3": "Name3",
+    "@address_name3": {
+      "description": "Label name3 in address"
+    },
+    "address_housenumber": "Housenumber",
+    "@address_housenumber": {
+      "description": "Label housenumber in address"
+    },
+    "address_zip": "Zip",
+    "@address_zip": {
+      "description": "Label zipcode in address"
+    },
+    "address_city": "City",
+    "@address_city": {
+      "description": "Label city in address"
+    },
+    "address_country": "Country",
+    "@address_country": {
+      "description": "Label country in address"
     }
 
   }

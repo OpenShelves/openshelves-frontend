@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:openshelves/address_model.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddressForm extends StatefulWidget {
   final Address address;
@@ -51,7 +52,8 @@ class _AddressFormState extends State<AddressForm> {
             children: [
               const Text('Address'),
               TextFormField(
-                decoration: const InputDecoration(label: Text('Name1')),
+                decoration: InputDecoration(
+                    label: Text(AppLocalizations.of(context)!.address_name1)),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return "Must be filled";
@@ -65,49 +67,59 @@ class _AddressFormState extends State<AddressForm> {
                 },
               ),
               TextFormField(
-                  decoration: const InputDecoration(label: Text('Name2')),
+                  decoration: InputDecoration(
+                      label: Text(AppLocalizations.of(context)!.address_name2)),
                   controller: addressName2,
                   onSaved: (value) {
                     widget.address.name2 = value!;
                     widget.onSubmit(widget.address);
                   }),
               TextFormField(
-                  decoration: const InputDecoration(label: Text('Name3')),
+                  decoration: InputDecoration(
+                      label: Text(AppLocalizations.of(context)!.address_name3)),
                   controller: addressName3,
                   onSaved: (value) {
                     widget.address.name3 = value!;
                     widget.onSubmit(widget.address);
                   }),
               TextFormField(
-                  decoration: const InputDecoration(label: Text('Street')),
+                  decoration: InputDecoration(
+                      label:
+                          Text(AppLocalizations.of(context)!.address_street)),
                   controller: addressStreet,
                   onSaved: (value) {
                     widget.address.street = value!;
                     widget.onSubmit(widget.address);
                   }),
               TextFormField(
-                  decoration: const InputDecoration(label: Text('Housenumber')),
+                  decoration: InputDecoration(
+                      label: Text(
+                          AppLocalizations.of(context)!.address_housenumber)),
                   controller: addressHousenumber,
                   onSaved: (value) {
                     widget.address.housenumber = value!;
                     widget.onSubmit(widget.address);
                   }),
               TextFormField(
-                  decoration: const InputDecoration(label: Text('Zip')),
+                  decoration: InputDecoration(
+                      label: Text(AppLocalizations.of(context)!.address_zip)),
                   controller: addressZip,
                   onSaved: (value) {
                     widget.address.zip = value!;
                     widget.onSubmit(widget.address);
                   }),
               TextFormField(
-                  decoration: const InputDecoration(label: Text('City')),
+                  decoration: InputDecoration(
+                      label: Text(AppLocalizations.of(context)!.address_city)),
                   controller: addressCity,
                   onSaved: (value) {
                     widget.address.city = value!;
                     widget.onSubmit(widget.address);
                   }),
               TextFormField(
-                  decoration: const InputDecoration(label: Text('Country')),
+                  decoration: InputDecoration(
+                      label:
+                          Text(AppLocalizations.of(context)!.address_country)),
                   controller: addressCountry,
                   onSaved: (value) {
                     widget.address.country = value!;

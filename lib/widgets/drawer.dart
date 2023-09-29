@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:openshelves/home.dart';
 import 'package:openshelves/login/login.dart';
-import 'package:openshelves/products/product_list_page.dart';
+import 'package:openshelves/products/list/product_list_page.dart';
 import 'package:openshelves/scanner/income/income_form.dart';
 import 'package:openshelves/warehouse/warehouse_list_page.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_list_page.dart';

@@ -17,5 +17,13 @@
     "pleaseLogin": "Bitte Einloggen",
     "addServerHeadline": "Neuen Server hinzufügen",
     "serverLabel": "Server eintragen",
-    "selectServerLabel": "Server auswählen"
+    "selectServerLabel": "Server auswählen",
+    "address_street": "Straße",
+    "address_name1": "Name1",
+    "address_name2": "Name2",
+    "address_name3": "Name3",
+    "address_housenumber": "Hausnummer",
+    "address_zip": "PLZ",
+    "address_city": "Ort",
+    "address_country": "Land"
 }

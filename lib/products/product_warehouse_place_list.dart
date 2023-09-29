@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:openshelves/main.dart';
 import 'package:openshelves/warehouseplace/inventory_level_model.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_form.dart';
 import 'package:openshelves/warehouseplace/warehouseplaces_service.dart';
+import 'package:redux/redux.dart';
 
 class WarehousePlaceList extends StatelessWidget {
+  final Store<AppState> store;
   final List<InventoryLevel> inventoryLevels;
-  const WarehousePlaceList({Key? key, required this.inventoryLevels})
+  const WarehousePlaceList(
+      {Key? key, required this.inventoryLevels, required this.store})
       : super(key: key);
 
   @override
@@ -34,8 +38,7 @@ class WarehousePlaceList extends StatelessWidget {
                     padding: const EdgeInsets.all(3),
                     child: Column(children: [
                       Text(inventoryLevels[index].quantity,
-                          style: (Theme.of(context).textTheme.headline5)),
-                      const Text('pcs')
+                          style: (Theme.of(context).textTheme.headlineMedium)),
                     ])),
                 trailing: const Icon(Icons.arrow_right),
               ));

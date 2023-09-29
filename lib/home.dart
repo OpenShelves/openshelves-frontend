@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:openshelves/constants.dart';
 import 'package:openshelves/main.dart';
-import 'package:openshelves/products/product_service.dart';
-import 'package:openshelves/products/products_total_model.dart';
+import 'package:openshelves/products/models/products_total_model.dart';
+import 'package:openshelves/products/services/product_service.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';
 import 'package:openshelves/widgets/drawer.dart';
 import 'package:openshelves/widgets/statcard.dart';

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:openshelves/constants.dart';
 import 'package:openshelves/main.dart';
-import 'package:openshelves/products/prodform.dart';
-import 'package:openshelves/products/product_model.dart';
-import 'package:openshelves/products/product_service.dart';
+import 'package:openshelves/products/form/product_tech_data_form.dart';
+import 'package:openshelves/products/models/product_model.dart';
+import 'package:openshelves/products/form/product_main_data_form.dart';
+import 'package:openshelves/products/services/product_service.dart';
 import 'package:openshelves/products/product_warehouse_place_list.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';
 import 'package:openshelves/warehouseplace/inventory_level_model.dart';
 import 'package:openshelves/warehouseplace/inventory_service.dart';
 import 'package:openshelves/warehouseplace/invetory_table.dart';
-import 'package:openshelves/warehouseplace/warehouseplace_form.dart';
 import 'package:openshelves/widgets/drawer.dart';
 import 'package:redux/redux.dart';
 
@@ -49,35 +49,6 @@ class InventoryTableSource extends DataTableSource {
 
   @override
   int get selectedRowCount => 0;
-}
-
-getProductTechDataForm(Product product) {
-  return Container(
-    margin: const EdgeInsets.all(20.0),
-    padding: const EdgeInsets.all(20.0),
-    decoration: BoxDecoration(border: Border.all()),
-    child: Column(
-      children: [
-        const Text('Product Tech Data'),
-        TextField(
-          decoration: const InputDecoration(label: Text('Width in CM')),
-          controller: TextEditingController(text: product.width.toString()),
-        ),
-        TextField(
-          decoration: const InputDecoration(label: Text('Height in CM')),
-          controller: TextEditingController(text: product.height.toString()),
-        ),
-        TextField(
-          decoration: const InputDecoration(label: Text('Depth in CM')),
-          controller: TextEditingController(text: product.depth.toString()),
-        ),
-        TextField(
-          decoration: const InputDecoration(label: Text('Weight in Gram')),
-          controller: TextEditingController(text: product.weight.toString()),
-        ),
-      ],
-    ),
-  );
 }
 
 getRow(String label, String value) {
@@ -125,52 +96,6 @@ class _ProductFormPageState extends State<ProductFormPage> {
     widget.store.dispatch(SelectProductAction(null));
   }
 
-  getProductMainDataForm(Product product) {
-    return Container(
-      margin: const EdgeInsets.all(20.0),
-      padding: const EdgeInsets.all(20.0),
-      decoration: BoxDecoration(border: Border.all()),
-      child: Form(
-          child: Column(
-        children: [
-          const Text('Main Product Data'),
-          TextField(
-            decoration: const InputDecoration(label: Text('ID')),
-            enabled: false,
-            controller: TextEditingController(text: product.id.toString()),
-          ),
-          TextField(
-            decoration: const InputDecoration(label: Text('Produktname')),
-            controller: TextEditingController(text: product.name),
-            onChanged: (value) => {product.name = value},
-          ),
-          TextField(
-            decoration: const InputDecoration(label: Text('ASIN')),
-            controller: TextEditingController(text: product.asin),
-            onChanged: (value) => {product.asin = value},
-          ),
-          TextField(
-            decoration: const InputDecoration(label: Text('EAN')),
-            controller: TextEditingController(text: product.ean),
-            onChanged: (value) => {product.ean = value},
-          ),
-          ElevatedButton(
-            onPressed: () {
-              storeProduct(product).then((productBackend) {
-                setState(() {
-                  product = productBackend;
-                });
-              });
-            },
-            child: Container(
-                margin: const EdgeInsets.all(20.0),
-                child: const Icon(Icons.save)),
-          )
-        ],
-      )),
-    );
-  }
-
   getProductView(Product product, context) {
     return Card(
         margin: const EdgeInsets.all(8),
@@ -205,8 +130,6 @@ class _ProductFormPageState extends State<ProductFormPage> {
 
   @override
   Widget build(BuildContext context) {
-    print("rebuild");
-
     return ResponsiveLayout(
       mobileBody: Scaffold(
           drawer: const OpenShelvesDrawer(),
@@ -223,7 +146,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
               editMode
                   ? Column(children: [
                       ProductMainDataForm(product: product),
-                      getProductTechDataForm(product)
+                      ProductTechDataForm(product: product)
                     ])
                   : getProductView(product, context),
               product.id != null
@@ -236,7 +159,9 @@ class _ProductFormPageState extends State<ProductFormPage> {
                             return Card(
                                 margin: const EdgeInsets.all(8.0),
                                 child: WarehousePlaceList(
-                                    inventoryLevels: snapshot.data!));
+                                  inventoryLevels: snapshot.data!,
+                                  store: widget.store,
+                                ));
                           } else {
                             return const Center(
                                 child: Text('No Inventory found'));
@@ -262,8 +187,10 @@ class _ProductFormPageState extends State<ProductFormPage> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(flex: 1, child: getProductMainDataForm(product)),
-                    Expanded(flex: 1, child: getProductTechDataForm(product)),
+                    Expanded(
+                        flex: 1, child: ProductMainDataForm(product: product)),
+                    Expanded(
+                        flex: 1, child: ProductTechDataForm(product: product)),
                   ],
                 ),
                 Expanded(
