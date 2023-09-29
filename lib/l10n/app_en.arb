@@ -106,6 +106,18 @@
     "address_country": "Country",
     "@address_country": {
       "description": "Label country in address"
+    },
+    "waiting_for_data": "Loading data...",
+    "@waiting_for_data": {
+      "description": "Waiting for data info"
+    },
+    "no_data_found": "No Data Found",
+    "@no_data_found": {
+      "description": "No Data Responded"
+    },
+    "product_technical_data": "Technical Data",
+    "@product_technical_data": {
+      "description": "Label for Technical Product Data"
     }
 
   }
