@@ -50,6 +50,8 @@ class _WarehousePlaceListPageState extends State<WarehousePlaceListPage> {
                       WarehousePlace warehousePlace = snapshot.data![index];
                       return ListTile(
                         onTap: () {
+                          widget.store.dispatch(
+                              SelectWarehousePlaceAction(warehousePlace));
                           Navigator.pushNamed(context, WarehousePlacePage.url,
                               arguments:
                                   WarehousePlacePageArguments(warehousePlace));

@@ -159,7 +159,9 @@ class _ProductFormPageState extends State<ProductFormPage> {
                             return Card(
                                 margin: const EdgeInsets.all(8.0),
                                 child: WarehousePlaceList(
-                                    inventoryLevels: snapshot.data!));
+                                  inventoryLevels: snapshot.data!,
+                                  store: widget.store,
+                                ));
                           } else {
                             return const Center(
                                 child: Text('No Inventory found'));
