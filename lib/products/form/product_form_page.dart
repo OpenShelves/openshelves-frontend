@@ -10,6 +10,8 @@ import 'package:openshelves/responsive/responsive_layout.dart';
 import 'package:openshelves/warehouseplace/inventory_level_model.dart';
 import 'package:openshelves/warehouseplace/inventory_service.dart';
 import 'package:openshelves/warehouseplace/invetory_table.dart';
+import 'package:openshelves/warehouseplace/warehouseplace_form.dart';
+import 'package:openshelves/warehouseplace/warehouseplaces_service.dart';
 import 'package:openshelves/widgets/drawer.dart';
 import 'package:redux/redux.dart';
 
@@ -29,11 +31,12 @@ class InventoryTableSource extends DataTableSource {
       DataCell(Text(inventory.warehousePlacesName)),
       DataCell(IconButton(
           onPressed: () {
-            getProductById(inventory.productsId).then((product) {
-              widget.store.dispatch(SelectProductAction(product));
+            getWarehousePlace(inventory.warehousePlacesId)
+                .then((warehousePlace) {
+              widget.store.dispatch(SelectWarehousePlaceAction(warehousePlace));
               Navigator.pushNamed(
                 context,
-                ProductFormPage.url,
+                WarehousePlacePage.url,
               );
             });
           },
