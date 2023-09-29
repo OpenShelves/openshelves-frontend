@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:openshelves/products/product_model.dart';
+import 'package:openshelves/products/models/product_model.dart';
 import 'package:openshelves/products/product_service.dart';
 
 class ProductMainDataForm extends StatefulWidget {

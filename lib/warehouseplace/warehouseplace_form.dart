@@ -52,7 +52,7 @@ class InventoryTableSource extends DataTableSource {
               );
             });
           },
-          icon: Icon(Icons.arrow_right)))
+          icon: const Icon(Icons.arrow_right)))
     ]);
   }
 
