@@ -24,6 +24,11 @@ class IncomingModel {
   IncomingModel({required this.product, required this.quantity});
 }
 
+class IncomingStateModel {
+  int warehousePlaceId;
+  IncomingStateModel({required this.warehousePlaceId});
+}
+
 class _IncomePageState extends State<IncomePage> {
   WarehousePlace? warehousePlace;
   String warehousePlaceName = '';
@@ -64,6 +69,14 @@ class _IncomePageState extends State<IncomePage> {
   }
 
   List<IncomingModel> incoming = [];
+
+  @override
+  void initState() {
+    super.initState();
+    print('initState income');
+    print(widget.store.state.incomingStateModel);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

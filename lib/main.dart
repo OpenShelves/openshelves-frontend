@@ -14,6 +14,7 @@ import 'package:openshelves/warehouse/warehouse_list_page.dart';
 import 'package:openshelves/warehouse/warehouse_model.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_form.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_list_page.dart';
+import 'package:openshelves/warehouseplace/warehouseplace_model.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -32,12 +33,19 @@ class AppState {
   final List<IncomingModel> _incoming = [];
   Product? _selectedProduct;
   Warehouse? _selectedWarehouse;
-  AppState(this._loginToken, this._selectedProduct, this._selectedWarehouse);
+  WarehousePlace? _selectedWarehousePlace;
+
+  IncomingStateModel? _incomingStateModel;
+  AppState(this._loginToken, this._selectedProduct, this._selectedWarehouse,
+      this._selectedWarehousePlace);
+
   AppState.initialState() : _loginToken = "";
   String get loginToken => _loginToken;
   Product? get selectedProduct => _selectedProduct;
   Warehouse? get selectedWarehouse => _selectedWarehouse;
+  WarehousePlace? get selectedWarehousePlace => _selectedWarehousePlace;
   List<IncomingModel> get incoming => _incoming;
+  IncomingStateModel? get incomingStateModel => _incomingStateModel;
 }
 
 class LogInAction {
@@ -47,7 +55,7 @@ class LogInAction {
 }
 
 class SelectProductAction {
-  final Product _product;
+  final Product? _product;
 
   SelectProductAction(this._product);
 }
@@ -58,6 +66,18 @@ class SelectWarehouseAction {
   SelectWarehouseAction(this._warehouse);
 }
 
+class SelectWarehousePlaceAction {
+  final WarehousePlace _warehousePlace;
+
+  SelectWarehousePlaceAction(this._warehousePlace);
+}
+
+class SelectIncomingStateModelAction {
+  final IncomingStateModel _incomingStateModel;
+
+  SelectIncomingStateModelAction(this._incomingStateModel);
+}
+
 AppState reducer(AppState prev, dynamic action) {
   print('reducer called with action: $action');
   if (action is LogInAction) {
@@ -66,25 +86,43 @@ AppState reducer(AppState prev, dynamic action) {
     return selectProductReducer(prev, action);
   } else if (action is SelectWarehouseAction) {
     return selectWarehouseReducer(prev, action);
+  } else if (action is SelectIncomingStateModelAction) {
+    return selectIncomingStateModelReducer(prev, action);
+  } else if (action is SelectWarehousePlaceAction) {
+    return selectWarehousePlaceReducer(prev, action);
   } else {
     return prev;
   }
 }
 
+AppState selectIncomingStateModelReducer(AppState prev, dynamic action) {
+  print('selectIncomingStateModelReducer called with action: $action');
+  return AppState(prev._loginToken, prev.selectedProduct,
+      prev._selectedWarehouse, prev._selectedWarehousePlace);
+}
+
+AppState selectWarehousePlaceReducer(AppState prev, dynamic action) {
+  print('selectWarehousePlaceReducer called with action: $action');
+  return AppState(prev._loginToken, prev.selectedProduct,
+      prev._selectedWarehouse, action._warehousePlace);
+}
+
 AppState selectWarehouseReducer(AppState prev, dynamic action) {
   print('selectWarehouseReducer called with action: $action');
-  return AppState(prev._loginToken, prev.selectedProduct, action._warehouse);
+  return AppState(prev._loginToken, prev.selectedProduct, action._warehouse,
+      prev._selectedWarehousePlace);
 }
 
 AppState loginReducer(AppState prev, dynamic action) {
   print('loginreducer called with action: $action');
-  return AppState(
-      action._loginToken, prev.selectedProduct, prev._selectedWarehouse);
+  return AppState(action._loginToken, prev.selectedProduct,
+      prev._selectedWarehouse, prev._selectedWarehousePlace);
 }
 
 AppState selectProductReducer(AppState prev, dynamic action) {
   print('loginreducer called with action: $action');
-  return AppState(prev.loginToken, action._product, prev._selectedWarehouse);
+  return AppState(prev.loginToken, action._product, prev._selectedWarehouse,
+      prev._selectedWarehousePlace);
 }
 
 void main() {
@@ -131,7 +169,8 @@ class MyApp extends StatelessWidget {
               store: store,
             ),
         WarehouseListPage.url: (context) => WarehouseListPage(store: store),
-        WarehousePlaceListPage.url: (context) => const WarehousePlaceListPage(),
+        WarehousePlaceListPage.url: (context) =>
+            WarehousePlaceListPage(store: store),
         WarehousePlacePage.url: (context) => WarehousePlacePage(store: store),
         IncomePage.url: (context) => IncomePage(
               store: store,

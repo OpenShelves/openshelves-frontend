@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:openshelves/address_model.dart';
 import 'package:openshelves/constants.dart';
+import 'package:openshelves/main.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';
 import 'package:openshelves/warehouse/warehouse_model.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_form.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_model.dart';
 import 'package:openshelves/warehouseplace/warehouseplaces_service.dart';
 import 'package:openshelves/widgets/drawer.dart';
+import 'package:redux/redux.dart';
 
 class WarehousePlaceListPage extends StatefulWidget {
-  const WarehousePlaceListPage({Key? key}) : super(key: key);
+  final Store<AppState> store;
+  const WarehousePlaceListPage({Key? key, required this.store})
+      : super(key: key);
   static const String url = 'warehouseplaces';
 
   @override
@@ -87,6 +91,9 @@ class _WarehousePlaceListPageState extends State<WarehousePlaceListPage> {
                                     snapshot.data![index];
                                 return ListTile(
                                   onTap: () {
+                                    widget.store.dispatch(
+                                        SelectWarehousePlaceAction(
+                                            warehousePlace));
                                     Navigator.pushNamed(
                                         context, WarehousePlacePage.url,
                                         arguments: WarehousePlacePageArguments(
