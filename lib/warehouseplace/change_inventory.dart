@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:openshelves/products/models/product_model.dart';
-import 'package:openshelves/products/product_service.dart';
+import 'package:openshelves/products/services/product_service.dart';
 import 'package:openshelves/warehouseplace/inventory_model.dart';
 import 'package:openshelves/warehouseplace/inventory_service.dart';
 import 'package:openshelves/warehouseplace/warehouseplaces_service.dart';

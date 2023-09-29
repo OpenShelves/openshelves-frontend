@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:openshelves/main.dart';
 import 'package:openshelves/products/models/product_model.dart';
-import 'package:openshelves/products/product_form.dart';
+import 'package:openshelves/products/form/product_form_page.dart';
 import 'package:openshelves/widgets/data_cell_currency.dart';
 import 'package:openshelves/widgets/data_cell_number.dart';
 import 'package:redux/redux.dart';
@@ -98,7 +98,7 @@ class _ProductTableState extends State<ProductTable> {
   Widget build(BuildContext context) {
     return PaginatedDataTable(
         key: productTablekey,
-        rowsPerPage: widget.data!.length < 20 ? widget.data!.length : 20,
+        rowsPerPage: widget.data.length < 20 ? widget.data.length : 20,
         showFirstLastButtons: true,
         availableRowsPerPage: const [10, 20, 50],
         columns: [
@@ -115,6 +115,6 @@ class _ProductTableState extends State<ProductTable> {
           DataColumn(label: Text(AppLocalizations.of(context)!.active)),
         ],
         source: ProductTableSource(
-            data: widget.data!, context: context, store: widget.store));
+            data: widget.data, context: context, store: widget.store));
   }
 }

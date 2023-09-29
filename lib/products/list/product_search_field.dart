@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:openshelves/products/product_service.dart';
+import 'package:openshelves/products/services/product_service.dart';
 
 class ProductSearchFieled extends StatefulWidget {
   final Function onSearch;
