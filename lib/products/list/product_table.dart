@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:openshelves/main.dart';
 import 'package:openshelves/products/models/product_model.dart';
 import 'package:openshelves/products/form/product_form_page.dart';
+import 'package:openshelves/state/appstate.dart';
 import 'package:openshelves/widgets/data_cell_currency.dart';
 import 'package:openshelves/widgets/data_cell_number.dart';
 import 'package:redux/redux.dart';

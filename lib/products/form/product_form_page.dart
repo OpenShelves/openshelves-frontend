@@ -6,6 +6,7 @@ import 'package:openshelves/products/models/product_model.dart';
 import 'package:openshelves/products/form/product_main_data_form.dart';
 import 'package:openshelves/products/product_warehouse_place_list.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';
+import 'package:openshelves/state/appstate.dart';
 import 'package:openshelves/warehouseplace/inventory_level_model.dart';
 import 'package:openshelves/warehouseplace/inventory_service.dart';
 import 'package:openshelves/warehouseplace/invetory_table.dart';

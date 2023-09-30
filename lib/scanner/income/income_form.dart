@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:openshelves/constants.dart';
-import 'package:openshelves/main.dart';
 import 'package:openshelves/products/models/product_model.dart';
 import 'package:openshelves/products/services/product_service.dart';
+import 'package:openshelves/scanner/income/income_popmenu.dart';
+import 'package:openshelves/state/appstate.dart';
 import 'package:openshelves/warehouseplace/inventory_model.dart';
 import 'package:openshelves/warehouseplace/inventory_service.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_model.dart';
 import 'package:openshelves/warehouseplace/warehouseplaces_service.dart';
 import 'package:openshelves/widgets/drawer.dart';
 import 'package:redux/redux.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class IncomePage extends StatefulWidget {
   final Store<AppState> store;
@@ -52,7 +54,6 @@ class _IncomePageState extends State<IncomePage> {
     });
     productController.clear();
     productFocus.requestFocus();
-    print('aftersetstaze');
   }
 
   List<IncomingModel> incoming = [];
@@ -60,7 +61,6 @@ class _IncomePageState extends State<IncomePage> {
   @override
   void initState() {
     super.initState();
-    print('initState income');
     print(widget.store.state.incomingStateModel);
   }
 
@@ -79,11 +79,8 @@ class _IncomePageState extends State<IncomePage> {
                     decoration:
                         const InputDecoration(label: Text('WarehousePlaceId')),
                     onChanged: (value) {
-                      //   setState(() {
-                      //     warehouse_id = int.parse(value);
                       getWarehousePlace(int.parse(value)).then(
                           (warehousePlace) {
-                        print(warehousePlace);
                         setState(() {
                           this.warehousePlace = warehousePlace;
                           warehousePlaceName = warehousePlace.name;
@@ -99,7 +96,7 @@ class _IncomePageState extends State<IncomePage> {
                     },
                   )
                 : Text(warehousePlaceName,
-                    style: (Theme.of(context).textTheme.headline3)),
+                    style: (Theme.of(context).textTheme.headlineMedium)),
             TextFormField(
               controller: productController,
               focusNode: productFocus,
@@ -112,7 +109,6 @@ class _IncomePageState extends State<IncomePage> {
                   } else {
                     getProductByCode(value).then((value) {
                       addProduct(value);
-                      // productFocus.requestFocus();
                     }, onError: (message) {
                       final snackBar = SnackBar(
                         content: Text(message.toString()),
@@ -121,7 +117,6 @@ class _IncomePageState extends State<IncomePage> {
                     });
                   }
                 } else {
-                  // productFocus.requestFocus();
                   productController.selection = TextSelection(
                       baseOffset: 0,
                       extentOffset: productController.text.length);
@@ -149,26 +144,8 @@ class _IncomePageState extends State<IncomePage> {
             return ListTile(
                 title: Text(incoming[index].product.name),
                 leading: Text(incoming[index].quantity.toString(),
-                    style: (Theme.of(context).textTheme.headline5)),
-                trailing: PopupMenuButton(
-                    itemBuilder: (context) {
-                      return [
-                        const PopupMenuItem(
-                          child: Text('REMOVE'),
-                          value: 'deleteItem',
-                        ),
-                        const PopupMenuItem(
-                            child: Text('change Quantity'),
-                            value: 'changeQuantity')
-                      ];
-                    },
-                    onSelected: (String value) => {
-                          print(value),
-                          if (value == 'deleteItem')
-                            {}
-                          else if (value == 'changeQuantity')
-                            {},
-                        }));
+                    style: (Theme.of(context).textTheme.headlineMedium)),
+                trailing: IncomePopmenu(product: incoming[index].product));
           },
         )
       ]),

@@ -118,6 +118,27 @@
     "product_technical_data": "Technical Data",
     "@product_technical_data": {
       "description": "Label for Technical Product Data"
+    },
+    "confirm_delete": "Delete item",
+    "@confirm_delete": {
+      "description": "Label for delete dialog"
+    },
+    "cancel_button": "Cancel",
+    "@cancel_button": {
+      "description": "Label for Cancel Button"
+    },
+    "ok_button": "Ok",
+    "@ok_button": {
+      "description": "Label for Ok Button"
+    },
+    "delete_entry": "Delete",
+    "@delete_entry": {
+      "description": "Label for delete an entry"
+    },
+    "changeQuantity": "Change Quantity",
+    "@changeQuantity": {
+      "description": "Label for changing quanity"
     }
 
+    
   }

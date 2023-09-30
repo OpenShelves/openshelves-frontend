@@ -10,6 +10,7 @@ import 'package:openshelves/products/models/product_model.dart';
 import 'package:openshelves/products/form/product_form_page.dart';
 import 'package:openshelves/products/services/product_service.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';
+import 'package:openshelves/state/appstate.dart';
 import 'package:openshelves/widgets/drawer.dart';
 import 'package:redux/redux.dart';
 

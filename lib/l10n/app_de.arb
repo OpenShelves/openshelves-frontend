@@ -28,5 +28,11 @@
     "address_country": "Land",
     "waiting_for_data": "Lade Daten...",
     "no_data_found": "Keine Daten gefunden",
-    "product_technical_data": "Technische Daten"
+    "product_technical_data": "Technische Daten",
+    "confirm_delete": "Löschen",
+    "cancel_button": "Abbrechen",
+    "ok_button": "Ok",
+    "delete_entry": "Löschen",
+    "changeQuantity": "Anzahl ändern"
+
 }
