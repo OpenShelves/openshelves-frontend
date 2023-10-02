@@ -69,6 +69,7 @@ class ProductTableSource extends DataTableSource {
             number: product.weight ?? 0,
             trailing: 'g',
           )),
+          DataCell(Text('${product.quantity}')),
           DataCell(Text('${product.active}')),
         ]);
   }
@@ -113,6 +114,7 @@ class _ProductTableState extends State<ProductTable> {
           DataColumn(label: Text(AppLocalizations.of(context)!.height)),
           DataColumn(label: Text(AppLocalizations.of(context)!.depth)),
           DataColumn(label: Text(AppLocalizations.of(context)!.weight)),
+          DataColumn(label: Text(AppLocalizations.of(context)!.quantity)),
           DataColumn(label: Text(AppLocalizations.of(context)!.active)),
         ],
         source: ProductTableSource(

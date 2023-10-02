@@ -23,9 +23,6 @@ class _ProductMainDataFormState extends State<ProductMainDataForm> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: const EdgeInsets.all(20.0),
-        padding: const EdgeInsets.all(20.0),
-        decoration: BoxDecoration(border: Border.all()),
         child: Card(
             margin: const EdgeInsets.all(8.0),
             child: Padding(

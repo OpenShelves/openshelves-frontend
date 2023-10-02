@@ -18,6 +18,10 @@ Product _$ProductFromJson(Map<String, dynamic> json) => Product(
       active: Product._boolFromInt(json['active'] as int),
       price: json['price'] as num?,
       sku: json['sku'] as String?,
+      updatedAt: json['updated_at'] == null
+          ? null
+          : DateTime.parse(json['updated_at'] as String),
+      quantity: json['quantity'] as String?,
     );
 
 Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
@@ -32,4 +36,6 @@ Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
       'active': Product._boolToInt(instance.active),
       'price': instance.price,
       'sku': instance.sku,
+      'updated_at': instance.updatedAt?.toIso8601String(),
+      'quantity': instance.quantity,
     };

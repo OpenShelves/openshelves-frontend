@@ -100,7 +100,8 @@ class _IncomePageState extends State<IncomePage> {
             TextFormField(
               controller: productController,
               focusNode: productFocus,
-              decoration: const InputDecoration(label: Text('Product')),
+              decoration: InputDecoration(
+                  label: Text(AppLocalizations.of(context)!.scanBarcode)),
               onFieldSubmitted: (value) {
                 if (value.length == 13) {
                   var localProd = checkEANLocal(value);
@@ -110,6 +111,10 @@ class _IncomePageState extends State<IncomePage> {
                     getProductByCode(value).then((value) {
                       addProduct(value);
                     }, onError: (message) {
+                      productFocus.requestFocus();
+                      productController.selection = TextSelection(
+                          baseOffset: 0,
+                          extentOffset: productController.text.length);
                       final snackBar = SnackBar(
                         content: Text(message.toString()),
                       );

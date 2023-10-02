@@ -33,6 +33,8 @@
     "cancel_button": "Abbrechen",
     "ok_button": "Ok",
     "delete_entry": "Löschen",
-    "changeQuantity": "Anzahl ändern"
+    "changeQuantity": "Anzahl ändern",
+    "scanBarcode": "Barcode scannen",
+    "quantity": "Anzahl"
 
 }

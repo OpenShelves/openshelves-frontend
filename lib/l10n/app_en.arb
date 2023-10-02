@@ -138,6 +138,14 @@
     "changeQuantity": "Change Quantity",
     "@changeQuantity": {
       "description": "Label for changing quanity"
+    },
+    "scanBarcode": "Scan a barcode",
+    "@scanBarcode": {
+      "description": "Label for scanning a barcode"
+    },
+    "quantity": "Quantity",
+    "@quantity": {
+      "description": "Label for quantity"
     }
 
     

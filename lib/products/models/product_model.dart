@@ -15,6 +15,9 @@ class Product {
   bool? active;
   num? price;
   String? sku;
+  @JsonKey(name: 'updated_at')
+  DateTime? updatedAt;
+  String? quantity;
 
   @override
   String toString() {
@@ -22,19 +25,20 @@ class Product {
   }
   // int warehouses_id;
 
-  Product({
-    required this.name,
-    this.id,
-    this.asin,
-    this.ean,
-    this.depth,
-    this.height,
-    this.width,
-    this.weight,
-    this.active,
-    this.price,
-    this.sku,
-  });
+  Product(
+      {required this.name,
+      this.id,
+      this.asin,
+      this.ean,
+      this.depth,
+      this.height,
+      this.width,
+      this.weight,
+      this.active,
+      this.price,
+      this.sku,
+      this.updatedAt,
+      this.quantity});
 
   static bool _boolFromInt(int active) => active == 1;
   static int _boolToInt(bool? active) => active != null && active ? 1 : 0;

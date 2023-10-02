@@ -17,7 +17,6 @@ class _ProductTechDataFormState extends State<ProductTechDataForm> {
     return Container(
       margin: const EdgeInsets.all(20.0),
       padding: const EdgeInsets.all(20.0),
-      decoration: BoxDecoration(border: Border.all()),
       child: Column(
         children: [
           Text(AppLocalizations.of(context)!.product_technical_data),

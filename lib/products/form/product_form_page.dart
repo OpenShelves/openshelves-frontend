@@ -13,6 +13,7 @@ import 'package:openshelves/warehouseplace/invetory_table.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_form.dart';
 import 'package:openshelves/warehouseplace/warehouseplaces_service.dart';
 import 'package:openshelves/widgets/drawer.dart';
+import 'package:openshelves/widgets/label_detail.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -188,48 +189,89 @@ class _ProductFormPageState extends State<ProductFormPage> {
           body: Row(children: [
             const OpenShelvesDrawer(),
             Expanded(
-                child: ListView(
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                        flex: 1, child: ProductMainDataForm(product: product)),
-                    Expanded(
-                        flex: 1, child: ProductTechDataForm(product: product)),
-                  ],
-                ),
-                Expanded(
-                    child: FutureBuilder<List<InventoryLevel>>(
-                        future: futureInventoryLevel,
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            if (snapshot.hasData) {
-                              return InventoryTable(
-                                  columns: const [
-                                    DataColumn(label: Text('Quantity')),
-                                    DataColumn(label: Text('Product')),
-                                    DataColumn(label: Text('Warehouse Place')),
-                                    DataColumn(label: Text('#')),
-                                  ],
-                                  source: InventoryTableSource(
-                                      data: snapshot.data!,
-                                      context: context,
-                                      widget: widget));
-                            } else {
-                              return Center(
-                                  child: Text(AppLocalizations.of(context)!
-                                      .no_data_found));
-                            }
-                          } else {
-                            return Center(
-                                child: Text(AppLocalizations.of(context)!
-                                    .waiting_for_data));
-                          }
-                        }))
-              ],
-            ))
+                child: Container(
+                    padding: EdgeInsets.all(30.0),
+                    child: ListView(
+                      children: [
+                        Text(product.name,
+                            overflow: TextOverflow.fade,
+                            softWrap: true,
+                            style: Theme.of(context).textTheme.headlineLarge),
+                        Divider(),
+                        Wrap(
+                          spacing: 50,
+                          children: [
+                            LabelDetail(
+                                label: 'OSID',
+                                value: product.id.toString().padLeft(6, '0')),
+                            LabelDetail(
+                                label: AppLocalizations.of(context)!.quantity,
+                                value: product.quantity.toString()),
+                            LabelDetail(
+                                label: AppLocalizations.of(context)!.quantity,
+                                value: product.updatedAt.toString()),
+                          ],
+                        ),
+                        Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Column(
+                                children: [
+                                  LabelDetail(
+                                      label: 'EAN',
+                                      value: product.ean.toString()),
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 600,
+                                height: 400,
+                                child: Image(
+                                    image: NetworkImage(
+                                        'https://picsum.photos/600/400')),
+                              ),
+                            ]),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                                flex: 1,
+                                child: ProductMainDataForm(product: product)),
+                            Expanded(
+                                flex: 1,
+                                child: ProductTechDataForm(product: product)),
+                          ],
+                        ),
+                        FutureBuilder<List<InventoryLevel>>(
+                            future: futureInventoryLevel,
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.done) {
+                                if (snapshot.hasData) {
+                                  return InventoryTable(
+                                      columns: const [
+                                        DataColumn(label: Text('Quantity')),
+                                        DataColumn(label: Text('Product')),
+                                        DataColumn(
+                                            label: Text('Warehouse Place')),
+                                        DataColumn(label: Text('#')),
+                                      ],
+                                      source: InventoryTableSource(
+                                          data: snapshot.data!,
+                                          context: context,
+                                          widget: widget));
+                                } else {
+                                  return Center(
+                                      child: Text(AppLocalizations.of(context)!
+                                          .no_data_found));
+                                }
+                              } else {
+                                return Center(
+                                    child: Text(AppLocalizations.of(context)!
+                                        .waiting_for_data));
+                              }
+                            })
+                      ],
+                    )))
           ])),
     );
   }
