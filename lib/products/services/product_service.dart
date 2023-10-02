@@ -58,11 +58,14 @@ Future<Product> getProductById(int id) async {
 
 Future<ProductsTotal> getTotalProducts() async {
   var token = await getToken();
-  final response = await http.get(Uri.parse(URL + '/products/total'),
-      headers: <String, String>{
-        'Accept-Language': 'application/json',
-        'Authorization': 'Bearer ' + token
-      });
+  if (token == null) {
+    throw Exception('No token');
+  }
+  final response = await http
+      .get(Uri.parse(URL + '/products/total'), headers: <String, String>{
+    'Accept-Language': 'application/json',
+    'Authorization': 'Bearer ' + token.toString()
+  });
   if (response.statusCode == 200) {
     return ProductsTotal.fromJson(jsonDecode(response.body));
   } else {

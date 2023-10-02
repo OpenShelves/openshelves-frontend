@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: const [
         Locale('en'), // English
-        Locale('de'), // Spanish
+        Locale('de'), // German
       ],
       title: 'OpenShelves',
       theme: ThemeData(
