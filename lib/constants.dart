@@ -5,7 +5,6 @@ const storage = FlutterSecureStorage();
 
 getToken() async {
   var test = await storage.read(key: 'token').then((value) => value);
-
   return test;
 }
 
