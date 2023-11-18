@@ -1,6 +1,4 @@
-import 'package:openshelves/constants.dart';
 import 'package:openshelves/tax/tax_model.dart';
-import 'package:http/http.dart' as http;
 
 Future<List<Tax>> getTaxes() async {
   return [

@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
         mobileBody: Scaffold(
           appBar: openShelvesAppBar,
           drawer: const OpenShelvesDrawer(),
-          body: Column(children: const [Text('D A S H B O A R D ')]),
+          body: const Column(children: [Text('D A S H B O A R D ')]),
         ),
         tabletBody: const Text("TO BE DONE"),
         desktopBody: Scaffold(

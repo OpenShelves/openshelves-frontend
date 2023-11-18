@@ -9,20 +9,21 @@ class LabelDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+        padding: const EdgeInsets.all(16),
         child: Wrap(
-      children: [
-        // Text(label + ': ', style: Theme.of(context).textTheme.headlineSmall),
-        Text(label + ': ',
-            style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.normal,
-                color: Colors.grey[400])),
-        Text(value,
-            style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.normal,
-                color: Colors.grey[800]))
-      ],
-    ));
+          children: [
+            // Text(label + ': ', style: Theme.of(context).textTheme.headlineSmall),
+            Text(label + ': ',
+                style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.grey[400])),
+            Text(value,
+                style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.grey[800]))
+          ],
+        ));
   }
 }

@@ -50,9 +50,7 @@ class SelectWarehousePlaceAction {
 }
 
 class SelectIncomingStateModelAction {
-  final IncomingStateModel _incomingStateModel;
-
-  SelectIncomingStateModelAction(this._incomingStateModel);
+  SelectIncomingStateModelAction();
 }
 
 AppState selectIncomingStateModelReducer(AppState prev, dynamic action) {

@@ -53,7 +53,7 @@ class InventoryTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return wp!.id! != null
+    return wp!.id! > 0
         ? FutureBuilder<List<InventoryLevel>>(
             future: wp!.id != null
                 ? getInventoryLevelsByInventoryId(wp!.id!)
@@ -81,6 +81,6 @@ class InventoryTable extends StatelessWidget {
               }
             },
           )
-        : Text('no data');
+        : const Text('no data');
   }
 }

@@ -36,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
           body: Center(
               child:
                   // const OpenShelvesDrawer(),
-                  Container(width: 500, child: LoginForm(store: widget.store))),
+                  SizedBox(width: 500, child: LoginForm(store: widget.store))),
         ));
   }
 }

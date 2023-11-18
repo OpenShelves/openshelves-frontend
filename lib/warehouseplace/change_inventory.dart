@@ -21,8 +21,8 @@ class ChangeInventoryForm extends StatefulWidget {
 class _ChangeInventoryFormState extends State<ChangeInventoryForm> {
   String productName = '';
   late Product product;
-  int warehouse_id = 0;
-  String warehouse_name = '';
+  int warehouseId = 0;
+  String warehouseName = '';
   int quantity = 0;
   TextEditingController productController = TextEditingController();
   FocusNode productFocus = FocusNode();
@@ -37,17 +37,16 @@ class _ChangeInventoryFormState extends State<ChangeInventoryForm> {
           decoration: InputDecoration(label: Text('WarehousePlaceId')),
           onChanged: (value) {
             setState(() {
-              warehouse_id = int.parse(value);
-              getWarehousePlace(warehouse_id).then((warehouse) {
-                print(warehouse);
+              warehouseId = int.parse(value);
+              getWarehousePlace(warehouseId).then((warehouse) {
                 setState(() {
-                  warehouse_name = warehouse.name;
+                  warehouseName = warehouse.name;
                 });
               });
             });
           },
         ),
-        Text(warehouse_name),
+        Text(warehouseName),
         TextFormField(
           controller: productController,
           focusNode: productFocus,
@@ -80,7 +79,7 @@ class _ChangeInventoryFormState extends State<ChangeInventoryForm> {
             onPressed: () {
               Inventory inventory = Inventory(
                   quantity: quantity,
-                  warehousePlacesId: warehouse_id,
+                  warehousePlacesId: warehouseId,
                   productsId: product.id!);
               storeInventory(inventory);
             },

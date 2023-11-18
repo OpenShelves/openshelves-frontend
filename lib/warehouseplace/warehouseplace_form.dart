@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:openshelves/constants.dart';
-import 'package:openshelves/products/form/product_form_page.dart';
-import 'package:openshelves/products/services/product_service.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';
 import 'package:openshelves/state/appstate.dart';
 import 'package:openshelves/warehouse/warehouse_model.dart';
 import 'package:openshelves/warehouse/warehouse_service.dart';
 import 'package:openshelves/warehouseplace/inventory_level_model.dart';
-import 'package:openshelves/warehouseplace/inventory_service.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_list_page.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_model.dart';
 import 'package:openshelves/warehouseplace/widgets/inventory_table.dart';
@@ -23,7 +20,7 @@ class WarehousePlacePageArguments {
 
 class WarehousePlacePage extends StatefulWidget {
   final Store<AppState> store;
-  WarehousePlacePage({
+  const WarehousePlacePage({
     Key? key,
     required this.store,
   }) : super(key: key);
@@ -40,7 +37,7 @@ class _WarehousePlacePageState extends State<WarehousePlacePage> {
 
   WarehousePlace? wp;
 
-  List<Warehouse> _warehouses = [];
+  final List<Warehouse> _warehouses = [];
   String name = '';
   int? id;
   Warehouse? w;
@@ -102,7 +99,7 @@ class _WarehousePlacePageState extends State<WarehousePlacePage> {
             WarehouseForm(wp: wp),
             wp != null && wp!.id != null
                 ? InventoryTable(widget: widget, wp: wp)
-                : Text('Noch Keine Daten')
+                : const Text('Noch Keine Daten')
           ]))
         ])));
   }
