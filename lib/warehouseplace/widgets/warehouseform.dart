@@ -16,6 +16,7 @@ class _WarehouseFormState extends State<WarehouseForm> {
   bool editMode = false;
   @override
   Widget build(BuildContext context) {
+    // editMode = widget.wp!.id == null ? true : false;
     List<Warehouse> _warehouses = [];
     return Padding(
         padding: const EdgeInsets.all(8.0),
