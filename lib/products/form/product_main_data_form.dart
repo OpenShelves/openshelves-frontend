@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:openshelves/products/models/product_model.dart';
 import 'package:openshelves/products/services/product_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -39,13 +40,15 @@ class _ProductMainDataFormState extends State<ProductMainDataForm> {
                   ),
                   TextField(
                     decoration: InputDecoration(
+                        icon: const Icon(Icons.abc),
                         label: Text(AppLocalizations.of(context)!.productName)),
                     controller: TextEditingController(text: product.name),
                     onChanged: (value) => {product.name = value},
                   ),
                   TextField(
                     decoration: const InputDecoration(
-                        label: Text('ASIN'), icon: Icon(Icons.shopping_bag)),
+                        label: Text('ASIN'),
+                        icon: FaIcon(FontAwesomeIcons.amazon)),
                     controller: TextEditingController(text: product.asin),
                     onChanged: (value) => {product.asin = value},
                   ),
