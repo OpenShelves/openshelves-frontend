@@ -44,12 +44,14 @@ class _ProductMainDataFormState extends State<ProductMainDataForm> {
                     onChanged: (value) => {product.name = value},
                   ),
                   TextField(
-                    decoration: const InputDecoration(label: Text('ASIN')),
+                    decoration: const InputDecoration(
+                        label: Text('ASIN'), icon: Icon(Icons.shopping_bag)),
                     controller: TextEditingController(text: product.asin),
                     onChanged: (value) => {product.asin = value},
                   ),
                   TextField(
-                    decoration: const InputDecoration(label: Text('EAN')),
+                    decoration: const InputDecoration(
+                        icon: Icon(Icons.barcode_reader), label: Text('EAN')),
                     controller: TextEditingController(text: product.ean),
                     onChanged: (value) => {product.ean = value},
                   ),

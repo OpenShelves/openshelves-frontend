@@ -158,6 +158,7 @@ class _LoginFormState extends State<LoginForm> {
                     widget.store.dispatch(LogInAction(strtoken));
                     print(strtoken);
                     storage.write(key: 'token', value: strtoken);
+                    Navigator.pushNamed(context, '/dashboard');
                   }, onError: (message) {
                     final snackBar = SnackBar(
                       content: Text(message.toString()),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:openshelves/constants.dart';
 import 'package:openshelves/login/login_form.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';
@@ -15,6 +16,17 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final storage = const FlutterSecureStorage();
+  @override
+  initState() {
+    super.initState();
+    storage.read(key: 'token').then((value) {
+      if (value != null) {
+        Navigator.pushNamed(context, '/dashboard');
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return ResponsiveLayout(

@@ -87,6 +87,7 @@ class _ProductPageState extends State<ProductPage> {
             floatingActionButton: FloatingActionButton(
                 child: const Icon(Icons.add),
                 onPressed: () {
+                  widget.store.dispatch(SelectProductAction(null));
                   Navigator.pushNamed(
                     context,
                     ProductFormPage.url,

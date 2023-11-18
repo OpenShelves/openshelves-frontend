@@ -208,7 +208,7 @@ class _ProductFormPageState extends State<ProductFormPage> {
                                 value: product.quantity.toString()),
                             LabelDetail(
                                 label: AppLocalizations.of(context)!.quantity,
-                                value: product.updatedAt.toString()),
+                                value: '12'),
                           ],
                         ),
                         Row(
