@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:openshelves/constants.dart';
-import 'package:openshelves/main.dart';
 import 'package:openshelves/products/list/product_list.dart';
 import 'package:openshelves/products/list/product_table.dart';
 import 'package:openshelves/products/list/product_search_field.dart';

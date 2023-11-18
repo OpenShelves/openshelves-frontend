@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:openshelves/constants.dart';
-import 'package:openshelves/main.dart';
 import 'package:openshelves/products/form/product_form_page.dart';
 import 'package:openshelves/products/services/product_service.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';

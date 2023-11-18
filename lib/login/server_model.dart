@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'server_model.g.dart';
 
 @JsonSerializable()
-class Server {
+  class Server {
   String uri;
 
   Server({required this.uri});

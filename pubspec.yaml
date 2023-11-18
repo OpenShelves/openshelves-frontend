@@ -45,6 +45,7 @@ dependencies:
     sdk: flutter
     version: ^0.0.0
   intl: any
+  flutter_typeahead: ^4.8.0
 
 dev_dependencies:
   flutter_test:

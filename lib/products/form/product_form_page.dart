@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:openshelves/constants.dart';
-import 'package:openshelves/main.dart';
 import 'package:openshelves/products/form/product_tech_data_form.dart';
 import 'package:openshelves/products/models/product_model.dart';
 import 'package:openshelves/products/form/product_main_data_form.dart';
@@ -42,7 +41,7 @@ class InventoryTableSource extends DataTableSource {
               );
             });
           },
-          icon: Icon(Icons.arrow_right)))
+          icon: const Icon(Icons.arrow_right)))
     ]);
   }
 
@@ -190,14 +189,14 @@ class _ProductFormPageState extends State<ProductFormPage> {
             const OpenShelvesDrawer(),
             Expanded(
                 child: Container(
-                    padding: EdgeInsets.all(30.0),
+                    padding: const EdgeInsets.all(30.0),
                     child: ListView(
                       children: [
                         Text(product.name,
                             overflow: TextOverflow.fade,
                             softWrap: true,
                             style: Theme.of(context).textTheme.headlineLarge),
-                        Divider(),
+                        const Divider(),
                         Wrap(
                           spacing: 50,
                           children: [

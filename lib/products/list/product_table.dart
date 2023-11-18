@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// ignore: unused_import
 import 'package:openshelves/main.dart';
 import 'package:openshelves/products/models/product_model.dart';
 import 'package:openshelves/products/form/product_form_page.dart';
@@ -47,7 +48,7 @@ class ProductTableSource extends DataTableSource {
           ),
           DataCell(DataCellNumber(number: product.id ?? 0)),
           DataCell(Text('${product.sku}')),
-          DataCell(Text(product.name)),
+          DataCell(SelectableText(product.name)),
           DataCell(DataCellCurrency(
             currcency: product.price ?? 0,
             currencySymbol: '€',

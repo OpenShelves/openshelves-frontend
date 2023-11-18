@@ -45,9 +45,12 @@ class _AddressFormState extends State<AddressForm> {
     return Form(
         key: widget.formKey,
         child: Container(
+          width: 500,
+          height: 500,
           margin: const EdgeInsets.all(20.0),
           padding: const EdgeInsets.all(20.0),
-          decoration: BoxDecoration(border: Border.all()),
+          decoration: BoxDecoration(
+              border: Border.all(), borderRadius: BorderRadius.circular(10.0)),
           child: Column(
             children: [
               const Text('Address'),
@@ -82,40 +85,50 @@ class _AddressFormState extends State<AddressForm> {
                     widget.address.name3 = value!;
                     widget.onSubmit(widget.address);
                   }),
-              TextFormField(
-                  decoration: InputDecoration(
-                      label:
-                          Text(AppLocalizations.of(context)!.address_street)),
-                  controller: addressStreet,
-                  onSaved: (value) {
-                    widget.address.street = value!;
-                    widget.onSubmit(widget.address);
-                  }),
-              TextFormField(
-                  decoration: InputDecoration(
-                      label: Text(
-                          AppLocalizations.of(context)!.address_housenumber)),
-                  controller: addressHousenumber,
-                  onSaved: (value) {
-                    widget.address.housenumber = value!;
-                    widget.onSubmit(widget.address);
-                  }),
-              TextFormField(
-                  decoration: InputDecoration(
-                      label: Text(AppLocalizations.of(context)!.address_zip)),
-                  controller: addressZip,
-                  onSaved: (value) {
-                    widget.address.zip = value!;
-                    widget.onSubmit(widget.address);
-                  }),
-              TextFormField(
-                  decoration: InputDecoration(
-                      label: Text(AppLocalizations.of(context)!.address_city)),
-                  controller: addressCity,
-                  onSaved: (value) {
-                    widget.address.city = value!;
-                    widget.onSubmit(widget.address);
-                  }),
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                Expanded(
+                    child: TextFormField(
+                        decoration: InputDecoration(
+                            label: Text(
+                                AppLocalizations.of(context)!.address_street)),
+                        controller: addressStreet,
+                        onSaved: (value) {
+                          widget.address.street = value!;
+                          widget.onSubmit(widget.address);
+                        })),
+                Expanded(
+                    child: TextFormField(
+                        decoration: InputDecoration(
+                            label: Text(AppLocalizations.of(context)!
+                                .address_housenumber)),
+                        controller: addressHousenumber,
+                        onSaved: (value) {
+                          widget.address.housenumber = value!;
+                          widget.onSubmit(widget.address);
+                        }))
+              ]),
+              Row(children: [
+                Expanded(
+                    child: TextFormField(
+                        decoration: InputDecoration(
+                            label: Text(
+                                AppLocalizations.of(context)!.address_zip)),
+                        controller: addressZip,
+                        onSaved: (value) {
+                          widget.address.zip = value!;
+                          widget.onSubmit(widget.address);
+                        })),
+                Expanded(
+                    child: TextFormField(
+                        decoration: InputDecoration(
+                            label: Text(
+                                AppLocalizations.of(context)!.address_city)),
+                        controller: addressCity,
+                        onSaved: (value) {
+                          widget.address.city = value!;
+                          widget.onSubmit(widget.address);
+                        }))
+              ]),
               TextFormField(
                   decoration: InputDecoration(
                       label:

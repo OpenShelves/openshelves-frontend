@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:openshelves/products/models/product_model.dart';
 import 'package:openshelves/scanner/income/income_form.dart';
 import 'package:openshelves/warehouse/warehouse_model.dart';
-import 'package:openshelves/warehouseplace/only_form.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_model.dart';
 
 @immutable

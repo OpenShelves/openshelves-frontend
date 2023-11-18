@@ -13,8 +13,8 @@ var openShelvesAppBar = AppBar(
   centerTitle: false,
 );
 
-var loadingData = Center(
-    child: Column(children: const [
+var loadingData = const Center(
+    child: Column(children: [
   Padding(padding: EdgeInsets.only(top: 50)),
   SizedBox(
     width: 60,

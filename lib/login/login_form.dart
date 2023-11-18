@@ -5,7 +5,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:openshelves/login/login_service.dart';
 import 'package:openshelves/login/server_model.dart';
-import 'package:openshelves/main.dart';
 import 'package:openshelves/state/appstate.dart';
 import 'package:redux/redux.dart';
 
@@ -157,6 +156,7 @@ class _LoginFormState extends State<LoginForm> {
                       login(emailController.text, passwordController.text);
                   token.then((strtoken) {
                     widget.store.dispatch(LogInAction(strtoken));
+                    print(strtoken);
                     storage.write(key: 'token', value: strtoken);
                   }, onError: (message) {
                     final snackBar = SnackBar(
@@ -165,8 +165,8 @@ class _LoginFormState extends State<LoginForm> {
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   });
                 },
-                child: Row(
-                  children: const [Icon(Icons.login), Text('Login')],
+                child: const Row(
+                  children: [Icon(Icons.login), Text('Login')],
                 ))
           ],
         ));

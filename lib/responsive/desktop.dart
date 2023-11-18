@@ -11,10 +11,10 @@ class DesktopScaffold extends StatefulWidget {
 class _DesktopScaffoldState extends State<DesktopScaffold> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
         body: Row(
       children: [
-        const OpenShelvesDrawer(),
+        OpenShelvesDrawer(),
         Text('D A S H B O A R D'),
       ],
     ));

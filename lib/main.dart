@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:openshelves/document/document_page.dart';
 import 'package:openshelves/home.dart';
 import 'package:openshelves/login/login.dart';
 import 'package:openshelves/products/form/product_form_page.dart';
@@ -53,6 +54,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: {
+        LoginPage.url: (context) => LoginPage(
+              store: store,
+            ),
         HomePage.url: (context) => HomePage(
               store: store,
             ),
@@ -60,9 +64,6 @@ class MyApp extends StatelessWidget {
               store: store,
             ),
         ProductFormPage.url: (context) => ProductFormPage(
-              store: store,
-            ),
-        LoginPage.url: (context) => LoginPage(
               store: store,
             ),
         WarhouseForm.url: (context) => WarhouseForm(
@@ -73,6 +74,9 @@ class MyApp extends StatelessWidget {
             WarehousePlaceListPage(store: store),
         WarehousePlacePage.url: (context) => WarehousePlacePage(store: store),
         IncomePage.url: (context) => IncomePage(
+              store: store,
+            ),
+        DocumentPage.url: (context) => DocumentPage(
               store: store,
             ),
       },

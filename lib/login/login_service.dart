@@ -19,6 +19,7 @@ Future<String> login(String email, String password) async {
 
   if (response.statusCode == 200) {
     Map<String, dynamic> json = jsonDecode(response.body);
+    storage.write(key: 'token', value: response.body);
     return '${json['success']['token']}';
   } else {
     throw Exception('Failed to Login');
