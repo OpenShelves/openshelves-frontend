@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:openshelves/warehouse/warehouse_model.dart';
 import 'package:openshelves/warehouse/warehouse_service.dart';
+import 'package:openshelves/warehouseplace/models/warehouseplace_model.dart';
 import 'package:openshelves/warehouseplace/only_form.dart';
-import 'package:openshelves/warehouseplace/warehouseplace_model.dart';
 
 class WarehouseForm extends StatefulWidget {
   WarehousePlace? wp;

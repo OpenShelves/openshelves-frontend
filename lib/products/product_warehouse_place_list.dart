@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-// ignore: unused_import
-import 'package:openshelves/main.dart';
 import 'package:openshelves/state/appstate.dart';
-import 'package:openshelves/warehouseplace/inventory_level_model.dart';
+import 'package:openshelves/warehouseplace/models/inventory_level_model.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_form.dart';
 import 'package:openshelves/warehouseplace/warehouseplaces_service.dart';
 import 'package:redux/redux.dart';

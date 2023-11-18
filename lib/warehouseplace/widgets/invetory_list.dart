@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:openshelves/products/form/product_form_page.dart';
 import 'package:openshelves/products/services/product_service.dart';
 import 'package:openshelves/state/appstate.dart';
-import 'package:openshelves/warehouseplace/inventory_level_model.dart';
 import 'package:openshelves/warehouseplace/inventory_service.dart';
-import 'package:openshelves/warehouseplace/warehouseplace_model.dart';
+import 'package:openshelves/warehouseplace/models/inventory_level_model.dart';
+import 'package:openshelves/warehouseplace/models/warehouseplace_model.dart';
 import 'package:redux/redux.dart';
 
 class InventoryList extends StatefulWidget {

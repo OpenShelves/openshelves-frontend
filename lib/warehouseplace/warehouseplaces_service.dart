@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:openshelves/constants.dart';
-import 'package:openshelves/warehouseplace/warehouseplace_model.dart';
+import 'package:openshelves/warehouseplace/models/warehouseplace_model.dart';
 
 Future<WarehousePlace> storeWarehousePlace(
     WarehousePlace warehousePlace) async {
@@ -23,7 +23,7 @@ Future<WarehousePlace> storeWarehousePlace(
   }
 }
 
-Future<List<WarehousePlace>> getWarehousePlaces(    ) async {
+Future<List<WarehousePlace>> getWarehousePlaces() async {
   var token = await getToken();
   final response = await http.get(Uri.parse(URL + '/warehouseplaces'),
       headers: <String, String>{

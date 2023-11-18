@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:openshelves/constants.dart';
-import 'package:openshelves/warehouseplace/inventory_level_model.dart';
-import 'package:openshelves/warehouseplace/inventory_model.dart';
+import 'package:openshelves/warehouseplace/models/inventory_level_model.dart';
+import 'package:openshelves/warehouseplace/models/inventory_model.dart';
 
 Future<Inventory> storeInventory(Inventory inventory) async {
   var token = await getToken();
