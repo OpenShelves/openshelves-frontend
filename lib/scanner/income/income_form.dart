@@ -49,9 +49,7 @@ class _IncomePageState extends State<IncomePage> {
       },
     );
     i.quantity++;
-    setState(() {
-      print('setstaze');
-    });
+    setState(() {});
     productController.clear();
     productFocus.requestFocus();
   }
@@ -61,7 +59,6 @@ class _IncomePageState extends State<IncomePage> {
   @override
   void initState() {
     super.initState();
-    print(widget.store.state.incomingStateModel);
   }
 
   @override
@@ -87,7 +84,6 @@ class _IncomePageState extends State<IncomePage> {
                         });
                         //     });
                       }, onError: (message) {
-                        print(message);
                         final snackBar = SnackBar(
                           content: Text(message.toString()),
                         );

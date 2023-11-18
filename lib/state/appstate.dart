@@ -44,7 +44,7 @@ class SelectWarehouseAction {
 }
 
 class SelectWarehousePlaceAction {
-  final WarehousePlace _warehousePlace;
+  final WarehousePlace? _warehousePlace;
 
   SelectWarehousePlaceAction(this._warehousePlace);
 }
@@ -56,37 +56,31 @@ class SelectIncomingStateModelAction {
 }
 
 AppState selectIncomingStateModelReducer(AppState prev, dynamic action) {
-  print('selectIncomingStateModelReducer called with action: $action');
   return AppState(prev._loginToken, prev.selectedProduct,
       prev._selectedWarehouse, prev._selectedWarehousePlace);
 }
 
 AppState selectWarehousePlaceReducer(AppState prev, dynamic action) {
-  print('selectWarehousePlaceReducer called with action: $action');
   return AppState(prev._loginToken, prev.selectedProduct,
       prev._selectedWarehouse, action._warehousePlace);
 }
 
 AppState selectWarehouseReducer(AppState prev, dynamic action) {
-  print('selectWarehouseReducer called with action: $action');
   return AppState(prev._loginToken, prev.selectedProduct, action._warehouse,
       prev._selectedWarehousePlace);
 }
 
 AppState loginReducer(AppState prev, dynamic action) {
-  print('loginreducer called with action: $action');
   return AppState(action._loginToken, prev.selectedProduct,
       prev._selectedWarehouse, prev._selectedWarehousePlace);
 }
 
 AppState selectProductReducer(AppState prev, dynamic action) {
-  print('loginreducer called with action: $action');
   return AppState(prev.loginToken, action._product, prev._selectedWarehouse,
       prev._selectedWarehousePlace);
 }
 
 AppState reducer(AppState prev, dynamic action) {
-  print('reducer called with action: $action');
   if (action is LogInAction) {
     return loginReducer(prev, action);
   } else if (action is SelectProductAction) {

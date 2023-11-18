@@ -66,7 +66,7 @@ class _WarehousePlaceFormOnlyState extends State<WarehousePlaceFormOnly> {
                 onSaved: (value) => _name = value!,
               ),
               DropdownButtonFormField<int>(
-                value: warehousePlace.warehouse.id ?? widget.warehouses[0].id,
+                value: warehousePlace.warehouse?.id ?? widget.warehouses[0].id,
                 decoration: const InputDecoration(
                     hintText: 'Select the warehouse place',
                     label: Text('Warehouse')),

@@ -117,9 +117,7 @@ class _DocumentRowState extends State<DocumentRow> {
             if (snapshot.hasData) {
               return DropdownButton(
                   value: snapshot.data[2].id.toString(),
-                  onChanged: (String? value) {
-                    print(value);
-                  },
+                  onChanged: (String? value) {},
                   itemHeight: 60,
                   items: snapshot.data.map<DropdownMenuItem<String>>((tax) {
                     return DropdownMenuItem<String>(

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:openshelves/address_model.dart';
-import 'package:openshelves/constants.dart';
 import 'package:openshelves/document/document_row.dart';
 import 'package:openshelves/state/appstate.dart';
-import 'package:openshelves/warehouse/widgets/address_form.dart';
 import 'package:openshelves/widgets/drawer.dart';
 import 'package:redux/redux.dart';
 
@@ -35,7 +32,7 @@ class _DocumentPageState extends State<DocumentPage> {
                     children: [
                       Form(
                           key: _formKey,
-                          child: Column(
+                          child: const Column(
                             children: [
                               // Expanded(
                               //     child: AddressForm(

@@ -3,15 +3,15 @@ import 'package:openshelves/constants.dart';
 import 'package:openshelves/products/form/product_form_page.dart';
 import 'package:openshelves/products/services/product_service.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';
-import 'package:openshelves/scanner/income/income_form.dart';
 import 'package:openshelves/state/appstate.dart';
 import 'package:openshelves/warehouse/warehouse_model.dart';
 import 'package:openshelves/warehouse/warehouse_service.dart';
 import 'package:openshelves/warehouseplace/inventory_level_model.dart';
 import 'package:openshelves/warehouseplace/inventory_service.dart';
-import 'package:openshelves/warehouseplace/only_form.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_list_page.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_model.dart';
+import 'package:openshelves/warehouseplace/widgets/inventory_table.dart';
+import 'package:openshelves/warehouseplace/widgets/warehouseform.dart';
 import 'package:openshelves/widgets/drawer.dart';
 import 'package:redux/redux.dart';
 
@@ -22,48 +22,12 @@ class WarehousePlacePageArguments {
 
 class WarehousePlacePage extends StatefulWidget {
   final Store<AppState> store;
-  const WarehousePlacePage({Key? key, required this.store}) : super(key: key);
+  var createNewWP = false;
+  WarehousePlacePage({Key? key, required this.store, this.createNewWP = false})
+      : super(key: key);
   @override
   _WarehousePlacePageState createState() => _WarehousePlacePageState();
   static const String url = 'warehouseplace/form';
-}
-
-class InventoryTableSource extends DataTableSource {
-  List<InventoryLevel> data;
-
-  BuildContext context;
-  WarehousePlacePage widget;
-  InventoryTableSource(
-      {required this.data, required this.context, required this.widget});
-  @override
-  DataRow? getRow(int index) {
-    final inventory = data[index];
-    return DataRow.byIndex(index: index, cells: [
-      DataCell(Text(inventory.quantity)),
-      DataCell(Text(inventory.productsName)),
-      DataCell(Text(inventory.warehousePlacesName)),
-      DataCell(IconButton(
-          onPressed: () {
-            getProductById(inventory.productsId).then((product) {
-              widget.store.dispatch(SelectProductAction(product));
-              Navigator.pushNamed(
-                context,
-                ProductFormPage.url,
-              );
-            });
-          },
-          icon: const Icon(Icons.arrow_right)))
-    ]);
-  }
-
-  @override
-  bool get isRowCountApproximate => false;
-
-  @override
-  int get rowCount => data.length;
-
-  @override
-  int get selectedRowCount => 0;
 }
 
 class _WarehousePlacePageState extends State<WarehousePlacePage> {
@@ -80,78 +44,43 @@ class _WarehousePlacePageState extends State<WarehousePlacePage> {
   Warehouse? w;
   TextEditingController idController = TextEditingController();
 
-  getExpanded() {
-    return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: FutureBuilder<List<Warehouse>>(
-            future: futureWarehouses,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                // Store the retrieved warehouse places in the _warehousePlaces field
-                if (snapshot.hasData) {
-                  _warehouses = snapshot.data!;
-                }
-                return editMode
-                    ? Card(
-                        margin: const EdgeInsets.all(8),
-                        child: Column(children: [
-                          Row(children: [
-                            const Text('W A R E H O U S E P L A C E'),
-                            Switch(
-                              value: editMode,
-                              onChanged: (val) {
-                                setState(() {
-                                  // editMode = val;
-                                });
-                              },
-                            )
-                          ]),
-                          WarehousePlaceFormOnly(
-                            warehousePlace: wp!,
-                            warehouses: _warehouses,
-                          )
-                        ]))
-                    : ListTile(
-                        title: Text(wp!.name),
-                        subtitle: Text(wp!.warehouse.name +
-                            ' / ' +
-                            wp!.warehouse.address.city.toString()),
-                        trailing: Switch(
-                          value: editMode,
-                          onChanged: (val) {
-                            setState(() {
-                              editMode = val;
-                            });
-                          },
-                        ),
-                      );
-              } else {
-                return const Center(child: CircularProgressIndicator());
-              }
-            }));
-  }
-
   @override
-  Widget build(BuildContext context) {
+  initState() {
+    super.initState();
     if (widget.store.state.selectedWarehousePlace != null) {
       wp = widget.store.state.selectedWarehousePlace;
+      // if (wp!.id != null) {
+      //   futureInventoryLevel = getInventoryLevelsByInventoryId(wp!.id!);
+      // } else {
+      //   futureInventoryLevel = [] as Future<List<InventoryLevel>>;
+      // }
     } else {
       Navigator.pushNamed(
         context,
         WarehousePlaceListPage.url,
       );
     }
+  }
+  //  futureInventoryLevel = getInventoryLevelsByInventoryId(wp!.id!);
 
-    futureInventoryLevel = getInventoryLevelsByInventoryId(wp!.id!);
+  @override
+  dispose() {
+    super.dispose();
+    widget.store.dispatch(SelectWarehousePlaceAction(null));
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return ResponsiveLayout(
         mobileBody: Scaffold(
             appBar: openShelvesAppBar,
             drawer: const OpenShelvesDrawer(),
             body: ListView(children: [
-              getExpanded(),
+              WarehouseForm(wp: wp),
               FutureBuilder<List<InventoryLevel>>(
-                  future: futureInventoryLevel,
+                  future: wp!.id != null
+                      ? getInventoryLevelsByInventoryId(wp!.id!)
+                      : [] as Future<List<InventoryLevel>>,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
                       if (snapshot.hasData) {
@@ -203,47 +132,24 @@ class _WarehousePlacePageState extends State<WarehousePlacePage> {
                   })
             ])),
         tabletBody: Scaffold(
-            appBar: openShelvesAppBar,
-            drawer: const OpenShelvesDrawer(),
-            body: getExpanded()),
+          appBar: openShelvesAppBar,
+          drawer: const OpenShelvesDrawer(),
+          body: WarehouseForm(wp: wp),
+        ),
         desktopBody: Scaffold(
-            floatingActionButton: FloatingActionButton(
-                child: const Icon(Icons.add),
-                onPressed: () async {
-                  await widget.store.dispatch(SelectIncomingStateModelAction(
-                      IncomingStateModel(warehousePlaceId: wp?.id ?? 0)));
-                }),
+            // floatingActionButton: FloatingActionButton(
+            //     child: const Icon(Icons.add),
+            //     onPressed: () async {
+            //       await widget.store.dispatch(SelectIncomingStateModelAction(
+            //           IncomingStateModel(warehousePlaceId: wp?.id ?? 0)));
+            //     }),
             body: Row(children: [
-              const OpenShelvesDrawer(),
-              Expanded(
-                  child: ListView(children: [
-                getExpanded(),
-                FutureBuilder<List<InventoryLevel>>(
-                  future: futureInventoryLevel,
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      if (snapshot.hasData) {
-                        return PaginatedDataTable(
-                            rowsPerPage: snapshot.data!.length,
-                            columns: const [
-                              DataColumn(label: Text('Quantity')),
-                              DataColumn(label: Text('Product')),
-                              DataColumn(label: Text('Warehouse Place')),
-                              DataColumn(label: Text('#')),
-                            ],
-                            source: InventoryTableSource(
-                                data: snapshot.data!,
-                                context: context,
-                                widget: widget));
-                      } else {
-                        return const Center(child: Text('No Products found'));
-                      }
-                    } else {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                  },
-                )
-              ]))
-            ])));
+          const OpenShelvesDrawer(),
+          Expanded(
+              child: ListView(children: [
+            WarehouseForm(wp: wp),
+            InventoryTable(widget: widget, wp: wp)
+          ]))
+        ])));
   }
 }
