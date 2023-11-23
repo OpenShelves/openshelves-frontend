@@ -6,7 +6,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProductMainDataForm extends StatefulWidget {
   final Product product;
-  const ProductMainDataForm({Key? key, required this.product})
+  final Key formKey;
+  final void Function(Product) onSubmit;
+  const ProductMainDataForm(
+      {Key? key,
+      required this.product,
+      required this.onSubmit,
+      required this.formKey})
       : super(key: key);
 
   @override
@@ -14,11 +20,9 @@ class ProductMainDataForm extends StatefulWidget {
 }
 
 class _ProductMainDataFormState extends State<ProductMainDataForm> {
-  late Product product;
   @override
   initState() {
     super.initState();
-    product = widget.product;
   }
 
   @override
@@ -30,48 +34,69 @@ class _ProductMainDataFormState extends State<ProductMainDataForm> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Form(
+                  key: widget.formKey,
                   child: Column(
-                children: [
-                  TextField(
-                    decoration: const InputDecoration(label: Text('ID')),
-                    enabled: false,
-                    controller:
-                        TextEditingController(text: product.id.toString()),
-                  ),
-                  TextField(
-                    decoration: InputDecoration(
-                        icon: const Icon(Icons.abc),
-                        label: Text(AppLocalizations.of(context)!.productName)),
-                    controller: TextEditingController(text: product.name),
-                    onChanged: (value) => {product.name = value},
-                  ),
-                  TextField(
-                    decoration: const InputDecoration(
-                        label: Text('ASIN'),
-                        icon: FaIcon(FontAwesomeIcons.amazon)),
-                    controller: TextEditingController(text: product.asin),
-                    onChanged: (value) => {product.asin = value},
-                  ),
-                  TextField(
-                    decoration: const InputDecoration(
-                        icon: Icon(Icons.barcode_reader), label: Text('EAN')),
-                    controller: TextEditingController(text: product.ean),
-                    onChanged: (value) => {product.ean = value},
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      storeProduct(product).then((productBackend) {
-                        setState(() {
-                          product = productBackend;
-                        });
-                      });
-                    },
-                    child: Container(
-                        margin: const EdgeInsets.all(5.0),
-                        child: const Icon(Icons.save)),
-                  )
-                ],
-              )),
+                    children: [
+                      TextField(
+                        decoration: const InputDecoration(label: Text('ID')),
+                        enabled: false,
+                        controller: TextEditingController(
+                            text: widget.product.id.toString()),
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(
+                            icon: const Icon(Icons.abc),
+                            label: Text(
+                                AppLocalizations.of(context)!.productName)),
+                        controller:
+                            TextEditingController(text: widget.product.name),
+                        onChanged: (value) => {widget.product.name = value},
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Must be filled";
+                          }
+                          return null;
+                        },
+                      ),
+                      TextField(
+                        decoration: const InputDecoration(
+                            label: Text('ASIN'),
+                            icon: FaIcon(FontAwesomeIcons.amazon)),
+                        controller:
+                            TextEditingController(text: widget.product.asin),
+                        onChanged: (value) => {widget.product.asin = value},
+                      ),
+                      TextField(
+                        decoration: const InputDecoration(
+                            icon: Icon(Icons.barcode_reader),
+                            label: Text('EAN')),
+                        controller:
+                            TextEditingController(text: widget.product.ean),
+                        onChanged: (value) => {widget.product.ean = value},
+                      ),
+                      TextFormField(
+                        decoration: const InputDecoration(
+                            icon: FaIcon(FontAwesomeIcons.cashRegister),
+                            label: Text('Price')),
+                        controller: TextEditingController(
+                            text: widget.product.price.toString()),
+                        onChanged: (value) =>
+                            {widget.product.price = double.parse(value)},
+                      ),
+                      // ElevatedButton(
+                      //   onPressed: () {
+                      //     storeProduct(widget.product).then((productBackend) {
+                      //       setState(() {
+                      //         // widget.product = productBackend;
+                      //       });
+                      //     });
+                      //   },
+                      //   child: Container(
+                      //       margin: const EdgeInsets.all(5.0),
+                      //       child: const Icon(Icons.save)),
+                      // )
+                    ],
+                  )),
             )));
   }
 }

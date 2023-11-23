@@ -19,6 +19,7 @@ class WarehousePlacePageArguments {
 }
 
 class WarehousePlacePage extends StatefulWidget {
+  static const String url = 'warehouseplace/form';
   final Store<AppState> store;
   const WarehousePlacePage({
     Key? key,
@@ -26,7 +27,6 @@ class WarehousePlacePage extends StatefulWidget {
   }) : super(key: key);
   @override
   _WarehousePlacePageState createState() => _WarehousePlacePageState();
-  static const String url = 'warehouseplace/form';
 }
 
 class _WarehousePlacePageState extends State<WarehousePlacePage> {
@@ -35,9 +35,8 @@ class _WarehousePlacePageState extends State<WarehousePlacePage> {
 
   bool editMode = false;
 
-  WarehousePlace? wp;
+  late WarehousePlace wp;
 
-  final List<Warehouse> _warehouses = [];
   String name = '';
   int? id;
   Warehouse? w;
@@ -47,7 +46,7 @@ class _WarehousePlacePageState extends State<WarehousePlacePage> {
   initState() {
     super.initState();
     if (widget.store.state.selectedWarehousePlace != null) {
-      wp = widget.store.state.selectedWarehousePlace;
+      wp = widget.store.state.selectedWarehousePlace!;
       // if (wp!.id != null) {
       //   futureInventoryLevel = getInventoryLevelsByInventoryId(wp!.id!);
       // } else {

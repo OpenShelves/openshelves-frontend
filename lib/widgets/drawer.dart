@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:openshelves/document/document_list_page.dart';
 import 'package:openshelves/document/document_page.dart';
 import 'package:openshelves/home.dart';
 import 'package:openshelves/login/login.dart';
 import 'package:openshelves/products/list/product_list_page.dart';
 import 'package:openshelves/scanner/income/income_form.dart';
+import 'package:openshelves/settings/settings_list_page.dart';
 import 'package:openshelves/warehouse/warehouse_list_page.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_list_page.dart';
 
@@ -76,7 +78,14 @@ class OpenShelvesDrawer extends StatelessWidget {
               leading: const Icon(Icons.file_open),
               title: const Text('D O C U M E N T S'),
               onTap: () {
-                Navigator.pushNamed(context, DocumentPage.url);
+                Navigator.pushNamed(context, DocumentListPage.url);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text('S E T T I N G S'),
+              onTap: () {
+                Navigator.pushNamed(context, SettingsListPage.url);
               },
             ),
             // const ListTile(

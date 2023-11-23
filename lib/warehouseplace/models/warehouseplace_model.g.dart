@@ -11,6 +11,10 @@ WarehousePlace _$WarehousePlaceFromJson(Map<String, dynamic> json) =>
       id: json['id'] as int?,
       name: json['name'] as String,
       warehouse: Warehouse.fromJson(json['warehouse'] as Map<String, dynamic>),
+      parent: json['parent'] == null
+          ? null
+          : WarehousePlace.fromJson(json['parent'] as Map<String, dynamic>),
+      barcode: json['barcode'] as String? ?? '',
     );
 
 Map<String, dynamic> _$WarehousePlaceToJson(WarehousePlace instance) =>
@@ -18,4 +22,6 @@ Map<String, dynamic> _$WarehousePlaceToJson(WarehousePlace instance) =>
       'id': instance.id,
       'name': instance.name,
       'warehouse': instance.warehouse,
+      'parent': instance.parent,
+      'barcode': instance.barcode,
     };

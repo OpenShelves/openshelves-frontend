@@ -7,15 +7,15 @@ part of 'tax_model.dart';
 // **************************************************************************
 
 Tax _$TaxFromJson(Map<String, dynamic> json) => Tax(
-      id: json['id'] as int,
-      name: json['name'] as String,
+      name: json['tax_name'] as String,
+      id: json['id'] as int?,
       rate: (json['rate'] as num).toDouble(),
-      standardRate: json['standardRate'] as bool,
+      defaultTax: Tax._boolFromInt(json['defaultTax'] as int),
     );
 
 Map<String, dynamic> _$TaxToJson(Tax instance) => <String, dynamic>{
       'id': instance.id,
-      'name': instance.name,
+      'tax_name': instance.name,
       'rate': instance.rate,
-      'standardRate': instance.standardRate,
+      'defaultTax': Tax._boolToInt(instance.defaultTax),
     };

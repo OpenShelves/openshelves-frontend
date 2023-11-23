@@ -11,12 +11,12 @@ Product _$ProductFromJson(Map<String, dynamic> json) => Product(
       id: json['id'] as int?,
       asin: json['asin'] as String?,
       ean: json['ean'] as String?,
-      depth: json['depth'] as num?,
-      height: json['height'] as num?,
-      width: json['width'] as num?,
-      weight: json['weight'] as num?,
+      depth: (json['depth'] as num?)?.toDouble(),
+      height: (json['height'] as num?)?.toDouble(),
+      width: (json['width'] as num?)?.toDouble(),
+      weight: (json['weight'] as num?)?.toDouble(),
       active: Product._boolFromInt(json['active'] as int),
-      price: json['price'] as num?,
+      price: (json['price'] as num?)?.toDouble(),
       sku: json['sku'] as String?,
       updatedAt: json['updated_at'] == null
           ? null

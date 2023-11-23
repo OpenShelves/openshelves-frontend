@@ -47,6 +47,7 @@ dependencies:
   intl: any
   flutter_typeahead: ^4.8.0
   font_awesome_flutter: ^10.6.0
+  url_launcher: ^6.2.1
 
 dev_dependencies:
   flutter_test:

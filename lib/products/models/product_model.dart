@@ -7,13 +7,13 @@ class Product {
   String name;
   String? asin;
   String? ean;
-  num? width;
-  num? height;
-  num? depth;
-  num? weight;
+  double? width;
+  double? height;
+  double? depth;
+  double? weight;
   @JsonKey(fromJson: _boolFromInt, toJson: _boolToInt)
   bool? active;
-  num? price;
+  double? price;
   String? sku;
   @JsonKey(name: 'updated_at')
   DateTime? updatedAt;

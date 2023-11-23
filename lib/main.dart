@@ -3,12 +3,15 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:openshelves/document/document_list_page.dart';
 import 'package:openshelves/document/document_page.dart';
 import 'package:openshelves/home.dart';
 import 'package:openshelves/login/login.dart';
 import 'package:openshelves/products/form/product_form_page.dart';
 import 'package:openshelves/products/list/product_list_page.dart';
 import 'package:openshelves/scanner/income/income_form.dart';
+import 'package:openshelves/settings/settings_list_page.dart';
+import 'package:openshelves/settings/tax/tax_list_page.dart';
 import 'package:openshelves/warehouse/warehouse_form.dart';
 import 'package:openshelves/warehouse/warehouse_list_page.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_form.dart';
@@ -78,6 +81,15 @@ class MyApp extends StatelessWidget {
             ),
         DocumentPage.url: (context) => DocumentPage(
               store: store,
+            ),
+        DocumentListPage.url: (context) => DocumentListPage(
+              store: store,
+            ),
+        SettingsListPage.url: (context) => const SettingsListPage(
+            // store: store,
+            ),
+        TaxListPage.url: (context) => const TaxListPage(
+            // store: store,
             ),
       },
     );

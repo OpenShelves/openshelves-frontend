@@ -1,38 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:openshelves/document/models/document_row_model.dart';
 import 'package:openshelves/products/models/product_model.dart';
 import 'package:openshelves/products/services/product_service.dart';
-import 'package:openshelves/tax/tax_model.dart';
-import 'package:openshelves/tax/tax_service.dart';
+import 'package:openshelves/settings/tax/models/tax_model.dart';
+import 'package:openshelves/settings/tax/services/tax_service.dart';
 
-class DocumentRow extends StatefulWidget {
-  const DocumentRow({Key? key}) : super(key: key);
+class DocumentRowWidget extends StatefulWidget {
+  final DocumentRowModel documentRow;
+  const DocumentRowWidget({Key? key, required this.documentRow})
+      : super(key: key);
 
   @override
-  State<DocumentRow> createState() => _DocumentRowState();
+  State<DocumentRowWidget> createState() => _DocumentRowState();
 }
 
-class _DocumentRowState extends State<DocumentRow> {
+class _DocumentRowState extends State<DocumentRowWidget> {
   int maxHeight = 70;
-  Product product = Product(name: '');
-  double tax = 19;
+
+  TextEditingController posController = TextEditingController();
   TextEditingController productController = TextEditingController();
   TextEditingController netPriceController = TextEditingController();
   TextEditingController grossPriceController = TextEditingController();
   TextEditingController grossTotalController = TextEditingController();
-  TextEditingController quantityController = TextEditingController();
+  TextEditingController quantityController = TextEditingController(
+    text: '1',
+  );
 
   calcPrice() {
-    if (netPriceController.text.isNotEmpty) {
-      grossPriceController.text =
-          (double.parse(netPriceController.text) * (1 + tax / 100))
-              .toStringAsFixed(2);
+    if (netPriceController.text.isNotEmpty && widget.documentRow.tax != null) {
+      widget.documentRow.grossPrice = (double.parse(netPriceController.text) *
+          (1 + widget.documentRow.tax!.rate / 100));
+      grossPriceController.text = (double.parse(netPriceController.text) *
+              (1 + widget.documentRow.tax!.rate / 100))
+          .toStringAsFixed(2);
       if (quantityController.text.isNotEmpty) {
         grossTotalController.text = (double.parse(grossPriceController.text) *
                 double.parse(quantityController.text))
             .toStringAsFixed(2);
       }
     }
+  }
+
+  @override
+  initState() {
+    super.initState();
+    posController.text = widget.documentRow.pos.toString();
+    widget.documentRow.quantity = double.parse(quantityController.text);
   }
 
   @override
@@ -43,6 +57,12 @@ class _DocumentRowState extends State<DocumentRow> {
       crossAxisAlignment: WrapCrossAlignment.start,
       children: [
         TextFormField(
+          onChanged: (value) {
+            setState(() {
+              widget.documentRow.pos = int.parse(value);
+            });
+          },
+          controller: posController,
           textAlign: TextAlign.right,
           decoration: const InputDecoration(
             label: Text("POS"),
@@ -56,8 +76,9 @@ class _DocumentRowState extends State<DocumentRow> {
           textFieldConfiguration: TextFieldConfiguration(
             controller: productController,
             decoration: InputDecoration(
-              counterText: product.id != null && product.name.isNotEmpty
-                  ? '${product.id} / ${product.name}'
+              counterText: widget.documentRow.product != null &&
+                      widget.documentRow.product!.name.isNotEmpty
+                  ? '${widget.documentRow.product!.id} / ${widget.documentRow.product!.name}'
                   : '',
               label: const Text("Product"),
               constraints: const BoxConstraints(
@@ -77,7 +98,9 @@ class _DocumentRowState extends State<DocumentRow> {
           onSuggestionSelected: (Product product) {
             productController.text = product.name;
             setState(() {
-              this.product = product;
+              widget.documentRow.productName = product.name;
+              widget.documentRow.product = product;
+              widget.documentRow.netPrice = product.price;
               netPriceController.text = product.price.toString();
               calcPrice();
             });
@@ -87,6 +110,7 @@ class _DocumentRowState extends State<DocumentRow> {
           textAlign: TextAlign.right,
           controller: quantityController,
           onChanged: (value) {
+            widget.documentRow.quantity = double.parse(value);
             calcPrice();
           },
           decoration: const InputDecoration(
@@ -100,7 +124,8 @@ class _DocumentRowState extends State<DocumentRow> {
         TextFormField(
           textAlign: TextAlign.right,
           controller: netPriceController,
-          onChanged: (context) {
+          onChanged: (value) {
+            widget.documentRow.netPrice = double.parse(value);
             calcPrice();
           },
           decoration: const InputDecoration(
@@ -113,13 +138,25 @@ class _DocumentRowState extends State<DocumentRow> {
         ),
         FutureBuilder<List<Tax>>(
           future: getTaxes(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
+          builder: (BuildContext context, AsyncSnapshot<List<Tax>> snapshot) {
             if (snapshot.hasData) {
+              var defaultTax = widget.documentRow.tax ??
+                  snapshot.data!.firstWhere((tax) => tax.defaultTax,
+                      orElse: () => snapshot.data!.first);
+              widget.documentRow.tax = defaultTax;
+
               return DropdownButton(
-                  value: snapshot.data[2].id.toString(),
-                  onChanged: (String? value) {},
+                  value: defaultTax.id.toString(),
+                  onChanged: (String? value) {
+                    setState(() {
+                      widget.documentRow.tax = snapshot.data!.firstWhere(
+                          (tax) => tax.id.toString() == value,
+                          orElse: () => snapshot.data!.first);
+                      calcPrice();
+                    });
+                  },
                   itemHeight: 60,
-                  items: snapshot.data.map<DropdownMenuItem<String>>((tax) {
+                  items: snapshot.data!.map<DropdownMenuItem<String>>((tax) {
                     return DropdownMenuItem<String>(
                       value: tax.id.toString(),
                       child: Text(tax.name),
@@ -140,6 +177,10 @@ class _DocumentRowState extends State<DocumentRow> {
               maxWidth: 70,
             ),
           ),
+          onChanged: (value) {
+            widget.documentRow.grossPrice = double.parse(value);
+            calcPrice();
+          },
         ),
         TextFormField(
           textAlign: TextAlign.right,

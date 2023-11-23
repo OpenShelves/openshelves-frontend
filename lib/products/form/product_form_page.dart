@@ -4,56 +4,16 @@ import 'package:openshelves/products/form/product_tech_data_form.dart';
 import 'package:openshelves/products/models/product_model.dart';
 import 'package:openshelves/products/form/product_main_data_form.dart';
 import 'package:openshelves/products/product_warehouse_place_list.dart';
+import 'package:openshelves/products/services/product_service.dart';
+import 'package:openshelves/products/widgets/product_inventory_table.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';
 import 'package:openshelves/state/appstate.dart';
 import 'package:openshelves/warehouseplace/inventory_service.dart';
-import 'package:openshelves/warehouseplace/invetory_table.dart';
 import 'package:openshelves/warehouseplace/models/inventory_level_model.dart';
-import 'package:openshelves/warehouseplace/warehouseplace_form.dart';
-import 'package:openshelves/warehouseplace/warehouseplaces_service.dart';
 import 'package:openshelves/widgets/drawer.dart';
 import 'package:openshelves/widgets/label_detail.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-class InventoryTableSource extends DataTableSource {
-  List<InventoryLevel> data;
-
-  BuildContext context;
-  ProductFormPage widget;
-  InventoryTableSource(
-      {required this.data, required this.context, required this.widget});
-  @override
-  DataRow? getRow(int index) {
-    final inventory = data[index];
-    return DataRow.byIndex(index: index, cells: [
-      DataCell(Text(inventory.quantity)),
-      DataCell(Text(inventory.productsName)),
-      DataCell(Text(inventory.warehousePlacesName)),
-      DataCell(IconButton(
-          onPressed: () {
-            getWarehousePlace(inventory.warehousePlacesId)
-                .then((warehousePlace) {
-              widget.store.dispatch(SelectWarehousePlaceAction(warehousePlace));
-              Navigator.pushNamed(
-                context,
-                WarehousePlacePage.url,
-              );
-            });
-          },
-          icon: const Icon(Icons.arrow_right)))
-    ]);
-  }
-
-  @override
-  bool get isRowCountApproximate => false;
-
-  @override
-  int get rowCount => data.length;
-
-  @override
-  int get selectedRowCount => 0;
-}
 
 getRow(String label, String value) {
   return Row(
@@ -74,6 +34,9 @@ class _ProductFormPageState extends State<ProductFormPage> {
   int total = 0;
   bool editMode = false;
   late Product product;
+
+  final mainFormStateKey = GlobalKey<FormState>();
+  final techFormStateKey = GlobalKey<FormState>();
   @override
   initState() {
     super.initState();
@@ -149,8 +112,13 @@ class _ProductFormPageState extends State<ProductFormPage> {
                   }),
               editMode
                   ? Column(children: [
-                      ProductMainDataForm(product: product),
-                      ProductTechDataForm(product: product)
+                      ProductMainDataForm(
+                        product: product,
+                        onSubmit: (Product product) {},
+                        formKey: mainFormStateKey,
+                      ),
+                      ProductTechDataForm(
+                          product: product, formKey: techFormStateKey)
                     ])
                   : getProductView(product, context),
               product.id != null
@@ -208,20 +176,18 @@ class _ProductFormPageState extends State<ProductFormPage> {
                                 value: product.quantity.toString()),
                             LabelDetail(
                                 label: AppLocalizations.of(context)!.quantity,
-                                value: '12'),
+                                value: total.toString()),
+                            LabelDetail(
+                                label: 'EAN', value: product.ean.toString()),
                           ],
                         ),
-                        Row(
+                        const Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Column(
-                                children: [
-                                  LabelDetail(
-                                      label: 'EAN',
-                                      value: product.ean.toString()),
-                                ],
+                                children: [],
                               ),
-                              const SizedBox(
+                              SizedBox(
                                 width: 600,
                                 height: 400,
                                 child: Image(
@@ -234,41 +200,35 @@ class _ProductFormPageState extends State<ProductFormPage> {
                           children: [
                             Expanded(
                                 flex: 1,
-                                child: ProductMainDataForm(product: product)),
+                                child: ProductMainDataForm(
+                                    formKey: mainFormStateKey,
+                                    product: product,
+                                    onSubmit: (Product product) {})),
                             Expanded(
                                 flex: 1,
-                                child: ProductTechDataForm(product: product)),
+                                child: ProductTechDataForm(
+                                  product: product,
+                                  formKey: techFormStateKey,
+                                )),
                           ],
                         ),
-                        FutureBuilder<List<InventoryLevel>>(
-                            future: futureInventoryLevel,
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.done) {
-                                if (snapshot.hasData) {
-                                  return InventoryTable(
-                                      columns: const [
-                                        DataColumn(label: Text('Quantity')),
-                                        DataColumn(label: Text('Product')),
-                                        DataColumn(
-                                            label: Text('Warehouse Place')),
-                                        DataColumn(label: Text('#')),
-                                      ],
-                                      source: InventoryTableSource(
-                                          data: snapshot.data!,
-                                          context: context,
-                                          widget: widget));
-                                } else {
-                                  return Center(
-                                      child: Text(AppLocalizations.of(context)!
-                                          .no_data_found));
-                                }
-                              } else {
-                                return Center(
-                                    child: Text(AppLocalizations.of(context)!
-                                        .waiting_for_data));
+                        IconButton(
+                            onPressed: () {
+                              var valid =
+                                  mainFormStateKey.currentState!.validate();
+                              var valid2 =
+                                  techFormStateKey.currentState!.validate();
+                              if (valid && valid2) {
+                                print('${product.name} ${product.width}');
+                                storeProduct(product).then((productBackend) {
+                                  setState(() {
+                                    product = productBackend;
+                                  });
+                                });
                               }
-                            })
+                            },
+                            icon: const Icon(Icons.save)),
+                        ProductInventoryTable(product: product, widget: widget)
                       ],
                     )))
           ])),

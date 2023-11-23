@@ -80,7 +80,6 @@ class _WarhouseFormState extends State<WarhouseForm> {
                       formKey: _addressFormKey,
                       address: warehouse.address,
                       onSubmit: (address) {
-                        print(address);
                         setState(() {
                           this.address = address;
                         });

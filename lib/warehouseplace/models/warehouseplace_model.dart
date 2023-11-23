@@ -5,11 +5,18 @@ part 'warehouseplace_model.g.dart';
 
 @JsonSerializable()
 class WarehousePlace {
-  final int? id;
-  late final String name;
-  late final Warehouse warehouse;
+  int? id;
+  String name;
+  Warehouse warehouse;
+  WarehousePlace? parent;
+  String barcode;
 
-  WarehousePlace({this.id, required this.name, required this.warehouse});
+  WarehousePlace(
+      {this.id,
+      required this.name,
+      required this.warehouse,
+      this.parent,
+      this.barcode = ''});
 
   factory WarehousePlace.fromJson(Map<String, dynamic> json) =>
       _$WarehousePlaceFromJson(json);

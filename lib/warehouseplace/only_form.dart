@@ -1,34 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:openshelves/helper/url_helper.dart';
 import 'package:openshelves/warehouse/warehouse_model.dart';
 import 'package:openshelves/warehouse/warehouse_service.dart';
 import 'package:openshelves/warehouseplace/models/warehouseplace_model.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_list_page.dart';
 import 'package:openshelves/warehouseplace/warehouseplaces_service.dart';
 import 'package:openshelves/widgets/delete_overlay.dart';
+import 'package:openshelves/constants.dart';
 
 class WarehousePlaceFormOnly extends StatefulWidget {
-  const WarehousePlaceFormOnly(
+  WarehousePlaceFormOnly(
       {Key? key, required this.warehousePlace, required this.warehouses})
       : super(key: key);
-  final WarehousePlace warehousePlace;
+  WarehousePlace warehousePlace;
   final List<Warehouse> warehouses;
   @override
-  State<WarehousePlaceFormOnly> createState() =>
-      _WarehousePlaceFormOnlyState(warehousePlace);
+  State<WarehousePlaceFormOnly> createState() => _WarehousePlaceFormOnlyState();
 }
 
 class _WarehousePlaceFormOnlyState extends State<WarehousePlaceFormOnly> {
-  WarehousePlace warehousePlace;
-  _WarehousePlaceFormOnlyState(this.warehousePlace);
   final _formKey1 = GlobalKey<FormState>();
   final futureWarehouses = getWarehouses();
-  String _name = '';
-  Warehouse? _warehouse;
+
   TextEditingController idController = TextEditingController(text: '');
   @override
   void initState() {
-    idController.text =
-        warehousePlace.id != null ? warehousePlace.id.toString() : '';
+    idController.text = widget.warehousePlace.id != null
+        ? widget.warehousePlace.id.toString()
+        : '';
     super.initState();
   }
 
@@ -48,13 +47,14 @@ class _WarehousePlaceFormOnlyState extends State<WarehousePlaceFormOnly> {
                 enabled: false,
               ),
               TextFormField(
-                initialValue: warehousePlace.name,
+                initialValue: widget.warehousePlace.name,
                 decoration: const InputDecoration(
+                    icon: Icon(Icons.abc),
                     hintText: 'Enter the name',
                     label: Text('Warehouse Place Name')),
                 onChanged: (value) {
                   setState(() {
-                    _name = value;
+                    widget.warehousePlace.name = value;
                   });
                 },
                 validator: (value) {
@@ -63,11 +63,13 @@ class _WarehousePlaceFormOnlyState extends State<WarehousePlaceFormOnly> {
                   }
                   return null;
                 },
-                onSaved: (value) => _name = value!,
+                onSaved: (value) => widget.warehousePlace.name = value!,
               ),
               DropdownButtonFormField<int>(
-                value: warehousePlace.warehouse?.id ?? widget.warehouses[0].id,
+                value: widget.warehousePlace.warehouse.id ??
+                    widget.warehouses[0].id,
                 decoration: const InputDecoration(
+                    icon: Icon(Icons.warehouse),
                     hintText: 'Select the warehouse place',
                     label: Text('Warehouse')),
                 items: widget.warehouses.map((_warehouse1) {
@@ -78,13 +80,13 @@ class _WarehousePlaceFormOnlyState extends State<WarehousePlaceFormOnly> {
                 }).toList(),
                 onChanged: (value) {
                   setState(() {
-                    _warehouse = widget.warehouses
+                    widget.warehousePlace.warehouse = widget.warehouses
                         .firstWhere((element) => element.id == value);
                   });
                 },
                 onSaved: (value) {
                   setState(() {
-                    _warehouse = widget.warehouses
+                    widget.warehousePlace.warehouse = widget.warehouses
                         .firstWhere((element) => element.id == value);
                   });
                 },
@@ -95,6 +97,37 @@ class _WarehousePlaceFormOnlyState extends State<WarehousePlaceFormOnly> {
                   return null;
                 },
               ),
+              TextFormField(
+                initialValue: widget.warehousePlace.barcode,
+                onChanged: (value) {
+                  setState(() {
+                    widget.warehousePlace.barcode = value;
+                  });
+                },
+                decoration: InputDecoration(
+                    suffix: IconButton(
+                        onPressed: () => {
+                              print("print"),
+                              launchInBrowser(Uri.parse(
+                                  'http://localhost:4090/label/' +
+                                      widget.warehousePlace.barcode))
+                            },
+                        icon: const Icon(Icons.print)),
+                    icon: const Icon(Icons.barcode_reader),
+                    hintText: 'Barcode',
+                    label: const Text('Barcode')),
+              ),
+              TextFormField(
+                onChanged: (value) {
+                  setState(() {
+                    // widget.warehousePlace.parent =  value as WarehousePlace?;
+                  });
+                },
+                decoration: const InputDecoration(
+                    icon: Icon(Icons.library_books),
+                    hintText: 'Parent',
+                    label: Text('Parent')),
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: TextButton(
@@ -103,15 +136,11 @@ class _WarehousePlaceFormOnlyState extends State<WarehousePlaceFormOnly> {
                     if (_formKey1.currentState!.validate()) {
                       _formKey1.currentState!.save();
                       // WarehousePlace wpn = wp;
-                      WarehousePlace wpn = WarehousePlace(
-                          id: warehousePlace.id,
-                          name: _name,
-                          warehouse: _warehouse!);
-                      storeWarehousePlace(wpn).then((warehousePlaceServer) {
+
+                      storeWarehousePlace(widget.warehousePlace)
+                          .then((warehousePlaceServer) {
                         print(warehousePlaceServer.toJson());
                         setState(() {
-                          _name = warehousePlaceServer.name;
-                          warehousePlace = warehousePlaceServer;
                           idController.text =
                               warehousePlaceServer.id.toString();
                         });
@@ -129,8 +158,9 @@ class _WarehousePlaceFormOnlyState extends State<WarehousePlaceFormOnly> {
                           return const DeleteDialog();
                         }).then((value) {
                       print(value);
-                      if (value && warehousePlace.id != null) {
-                        deleteWarehousePlace(warehousePlace.id!).then((value) {
+                      if (value && widget.warehousePlace.id != null) {
+                        deleteWarehousePlace(widget.warehousePlace.id!)
+                            .then((value) {
                           Navigator.pushNamed(
                               context, WarehousePlaceListPage.url);
                         });
