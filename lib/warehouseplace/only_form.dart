@@ -6,13 +6,12 @@ import 'package:openshelves/warehouseplace/models/warehouseplace_model.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_list_page.dart';
 import 'package:openshelves/warehouseplace/warehouseplaces_service.dart';
 import 'package:openshelves/widgets/delete_overlay.dart';
-import 'package:openshelves/constants.dart';
 
 class WarehousePlaceFormOnly extends StatefulWidget {
-  WarehousePlaceFormOnly(
+  const WarehousePlaceFormOnly(
       {Key? key, required this.warehousePlace, required this.warehouses})
       : super(key: key);
-  WarehousePlace warehousePlace;
+  final WarehousePlace warehousePlace;
   final List<Warehouse> warehouses;
   @override
   State<WarehousePlaceFormOnly> createState() => _WarehousePlaceFormOnlyState();

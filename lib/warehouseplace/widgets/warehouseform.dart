@@ -46,7 +46,7 @@ class _WarehouseFormState extends State<WarehouseForm> {
                             )
                           ]),
                           WarehousePlaceFormOnly(
-                            warehousePlace: widget.wp!,
+                            warehousePlace: widget.wp,
                             warehouses: _warehouses,
                           ),
                           ElevatedButton(
@@ -98,13 +98,14 @@ class _WarehouseFormState extends State<WarehouseForm> {
                                       );
                                     });
                               },
-                              child: Text('Genereate Sub Warehouse Place'))
+                              child:
+                                  const Text('Genereate Sub Warehouse Place'))
                         ]))
                     : ListTile(
-                        title: Text(widget.wp!.name),
-                        subtitle: Text(widget.wp!.warehouse.name +
+                        title: Text(widget.wp.name),
+                        subtitle: Text(widget.wp.warehouse.name +
                             ' / ' +
-                            widget.wp!.warehouse.address.city.toString()),
+                            widget.wp.warehouse.address.city.toString()),
                         trailing: Switch(
                           value: editMode,
                           onChanged: (val) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:openshelves/document/document_page.dart';
 import 'package:openshelves/document/models/document_model.dart';
 import 'package:openshelves/document/services/document_service.dart';
 import 'package:openshelves/state/appstate.dart';
@@ -20,7 +21,10 @@ class _DocumentListPageState extends State<DocumentListPage> {
     return Scaffold(
         // appBar: openShelvesAppBar,
         floatingActionButton: FloatingActionButton(
-            child: const Icon(Icons.add), onPressed: () {}),
+            child: const Icon(Icons.add),
+            onPressed: () {
+              Navigator.pushNamed(context, DocumentPage.url + '/new');
+            }),
         body: Row(children: [
           const OpenShelvesDrawer(),
           Expanded(
@@ -34,6 +38,12 @@ class _DocumentListPageState extends State<DocumentListPage> {
                               itemCount: snapshot.data!.length,
                               itemBuilder: (context, index) {
                                 return ListTile(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context,
+                                        DocumentPage.url +
+                                            '/${snapshot.data![index].id}');
+                                  },
                                   leading:
                                       Text(snapshot.data![index].id.toString()),
                                   title: Text(snapshot

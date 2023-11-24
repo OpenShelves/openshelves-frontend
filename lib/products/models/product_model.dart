@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 part 'product_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class Product {
   int? id;
   String name;
@@ -13,6 +13,7 @@ class Product {
   double? weight;
   @JsonKey(fromJson: _boolFromInt, toJson: _boolToInt)
   bool? active;
+  @JsonKey(fromJson: _doubleFormNull)
   double? price;
   String? sku;
   @JsonKey(name: 'updated_at')
@@ -40,6 +41,7 @@ class Product {
       this.updatedAt,
       this.quantity});
 
+  static double? _doubleFormNull(dynamic value) => value == null ? 0 : value;
   static bool _boolFromInt(int active) => active == 1;
   static int _boolToInt(bool? active) => active != null && active ? 1 : 0;
 

@@ -9,10 +9,10 @@ part of 'document_model.dart';
 Document _$DocumentFromJson(Map<String, dynamic> json) => Document(
       documentType: json['document_type'] as int,
       documentStatus: json['document_status'] as int,
-      documentNumber: json['document_number'] as String,
+      documentNumber: json['document_number'] as String?,
       documentDate: DateTime.parse(json['document_date'] as String),
+      id: json['id'] as int?,
     )
-      ..id = json['id'] as int?
       ..billingAddress = json['billingAddress'] == null
           ? null
           : Address.fromJson(json['billingAddress'] as Map<String, dynamic>)

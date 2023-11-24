@@ -10,7 +10,7 @@ class Document {
   @JsonKey(name: 'document_status')
   int documentStatus;
   @JsonKey(name: 'document_number')
-  String documentNumber;
+  String? documentNumber;
   @JsonKey(name: 'document_date')
   DateTime documentDate;
   Address? billingAddress;
@@ -19,7 +19,7 @@ class Document {
   Document({
     required this.documentType,
     required this.documentStatus,
-    required this.documentNumber,
+    this.documentNumber,
     required this.documentDate,
     this.id,
   });

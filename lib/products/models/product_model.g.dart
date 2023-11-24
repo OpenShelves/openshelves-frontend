@@ -24,18 +24,27 @@ Product _$ProductFromJson(Map<String, dynamic> json) => Product(
       quantity: json['quantity'] as String?,
     );
 
-Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'asin': instance.asin,
-      'ean': instance.ean,
-      'width': instance.width,
-      'height': instance.height,
-      'depth': instance.depth,
-      'weight': instance.weight,
-      'active': Product._boolToInt(instance.active),
-      'price': instance.price,
-      'sku': instance.sku,
-      'updated_at': instance.updatedAt?.toIso8601String(),
-      'quantity': instance.quantity,
-    };
+Map<String, dynamic> _$ProductToJson(Product instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('id', instance.id);
+  val['name'] = instance.name;
+  writeNotNull('asin', instance.asin);
+  writeNotNull('ean', instance.ean);
+  writeNotNull('width', instance.width);
+  writeNotNull('height', instance.height);
+  writeNotNull('depth', instance.depth);
+  writeNotNull('weight', instance.weight);
+  val['active'] = Product._boolToInt(instance.active);
+  writeNotNull('price', instance.price);
+  writeNotNull('sku', instance.sku);
+  writeNotNull('updated_at', instance.updatedAt?.toIso8601String());
+  writeNotNull('quantity', instance.quantity);
+  return val;
+}

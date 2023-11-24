@@ -73,3 +73,72 @@ Future<List<Document>> getAllDocuments() async {
     throw Exception('Failed to load product');
   }
 }
+
+Future<Document> getDocumentById(String id) async {
+  var token = await getToken();
+  await storage.read(key: 'selectedServer').then((value) {
+    if (value != null) {
+      URL = value;
+    }
+  });
+  final response = await http
+      .get(Uri.parse(URL + '/document/$id'), headers: <String, String>{
+    'Content-Type': 'application/json; charset=UTF-8',
+    'Authorization': 'Bearer ' + token
+  });
+
+  if (response.statusCode == 200) {
+    return Document.fromJson(jsonDecode(response.body));
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to store document row');
+  }
+}
+
+Future<List<DocumentRowModel>> getDocumentRowsByDocumentId(String id) async {
+  var token = await getToken();
+  await storage.read(key: 'selectedServer').then((value) {
+    if (value != null) {
+      URL = value;
+    }
+  });
+  final response = await http.get(Uri.parse(URL + '/documentrows/$id'),
+      headers: <String, String>{
+        'Accept-Language': 'application/json',
+        'Authorization': 'Bearer ' + token
+      });
+  if (response.statusCode == 200) {
+    Iterable l = json.decode(response.body);
+    return List<DocumentRowModel>.from(
+        l.map((model) => DocumentRowModel.fromJson(model)));
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load product');
+  }
+}
+
+Future<void> deleteDocument(Document document) async {
+  var token = await getToken();
+  await storage.read(key: 'selectedServer').then((value) {
+    if (value != null) {
+      URL = value;
+    }
+  });
+  final response = await http.delete(
+    Uri.parse(URL + '/document/${document.id}'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Bearer ' + token
+    },
+  );
+
+  if (response.statusCode == 200 || response.statusCode == 201) {
+    // return Document.fromJson(jsonDecode(response.body));
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to delete document ');
+  }
+}

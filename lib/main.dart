@@ -56,6 +56,20 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      onGenerateRoute: (settings) {
+        print(settings);
+        var uri = Uri.parse(settings.name!);
+        if (uri.pathSegments.length == 2 &&
+            uri.pathSegments.first == 'documents') {
+          var id = uri.pathSegments[1];
+          if (id == 'new') {
+            return MaterialPageRoute(
+                builder: (context) => DocumentPage(id: null));
+          }
+          return MaterialPageRoute(
+              builder: (context) => DocumentPage(id: int.parse(id)));
+        }
+      },
       routes: {
         LoginPage.url: (context) => LoginPage(
               store: store,
@@ -79,9 +93,8 @@ class MyApp extends StatelessWidget {
         IncomePage.url: (context) => IncomePage(
               store: store,
             ),
-        DocumentPage.url: (context) => DocumentPage(
-              store: store,
-            ),
+        // DocumentPage.url: (context) => DocumentPage(),
+
         DocumentListPage.url: (context) => DocumentListPage(
               store: store,
             ),

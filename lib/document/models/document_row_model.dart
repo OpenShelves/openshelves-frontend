@@ -7,10 +7,14 @@ part 'document_row_model.g.dart';
 class DocumentRowModel {
   int? id;
   int pos;
+  @JsonKey(name: 'document_id')
   int documentId;
   Product? product;
+  @JsonKey(name: 'product_name')
   String productName;
+  @JsonKey(name: 'net_price')
   double? netPrice;
+  @JsonKey(name: 'gross_price')
   double? grossPrice;
   double? quantity;
   Tax? tax;
@@ -19,6 +23,12 @@ class DocumentRowModel {
     required this.pos,
     required this.documentId,
     required this.productName,
+    this.id,
+    this.product,
+    this.netPrice,
+    this.grossPrice,
+    this.quantity,
+    this.tax,
   });
 
   factory DocumentRowModel.fromJson(Map<String, dynamic> json) =>
