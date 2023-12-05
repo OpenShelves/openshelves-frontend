@@ -37,7 +37,7 @@ class _TaxListPageState extends State<TaxListPage> {
                             leading:
                                 Text(snapshot.data![index].rate.toString()),
                             trailing: snapshot.data![index].defaultTax
-                                ? Icon(Icons.check)
+                                ? const Icon(Icons.check)
                                 : null,
                             title: Text(snapshot.data![index].name),
                             onTap: () {

@@ -74,3 +74,20 @@ Future<WarehousePlace> getWarehousePlace(int id) async {
     throw Exception('Failed to load prodWarehouseuct');
   }
 }
+
+Future<WarehousePlace> getWarehousePlaceByBarcode(String barcode) async {
+  var token = await getToken();
+  final response = await http.get(
+      Uri.parse(URL + '/warehouseplace/barcode/' + barcode),
+      headers: <String, String>{
+        'Accept-Language': 'application/json',
+        'Authorization': 'Bearer ' + token
+      });
+  if (response.statusCode == 200) {
+    return WarehousePlace.fromJson(jsonDecode(response.body));
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load prodWarehouseuct');
+  }
+}

@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:openshelves/products/models/product_model.dart';
+import 'package:openshelves/scanner/income/models/income_model.dart';
 
-class IncomePopmenu extends StatelessWidget {
-  final Product product;
-  const IncomePopmenu({Key? key, required this.product}) : super(key: key);
+class IncomePopMenu extends StatefulWidget {
+  final IncomingModel incomingModel;
+  final Function(IncomingModel) onQuantityChanged;
+  const IncomePopMenu(
+      {Key? key, required this.incomingModel, required this.onQuantityChanged})
+      : super(key: key);
 
+  @override
+  State<IncomePopMenu> createState() => _IncomePopMenuState();
+}
+
+class _IncomePopMenuState extends State<IncomePopMenu> {
+  TextEditingController quantityController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
@@ -30,7 +39,7 @@ class IncomePopmenu extends StatelessWidget {
                             title: Text(
                                 AppLocalizations.of(context)!.confirm_delete +
                                     '?'),
-                            content: Text(product.name),
+                            content: Text(widget.incomingModel.product.name),
                             actions: <Widget>[
                               OutlinedButton(
                                   style: ButtonStyle(
@@ -57,25 +66,52 @@ class IncomePopmenu extends StatelessWidget {
                 }
               else if (value == 'changeQuantity')
                 {
+                  quantityController.text =
+                      widget.incomingModel.quantity.toString(),
                   showDialog(
                       context: context,
                       builder: (context) {
                         return AlertDialog(
+                          actions: [
+                            OutlinedButton(
+                                style: ButtonStyle(
+                                    foregroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.red)),
+                                child: Text(AppLocalizations.of(context)!
+                                    .cancel_button),
+                                onPressed: () {
+                                  Navigator.pop(
+                                      context, 'QUANTITY_CHANGED_CANCELED');
+                                }),
+                            OutlinedButton(
+                                style: ButtonStyle(
+                                    foregroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.green)),
+                                child: Text(
+                                    AppLocalizations.of(context)!.ok_button),
+                                onPressed: () {
+                                  Navigator.pop(context, 'QUANTITY_CHANGED');
+                                })
+                          ],
                           title: Text(
                               AppLocalizations.of(context)!.changeQuantity),
                           content: Column(children: [
-                            Text(product.name),
-                            TextField(
+                            Text(widget.incomingModel.product.name),
+                            TextFormField(
+                              controller: quantityController,
                               onChanged: (value) {},
-                              onSubmitted: (value) {
-                                Navigator.pop(context, value);
-                              },
                               autofocus: true,
                               keyboardType: TextInputType.number,
                             )
                           ]),
                         );
-                      })
+                      }).then((value) {
+                    widget.incomingModel.quantity =
+                        int.parse(quantityController.text);
+                    widget.onQuantityChanged(widget.incomingModel);
+                  })
                 },
             });
   }

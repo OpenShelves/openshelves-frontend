@@ -45,7 +45,11 @@ class _WarehousePlaceListPageState extends State<WarehousePlaceListPage> {
                       WarehousePlace warehousePlace = snapshot.data![index];
                       return ListTile(
                         onTap: () {
-                          Navigator.pushNamed(context, WarehousePlacePage.url);
+                          Navigator.pushNamed(
+                              context,
+                              WarehousePlacePage.url +
+                                  '/' +
+                                  warehousePlace.id.toString());
                         },
                         title: Text(warehousePlace.name),
                         subtitle: Text(warehousePlace.warehouse.name +

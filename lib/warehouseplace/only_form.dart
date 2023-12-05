@@ -106,7 +106,6 @@ class _WarehousePlaceFormOnlyState extends State<WarehousePlaceFormOnly> {
                 decoration: InputDecoration(
                     suffix: IconButton(
                         onPressed: () => {
-                              print("print"),
                               launchInBrowser(Uri.parse(
                                   'http://localhost:4090/label/' +
                                       widget.warehousePlace.barcode))
@@ -156,7 +155,6 @@ class _WarehousePlaceFormOnlyState extends State<WarehousePlaceFormOnly> {
                         builder: (context) {
                           return const DeleteDialog();
                         }).then((value) {
-                      print(value);
                       if (value && widget.warehousePlace.id != null) {
                         deleteWarehousePlace(widget.warehousePlace.id!)
                             .then((value) {

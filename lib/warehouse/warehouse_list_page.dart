@@ -37,7 +37,6 @@ class _WarehouseListPageState extends State<WarehouseListPage> {
                         ' ' +
                         snapshot.data![index].address.city.toString()),
                     onTap: () {
-                      print('go');
                       widget.store.dispatch(
                         SelectWarehouseAction(snapshot.data![index]),
                       );

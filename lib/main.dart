@@ -76,12 +76,6 @@ class MyApp extends StatelessWidget {
               }
               return MaterialPageRoute(
                   builder: (context) => WarehousePlacePage(id: int.parse(id)));
-            // if (id == 'new') {
-            //   return MaterialPageRoute(
-            //       builder: (context) => ProductFormPage(id: null));
-            // }
-            // return MaterialPageRoute(
-            //     builder: (context) => ProductFormPage(id: int.parse(id)));
           }
         }
       },

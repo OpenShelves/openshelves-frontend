@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:openshelves/address_model.dart';
 import 'package:openshelves/constants.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';
-import 'package:openshelves/state/appstate.dart';
 import 'package:openshelves/warehouse/warehouse_model.dart';
 import 'package:openshelves/warehouse/warehouse_service.dart';
 import 'package:openshelves/warehouseplace/inventory_service.dart';
@@ -11,6 +10,7 @@ import 'package:openshelves/warehouseplace/models/warehouseplace_model.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_list_page.dart';
 import 'package:openshelves/warehouseplace/warehouseplaces_service.dart';
 import 'package:openshelves/warehouseplace/widgets/inventory_table.dart';
+import 'package:openshelves/warehouseplace/widgets/invetory_list.dart';
 import 'package:openshelves/warehouseplace/widgets/warehouseform.dart';
 import 'package:openshelves/widgets/drawer.dart';
 
@@ -77,8 +77,10 @@ class _WarehousePlacePageState extends State<WarehousePlacePage> {
             appBar: openShelvesAppBar,
             drawer: const OpenShelvesDrawer(),
             body: ListView(children: [
-              // WarehouseForm(wp: wp),
-              // InventoryList(wp: wp, store: widget.store)
+              wp.id != null
+                  ? InventoryList(id: wp.id!)
+                  : const Text('Noch Keine Daten'),
+              WarehouseForm(wp: wp),
             ])),
         tabletBody: Scaffold(
             appBar: openShelvesAppBar,

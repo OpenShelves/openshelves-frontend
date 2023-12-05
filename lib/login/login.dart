@@ -20,11 +20,11 @@ class _LoginPageState extends State<LoginPage> {
   @override
   initState() {
     super.initState();
-    storage.read(key: 'token').then((value) {
-      if (value != null) {
-        Navigator.pushNamed(context, '/dashboard');
-      }
-    });
+    // storage.read(key: 'token').then((value) {
+    //   if (value != null) {
+    //     Navigator.pushNamed(context, '/dashboard');
+    //   }
+    // });
   }
 
   @override

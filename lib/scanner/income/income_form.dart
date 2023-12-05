@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:openshelves/constants.dart';
+import 'package:openshelves/helpers/debouncer.dart';
 import 'package:openshelves/products/models/product_model.dart';
 import 'package:openshelves/products/services/product_service.dart';
 import 'package:openshelves/scanner/income/income_popmenu.dart';
+import 'package:openshelves/scanner/income/models/income_model.dart';
 import 'package:openshelves/state/appstate.dart';
 import 'package:openshelves/warehouseplace/inventory_service.dart';
 import 'package:openshelves/warehouseplace/models/inventory_model.dart';
@@ -20,22 +21,19 @@ class IncomePage extends StatefulWidget {
   State<IncomePage> createState() => _IncomePageState();
 }
 
-class IncomingModel {
-  int quantity;
-  Product product;
-  IncomingModel({required this.product, required this.quantity});
-}
-
 class IncomingStateModel {
   int warehousePlaceId;
   IncomingStateModel({required this.warehousePlaceId});
 }
 
 class _IncomePageState extends State<IncomePage> {
+  final _debouncer = Debouncer(milliseconds: 100);
   WarehousePlace? warehousePlace;
   String warehousePlaceName = '';
   TextEditingController productController = TextEditingController();
   FocusNode productFocus = FocusNode();
+  FocusNode warehousePlaceFocus = FocusNode();
+
   checkEANLocal(String code) {
     return null;
   }
@@ -49,7 +47,9 @@ class _IncomePageState extends State<IncomePage> {
       },
     );
     i.quantity++;
-    setState(() {});
+    setState(() {
+      incoming = incoming;
+    });
     productController.clear();
     productFocus.requestFocus();
   }
@@ -63,8 +63,14 @@ class _IncomePageState extends State<IncomePage> {
 
   @override
   Widget build(BuildContext context) {
+    if (warehousePlace == null) {
+      warehousePlaceFocus.requestFocus();
+    }
     return Scaffold(
-      appBar: openShelvesAppBar,
+      appBar: AppBar(
+          title: warehousePlace != null
+              ? Text('${warehousePlace?.barcode} / ${warehousePlace?.name}')
+              : const Text('Scan WarehousePlace')),
       drawer: const OpenShelvesDrawer(),
       body: Column(children: [
         Card(
@@ -73,21 +79,24 @@ class _IncomePageState extends State<IncomePage> {
           children: [
             warehousePlaceName.isEmpty
                 ? TextFormField(
+                    focusNode: warehousePlaceFocus,
                     decoration:
                         const InputDecoration(label: Text('WarehousePlaceId')),
                     onChanged: (value) {
-                      getWarehousePlace(int.parse(value)).then(
-                          (warehousePlace) {
-                        setState(() {
-                          this.warehousePlace = warehousePlace;
-                          warehousePlaceName = warehousePlace.name;
+                      _debouncer.run(() {
+                        getWarehousePlaceByBarcode(value).then(
+                            (warehousePlace) {
+                          setState(() {
+                            this.warehousePlace = warehousePlace;
+                            warehousePlaceName = warehousePlace.name;
+                          });
+                          productFocus.requestFocus();
+                        }, onError: (message) {
+                          // final snackBar = SnackBar(
+                          // content: Text(message.toString()),
+                          // );
+                          // ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         });
-                        //     });
-                      }, onError: (message) {
-                        final snackBar = SnackBar(
-                          content: Text(message.toString()),
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       });
                     },
                   )
@@ -146,7 +155,15 @@ class _IncomePageState extends State<IncomePage> {
                 title: Text(incoming[index].product.name),
                 leading: Text(incoming[index].quantity.toString(),
                     style: (Theme.of(context).textTheme.headlineMedium)),
-                trailing: IncomePopmenu(product: incoming[index].product));
+                trailing: IncomePopMenu(
+                  incomingModel: incoming[index],
+                  onQuantityChanged: (IncomingModel incomingModel) {
+                    setState(() {
+                      incoming[index].quantity = incomingModel.quantity;
+                      incoming = incoming;
+                    });
+                  },
+                ));
           },
         )
       ]),

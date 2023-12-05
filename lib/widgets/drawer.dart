@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:openshelves/document/document_list_page.dart';
-import 'package:openshelves/document/document_page.dart';
 import 'package:openshelves/home.dart';
 import 'package:openshelves/login/login.dart';
 import 'package:openshelves/products/list/product_list_page.dart';
