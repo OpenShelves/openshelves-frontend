@@ -4,6 +4,7 @@ import 'package:openshelves/document/document_row_widget.dart';
 import 'package:openshelves/document/models/document_model.dart';
 import 'package:openshelves/document/models/document_row_model.dart';
 import 'package:openshelves/document/services/document_service.dart';
+import 'package:openshelves/document/widgets/document_header_widget.dart';
 import 'package:openshelves/widgets/drawer.dart';
 
 class DocumentPage extends StatefulWidget {
@@ -82,90 +83,101 @@ class _DocumentPageState extends State<DocumentPage> {
           Expanded(
               flex: 1,
               child: Container(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(document.id.toString()),
-                      Form(
-                          key: _formKey,
-                          child: Column(
-                            children: [
-                              Text(
-                                  'DocDate: ${document.documentDate.toIso8601String()}'),
-                              Text('DocStatis: ${docStatus[7]}'),
-                              DropdownButton(
-                                  value: document.documentStatus,
-                                  items: docStatus.entries
-                                      .map((e) => DropdownMenuItem(
-                                          value: e.key,
-                                          child: Text(e.value.toString())))
-                                      .toList(),
-                                  onChanged: (value) {
-                                    setState(() {
-                                      document.documentStatus = value as int;
-                                    });
-                                  }),
-                              ElevatedButton(
-                                  onPressed: () {
-                                    _selectDate(context);
-                                  },
-                                  child: Icon(Icons.calendar_today)),
-                              ElevatedButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      rows.add(DocumentRowWidget(
-                                          documentRow: DocumentRowModel(
-                                              documentId: 1,
-                                              pos: rows.length + 1,
-                                              productName: '')));
-                                    });
-                                  },
-                                  child: const Text('add Row')),
-                              // ElevatedButton(
-                              //     onPressed: () {
-                              //       rows.every((element) {
-                              //         element.documentRow.documentId =
-                              //             document.id!;
-                              //         storeDocumentRow(element.documentRow)
-                              //             .catchError((error) {
-                              //           print(error);
-                              //         });
-                              //         print(element.documentRow.toString());
-                              //         return true;
-                              //       });
-                              //     },
-                              //     child: const Text('save all')),
-                              ElevatedButton(
-                                  onPressed: () {
-                                    storeDocument(document).then((value) {
-                                      setState(() {
-                                        document = value;
-                                      });
-                                      rows.every((element) {
-                                        element.documentRow.documentId =
-                                            document.id!;
-                                        storeDocumentRow(element.documentRow)
-                                            .catchError((error) {
-                                          throw (error);
+                      DocumentHeader(document: document, rows: rows),
+                      Expanded(
+                          child: ListView(
+                        shrinkWrap: true,
+                        children: [
+                          Form(
+                              key: _formKey,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                      'DocDate: ${document.documentDate.toIso8601String()}'),
+                                  Text('DocStatis: ${docStatus[7]}'),
+                                  DropdownButton(
+                                      value: document.documentStatus,
+                                      items: docStatus.entries
+                                          .map((e) => DropdownMenuItem(
+                                              value: e.key,
+                                              child: Text(e.value.toString())))
+                                          .toList(),
+                                      onChanged: (value) {
+                                        setState(() {
+                                          document.documentStatus =
+                                              value as int;
                                         });
-                                        return true;
-                                      });
-                                    }).catchError((error) {});
-                                  },
-                                  child: const Text('save doc')),
-                              ElevatedButton(
-                                  onPressed: () {
-                                    deleteDocument(document).then((value) {
-                                      // setState(() {
-                                      //   document = value;
-                                      // });
-                                    }).catchError((error) {});
-                                  },
-                                  child: const Text('delete doc')),
-                              Column(children: rows),
-                            ],
-                          ))
+                                      }),
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        _selectDate(context);
+                                      },
+                                      child: Icon(Icons.calendar_today)),
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          rows.add(DocumentRowWidget(
+                                              documentRow: DocumentRowModel(
+                                                  documentId: 1,
+                                                  pos: rows.length + 1,
+                                                  productName: '')));
+                                        });
+                                      },
+                                      child: const Text('add Row')),
+                                  // ElevatedButton(
+                                  //     onPressed: () {
+                                  //       rows.every((element) {
+                                  //         element.documentRow.documentId =
+                                  //             document.id!;
+                                  //         storeDocumentRow(element.documentRow)
+                                  //             .catchError((error) {
+                                  //           print(error);
+                                  //         });
+                                  //         print(element.documentRow.toString());
+                                  //         return true;
+                                  //       });
+                                  //     },
+                                  //     child: const Text('save all')),
+                                  // ElevatedButton(
+                                  //     onPressed: () {
+                                  //       storeDocument(document).then((value) {
+                                  //         setState(() {
+                                  //           document = value;
+                                  //         });
+                                  //         rows.every((element) {
+                                  //           element.documentRow.documentId =
+                                  //               document.id!;
+                                  //           storeDocumentRow(
+                                  //                   element.documentRow)
+                                  //               .catchError((error) {
+                                  //             throw (error);
+                                  //           });
+                                  //           return true;
+                                  //         });
+                                  //       }).catchError((error) {});
+                                  //     },
+                                  //     child: const Text('save doc')),
+                                  // ElevatedButton(
+                                  //     onPressed: () {
+                                  //       deleteDocument(document).then((value) {
+                                  //         // setState(() {
+                                  //         //   document = value;
+                                  //         // });
+                                  //       }).catchError((error) {});
+                                  //     },
+                                  //     child: const Text('delete doc')),
+                                  Column(children: rows),
+                                ],
+                              ))
+                        ],
+                      )),
                     ],
                   )))
         ]));

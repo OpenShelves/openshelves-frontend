@@ -24,7 +24,7 @@ class InventoryTableSource extends DataTableSource {
       DataCell(IconButton(
           onPressed: () {
             getProductById(inventory.productsId).then((product) {
-              widget.store.dispatch(SelectProductAction(product));
+              // widget.store.dispatch(SelectProductAction(product));
               Navigator.pushNamed(
                 context,
                 ProductFormPage.url,
@@ -59,8 +59,16 @@ class InventoryTable extends StatelessWidget {
                 ? getInventoryLevelsByInventoryId(wp!.id!)
                 : [] as Future<List<InventoryLevel>>,
             builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                print(snapshot.error);
+                return const Text('Something went wrong');
+              }
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData) {
+                  if (snapshot.data!.isEmpty) {
+                    return const Center(child: Text('No Products found'));
+                  }
+
                   return PaginatedDataTable(
                       rowsPerPage: snapshot.data!.length,
                       columns: const [

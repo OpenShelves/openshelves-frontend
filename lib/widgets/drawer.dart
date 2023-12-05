@@ -18,9 +18,9 @@ class OpenShelvesDrawer extends StatelessWidget {
         backgroundColor: Colors.grey[300],
         child: Column(
           children: [
-            const Text(
+            Text(
               'OpenShelves',
-              style: TextStyle(fontSize: 30),
+              style: Theme.of(context).textTheme.headlineLarge,
             ),
             const Divider(
               height: 10,

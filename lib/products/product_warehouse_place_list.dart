@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:openshelves/state/appstate.dart';
 import 'package:openshelves/warehouseplace/models/inventory_level_model.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_form.dart';
-import 'package:openshelves/warehouseplace/warehouseplaces_service.dart';
 import 'package:redux/redux.dart';
 
 class WarehousePlaceList extends StatelessWidget {
@@ -24,14 +23,10 @@ class WarehousePlaceList extends StatelessWidget {
                   border: Border(bottom: BorderSide(color: Colors.black12))),
               child: ListTile(
                 onTap: () {
-                  getWarehousePlace(inventoryLevels[index].warehousePlacesId)
-                      .then((warehousePlace) {
-                    Navigator.pushNamed(context, WarehousePlacePage.url,
-                        arguments: WarehousePlacePageArguments(warehousePlace));
-                    // }, onError: () {
-                    //   print('error');
-                    // });
-                  });
+                  Navigator.pushNamed(
+                    context,
+                    WarehousePlacePage.url,
+                  );
                 },
                 title: Text(inventoryLevels[index].warehousePlacesName),
                 leading: Padding(

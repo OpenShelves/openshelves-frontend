@@ -59,15 +59,30 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: (settings) {
         print(settings);
         var uri = Uri.parse(settings.name!);
-        if (uri.pathSegments.length == 2 &&
-            uri.pathSegments.first == 'documents') {
-          var id = uri.pathSegments[1];
-          if (id == 'new') {
-            return MaterialPageRoute(
-                builder: (context) => DocumentPage(id: null));
+        var id = uri.pathSegments[1];
+        if (uri.pathSegments.length == 2) {
+          switch (uri.pathSegments.first) {
+            case 'documents':
+              if (id == 'new') {
+                return MaterialPageRoute(
+                    builder: (context) => DocumentPage(id: null));
+              }
+              return MaterialPageRoute(
+                  builder: (context) => DocumentPage(id: int.parse(id)));
+            case WarehousePlacePage.url:
+              if (id == 'new') {
+                return MaterialPageRoute(
+                    builder: (context) => WarehousePlacePage(id: null));
+              }
+              return MaterialPageRoute(
+                  builder: (context) => WarehousePlacePage(id: int.parse(id)));
+            // if (id == 'new') {
+            //   return MaterialPageRoute(
+            //       builder: (context) => ProductFormPage(id: null));
+            // }
+            // return MaterialPageRoute(
+            //     builder: (context) => ProductFormPage(id: int.parse(id)));
           }
-          return MaterialPageRoute(
-              builder: (context) => DocumentPage(id: int.parse(id)));
         }
       },
       routes: {
@@ -87,9 +102,7 @@ class MyApp extends StatelessWidget {
               store: store,
             ),
         WarehouseListPage.url: (context) => WarehouseListPage(store: store),
-        WarehousePlaceListPage.url: (context) =>
-            WarehousePlaceListPage(store: store),
-        WarehousePlacePage.url: (context) => WarehousePlacePage(store: store),
+        WarehousePlaceListPage.url: (context) => WarehousePlaceListPage(),
         IncomePage.url: (context) => IncomePage(
               store: store,
             ),

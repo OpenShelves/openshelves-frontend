@@ -4,6 +4,8 @@ import 'package:openshelves/warehouse/warehouse_model.dart';
 import 'package:openshelves/warehouse/warehouse_service.dart';
 import 'package:openshelves/warehouseplace/models/warehouseplace_model.dart';
 import 'package:openshelves/warehouseplace/only_form.dart';
+import 'package:openshelves/warehouseplace/warehouseplaces_service.dart';
+import 'package:openshelves/warehouseplace/widgets/create_sub_warehouse_places.dart';
 
 class WarehouseForm extends StatefulWidget {
   final WarehousePlace wp;
@@ -51,50 +53,11 @@ class _WarehouseFormState extends State<WarehouseForm> {
                           ),
                           ElevatedButton(
                               onPressed: () {
-                                print("pressed");
                                 showDialog(
                                     context: context,
                                     builder: (context) {
-                                      return AlertDialog(
-                                        title: const Text(
-                                            'Generate Sub Warehouse Place'),
-                                        content: Column(children: [
-                                          TextFormField(
-                                            initialValue: 'Fachboden',
-                                            decoration: const InputDecoration(
-                                              hintText: 'Enter the name',
-                                            ),
-                                            validator: (value) {
-                                              if (value != null &&
-                                                  value.isEmpty) {
-                                                return 'Must be filled';
-                                              }
-                                              return null;
-                                            },
-                                          ),
-                                          TextFormField(
-                                            decoration: const InputDecoration(
-                                              hintText: 'Quantity',
-                                            ),
-                                            keyboardType: TextInputType.number,
-                                            inputFormatters: <TextInputFormatter>[
-                                              FilteringTextInputFormatter
-                                                  .digitsOnly
-                                            ],
-                                          )
-                                        ]),
-                                        actions: [
-                                          TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: const Text('Cancel')),
-                                          TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: const Text('Generate'))
-                                        ],
+                                      return CreateSubWarehousePlaces(
+                                        warehousePlace: widget.wp,
                                       );
                                     });
                               },

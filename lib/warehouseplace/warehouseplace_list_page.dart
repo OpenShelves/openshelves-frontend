@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:openshelves/address_model.dart';
 import 'package:openshelves/constants.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';
 import 'package:openshelves/state/appstate.dart';
-import 'package:openshelves/warehouse/warehouse_model.dart';
 import 'package:openshelves/warehouseplace/models/warehouseplace_model.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_form.dart';
 import 'package:openshelves/warehouseplace/warehouseplaces_service.dart';
@@ -11,9 +9,7 @@ import 'package:openshelves/widgets/drawer.dart';
 import 'package:redux/redux.dart';
 
 class WarehousePlaceListPage extends StatefulWidget {
-  final Store<AppState> store;
-  const WarehousePlaceListPage({Key? key, required this.store})
-      : super(key: key);
+  const WarehousePlaceListPage({Key? key}) : super(key: key);
   static const String url = 'warehouseplaces';
 
   @override
@@ -25,14 +21,10 @@ class _WarehousePlaceListPageState extends State<WarehousePlaceListPage> {
     return FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
-          widget.store.dispatch(SelectWarehousePlaceAction(WarehousePlace(
-              name: '',
-              warehouse: Warehouse(name: '', address: Address(name1: '')))));
-          Navigator.pushNamed(context, WarehousePlacePage.url,
-              arguments: WarehousePlacePageArguments(WarehousePlace(
-                  name: '',
-                  warehouse:
-                      Warehouse(name: '', address: Address(name1: '')))));
+          Navigator.pushNamed(
+            context,
+            WarehousePlacePage.url,
+          );
         });
   }
 
@@ -53,11 +45,7 @@ class _WarehousePlaceListPageState extends State<WarehousePlaceListPage> {
                       WarehousePlace warehousePlace = snapshot.data![index];
                       return ListTile(
                         onTap: () {
-                          widget.store.dispatch(
-                              SelectWarehousePlaceAction(warehousePlace));
-                          Navigator.pushNamed(context, WarehousePlacePage.url,
-                              arguments:
-                                  WarehousePlacePageArguments(warehousePlace));
+                          Navigator.pushNamed(context, WarehousePlacePage.url);
                         },
                         title: Text(warehousePlace.name),
                         subtitle: Text(warehousePlace.warehouse.name +
@@ -96,13 +84,11 @@ class _WarehousePlaceListPageState extends State<WarehousePlaceListPage> {
                                     snapshot.data![index];
                                 return ListTile(
                                   onTap: () {
-                                    widget.store.dispatch(
-                                        SelectWarehousePlaceAction(
-                                            warehousePlace));
                                     Navigator.pushNamed(
-                                        context, WarehousePlacePage.url,
-                                        arguments: WarehousePlacePageArguments(
-                                            warehousePlace));
+                                        context,
+                                        WarehousePlacePage.url +
+                                            '/' +
+                                            warehousePlace.id.toString());
                                   },
                                   title: Text(warehousePlace.name),
                                   subtitle: Text(warehousePlace.warehouse.name +
