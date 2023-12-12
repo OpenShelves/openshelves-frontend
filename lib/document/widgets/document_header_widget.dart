@@ -31,12 +31,12 @@ class _DocumentHeaderState extends State<DocumentHeader> {
           child: const Text('Delete'),
           value: 'Delete',
         ),
-        DropdownMenuItem<String>(
+        const DropdownMenuItem<String>(
           child: Text('Document Status'),
           value: 'Document Status',
         ),
       ], onChanged: (value) {}, value: null),
-      OutlinedButton(onPressed: () {}, child: Text('Hi')),
+      OutlinedButton(onPressed: () {}, child: const Text('Hi')),
       ElevatedButton(
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
@@ -56,7 +56,7 @@ class _DocumentHeaderState extends State<DocumentHeader> {
               });
             }).catchError((error) {});
           },
-          child: Text('Save')),
+          child: const Text('Save')),
     ]);
   }
 }

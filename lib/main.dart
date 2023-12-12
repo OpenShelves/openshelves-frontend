@@ -10,6 +10,7 @@ import 'package:openshelves/login/login.dart';
 import 'package:openshelves/products/form/product_form_page.dart';
 import 'package:openshelves/products/list/product_list_page.dart';
 import 'package:openshelves/scanner/income/income_form.dart';
+import 'package:openshelves/scanner/income/income_form_zebra.dart';
 import 'package:openshelves/scanner/scanner_home_page.dart';
 import 'package:openshelves/settings/settings_list_page.dart';
 import 'package:openshelves/settings/tax/tax_list_page.dart';
@@ -66,14 +67,14 @@ class MyApp extends StatelessWidget {
             case 'documents':
               if (id == 'new') {
                 return MaterialPageRoute(
-                    builder: (context) => DocumentPage(id: null));
+                    builder: (context) => const DocumentPage(id: null));
               }
               return MaterialPageRoute(
                   builder: (context) => DocumentPage(id: int.parse(id)));
             case WarehousePlacePage.url:
               if (id == 'new') {
                 return MaterialPageRoute(
-                    builder: (context) => WarehousePlacePage(id: null));
+                    builder: (context) => const WarehousePlacePage(id: null));
               }
               return MaterialPageRoute(
                   builder: (context) => WarehousePlacePage(id: int.parse(id)));
@@ -97,8 +98,11 @@ class MyApp extends StatelessWidget {
               store: store,
             ),
         WarehouseListPage.url: (context) => WarehouseListPage(store: store),
-        WarehousePlaceListPage.url: (context) => WarehousePlaceListPage(),
+        WarehousePlaceListPage.url: (context) => const WarehousePlaceListPage(),
         IncomePage.url: (context) => IncomePage(
+              store: store,
+            ),
+        IncomeZebraPage.url: (context) => IncomeZebraPage(
               store: store,
             ),
         // DocumentPage.url: (context) => DocumentPage(),

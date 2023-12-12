@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:openshelves/scanner/income/income_form.dart';
+import 'package:openshelves/scanner/income/income_form_zebra.dart';
 import 'package:openshelves/widgets/drawer.dart';
 
 class ScannerHomePage extends StatelessWidget {
@@ -18,6 +19,13 @@ class ScannerHomePage extends StatelessWidget {
               title: const Text('Incoming'),
               onTap: () {
                 Navigator.pushNamed(context, IncomePage.url);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.qr_code_scanner),
+              title: const Text('Zebra'),
+              onTap: () {
+                Navigator.pushNamed(context, IncomeZebraPage.url);
               },
             ),
             // ListTile(
