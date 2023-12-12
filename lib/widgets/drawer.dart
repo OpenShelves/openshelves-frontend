@@ -4,6 +4,7 @@ import 'package:openshelves/home.dart';
 import 'package:openshelves/login/login.dart';
 import 'package:openshelves/products/list/product_list_page.dart';
 import 'package:openshelves/scanner/income/income_form.dart';
+import 'package:openshelves/scanner/scanner_home_page.dart';
 import 'package:openshelves/settings/settings_list_page.dart';
 import 'package:openshelves/warehouse/warehouse_list_page.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_list_page.dart';
@@ -85,6 +86,13 @@ class OpenShelvesDrawer extends StatelessWidget {
               title: const Text('S E T T I N G S'),
               onTap: () {
                 Navigator.pushNamed(context, SettingsListPage.url);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.barcode_reader),
+              title: const Text('S C A N N E R'),
+              onTap: () {
+                Navigator.pushNamed(context, ScannerHomePage.url);
               },
             ),
             // const ListTile(

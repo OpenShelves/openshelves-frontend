@@ -10,6 +10,7 @@ import 'package:openshelves/login/login.dart';
 import 'package:openshelves/products/form/product_form_page.dart';
 import 'package:openshelves/products/list/product_list_page.dart';
 import 'package:openshelves/scanner/income/income_form.dart';
+import 'package:openshelves/scanner/scanner_home_page.dart';
 import 'package:openshelves/settings/settings_list_page.dart';
 import 'package:openshelves/settings/tax/tax_list_page.dart';
 import 'package:openshelves/warehouse/warehouse_form.dart';
@@ -105,12 +106,9 @@ class MyApp extends StatelessWidget {
         DocumentListPage.url: (context) => DocumentListPage(
               store: store,
             ),
-        SettingsListPage.url: (context) => const SettingsListPage(
-            // store: store,
-            ),
-        TaxListPage.url: (context) => const TaxListPage(
-            // store: store,
-            ),
+        SettingsListPage.url: (context) => const SettingsListPage(),
+        TaxListPage.url: (context) => const TaxListPage(),
+        ScannerHomePage.url: (context) => const ScannerHomePage(),
       },
     );
   }

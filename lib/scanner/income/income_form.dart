@@ -1,4 +1,6 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:openshelves/camera/camera_page.dart';
 import 'package:openshelves/helpers/debouncer.dart';
 import 'package:openshelves/products/models/product_model.dart';
 import 'package:openshelves/products/services/product_service.dart';
@@ -54,6 +56,16 @@ class _IncomePageState extends State<IncomePage> {
     productFocus.requestFocus();
   }
 
+  saveProducts() {
+    incoming.forEach((item) {
+      Inventory inventory = Inventory(
+          quantity: item.quantity,
+          warehousePlacesId: warehousePlace!.id!,
+          productsId: item.product.id!);
+      storeInventory(inventory);
+    });
+  }
+
   List<IncomingModel> incoming = [];
 
   @override
@@ -72,6 +84,38 @@ class _IncomePageState extends State<IncomePage> {
               ? Text('${warehousePlace?.barcode} / ${warehousePlace?.name}')
               : const Text('Scan WarehousePlace')),
       drawer: const OpenShelvesDrawer(),
+      bottomNavigationBar: BottomNavigationBar(
+          onTap: (value) async {
+            switch (value) {
+              case 0:
+                saveProducts();
+                break;
+              case 1:
+                WidgetsFlutterBinding.ensureInitialized();
+                final cameras = await availableCameras();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Scaffold(
+                      appBar: AppBar(
+                        title: const Text('Take a picture'),
+                      ),
+                      body: CameraPage(cameras: cameras),
+                    ),
+                  ),
+                );
+                break;
+              case 2:
+                break;
+            }
+          },
+          items: [
+            BottomNavigationBarItem(icon: Icon(Icons.save), label: 'Save'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.camera), label: 'Take Picture'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.qr_code), label: 'Scan Camera')
+          ]),
       body: Column(children: [
         Card(
             child: Form(
@@ -134,20 +178,10 @@ class _IncomePageState extends State<IncomePage> {
                 }
               },
             ),
-            IconButton(
-                onPressed: () {
-                  incoming.forEach((item) {
-                    Inventory inventory = Inventory(
-                        quantity: item.quantity,
-                        warehousePlacesId: warehousePlace!.id!,
-                        productsId: item.product.id!);
-                    storeInventory(inventory);
-                  });
-                },
-                icon: const Icon(Icons.save))
           ],
         ))),
-        ListView.builder(
+        Expanded(
+            child: ListView.builder(
           shrinkWrap: true,
           itemCount: incoming.length,
           itemBuilder: (context, index) {
@@ -165,7 +199,7 @@ class _IncomePageState extends State<IncomePage> {
                   },
                 ));
           },
-        )
+        ))
       ]),
     );
   }
