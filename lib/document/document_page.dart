@@ -71,7 +71,7 @@ class _DocumentPageState extends State<DocumentPage> {
     }
   }
 
-  var item = DropdownMenuItem<Map<int, String>>(child: Text('asd'));
+  var item = const DropdownMenuItem<Map<int, String>>(child: Text('asd'));
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +119,7 @@ class _DocumentPageState extends State<DocumentPage> {
                                       onPressed: () {
                                         _selectDate(context);
                                       },
-                                      child: Icon(Icons.calendar_today)),
+                                      child: const Icon(Icons.calendar_today)),
                                   ElevatedButton(
                                       onPressed: () {
                                         setState(() {

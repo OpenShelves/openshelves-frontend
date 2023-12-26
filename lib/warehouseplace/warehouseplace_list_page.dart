@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:openshelves/constants.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';
-import 'package:openshelves/state/appstate.dart';
 import 'package:openshelves/warehouseplace/models/warehouseplace_model.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_form.dart';
 import 'package:openshelves/warehouseplace/warehouseplaces_service.dart';
 import 'package:openshelves/widgets/drawer.dart';
-import 'package:redux/redux.dart';
 
 class WarehousePlaceListPage extends StatefulWidget {
   const WarehousePlaceListPage({Key? key}) : super(key: key);
