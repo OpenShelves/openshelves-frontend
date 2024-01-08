@@ -233,11 +233,10 @@ class _IncomeZebraPageState extends State<IncomeZebraPage> {
                   itemCount: incoming.length,
                   itemBuilder: (context, index) {
                     return ListTile(
-                        title: Text(incoming[index].product.name),
-                        leading: Text(incoming[index].quantity.toString(),
-                            style:
-                                (Theme.of(context).textTheme.headlineMedium)),
-                        trailing: IncomePopMenu(
+                      title: Text(incoming[index].product.name),
+                      leading: Text(incoming[index].quantity.toString(),
+                          style: (Theme.of(context).textTheme.headlineMedium)),
+                      trailing: IncomePopMenu(
                           incomingModel: incoming[index],
                           onQuantityChanged: (IncomingModel incomingModel) {
                             setState(() {
@@ -245,7 +244,12 @@ class _IncomeZebraPageState extends State<IncomeZebraPage> {
                               incoming = incoming;
                             });
                           },
-                        ));
+                          onDeleteItem: (IncomingModel incomingModel) {
+                            setState(() {
+                              incoming.remove(incomingModel);
+                            });
+                          }),
+                    );
                   },
                 ))
               ]);

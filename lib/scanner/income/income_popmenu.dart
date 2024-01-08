@@ -5,8 +5,12 @@ import 'package:openshelves/scanner/income/models/income_model.dart';
 class IncomePopMenu extends StatefulWidget {
   final IncomingModel incomingModel;
   final Function(IncomingModel) onQuantityChanged;
+  final Function(IncomingModel) onDeleteItem;
   const IncomePopMenu(
-      {Key? key, required this.incomingModel, required this.onQuantityChanged})
+      {Key? key,
+      required this.incomingModel,
+      required this.onQuantityChanged,
+      required this.onDeleteItem})
       : super(key: key);
 
   @override
@@ -62,7 +66,11 @@ class _IncomePopMenuState extends State<IncomePopMenu> {
                                     Navigator.pop(context, 'DELETE_OK');
                                   })
                             ]);
-                      })
+                      }).then((value) {
+                    if (value == 'DELETE_OK') {
+                      widget.onDeleteItem(widget.incomingModel);
+                    }
+                  })
                 }
               else if (value == 'changeQuantity')
                 {

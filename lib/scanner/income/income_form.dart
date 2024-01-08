@@ -190,14 +190,18 @@ class _IncomePageState extends State<IncomePage> {
                 leading: Text(incoming[index].quantity.toString(),
                     style: (Theme.of(context).textTheme.headlineMedium)),
                 trailing: IncomePopMenu(
-                  incomingModel: incoming[index],
-                  onQuantityChanged: (IncomingModel incomingModel) {
-                    setState(() {
-                      incoming[index].quantity = incomingModel.quantity;
-                      incoming = incoming;
-                    });
-                  },
-                ));
+                    incomingModel: incoming[index],
+                    onQuantityChanged: (IncomingModel incomingModel) {
+                      setState(() {
+                        incoming[index].quantity = incomingModel.quantity;
+                        incoming = incoming;
+                      });
+                    },
+                    onDeleteItem: (IncomingModel incomingModel) {
+                      setState(() {
+                        incoming.remove(incomingModel);
+                      });
+                    }));
           },
         ))
       ]),
