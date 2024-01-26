@@ -39,18 +39,9 @@ class _DocumentPageState extends State<DocumentPage> {
   }
 
   List<DocumentRowWidget> rows = [];
-  // [
-  //   DocumentRowWidget(
-  //     documentRow: DocumentRowModel(
-  //       documentId: 1,
-  //       pos: 1,
-  //       productName: '',
-  //     ),
-  //   )
-  // ];
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     if (widget.id != null) {
       getDocumentById(widget.id.toString()).then((value) {
