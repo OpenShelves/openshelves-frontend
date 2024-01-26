@@ -26,7 +26,7 @@ class InventoryTableSource extends DataTableSource {
               // widget.store.dispatch(SelectProductAction(product));
               Navigator.pushNamed(
                 context,
-                ProductFormPage.url,
+                ProductFormPage.url + '/${product.id}',
               );
             });
           },

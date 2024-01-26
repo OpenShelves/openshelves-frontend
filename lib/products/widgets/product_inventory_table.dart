@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:openshelves/products/form/product_form_page.dart';
 import 'package:openshelves/products/models/product_model.dart';
-import 'package:openshelves/state/appstate.dart';
 import 'package:openshelves/warehouseplace/inventory_service.dart';
 import 'package:openshelves/warehouseplace/invetory_table.dart';
 import 'package:openshelves/warehouseplace/models/inventory_level_model.dart';
@@ -27,10 +26,9 @@ class InventoryTableSource extends DataTableSource {
           onPressed: () {
             getWarehousePlace(inventory.warehousePlacesId)
                 .then((warehousePlace) {
-              widget.store.dispatch(SelectWarehousePlaceAction(warehousePlace));
               Navigator.pushNamed(
                 context,
-                WarehousePlacePage.url,
+                WarehousePlacePage.url + '/${warehousePlace.id}',
               );
             });
           },

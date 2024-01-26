@@ -5,10 +5,8 @@ import 'package:openshelves/warehouseplace/warehouseplace_form.dart';
 import 'package:redux/redux.dart';
 
 class WarehousePlaceList extends StatelessWidget {
-  final Store<AppState> store;
   final List<InventoryLevel> inventoryLevels;
-  const WarehousePlaceList(
-      {Key? key, required this.inventoryLevels, required this.store})
+  const WarehousePlaceList({Key? key, required this.inventoryLevels})
       : super(key: key);
 
   @override

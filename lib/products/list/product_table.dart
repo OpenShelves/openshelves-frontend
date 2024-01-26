@@ -36,13 +36,9 @@ class ProductTableSource extends DataTableSource {
               hoverColor: Colors.teal.shade100,
               icon: const Icon(Icons.edit),
               onPressed: () {
-                store.dispatch(
-                  SelectProductAction(product),
-                );
                 Navigator.pushNamed(
-                  context,
-                  ProductFormPage.url,
-                );
+                    context, ProductFormPage.url + '/${product.id}');
+                ;
               },
             ),
           ),

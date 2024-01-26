@@ -61,6 +61,7 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: (settings) {
         print(settings);
         var uri = Uri.parse(settings.name!);
+
         var id = uri.pathSegments[1];
         if (uri.pathSegments.length == 2) {
           switch (uri.pathSegments.first) {
@@ -71,6 +72,12 @@ class MyApp extends StatelessWidget {
               }
               return MaterialPageRoute(
                   builder: (context) => DocumentPage(id: int.parse(id)));
+            case 'product-form':
+              return MaterialPageRoute(
+                  builder: (context) => ProductFormPage(id: int.parse(id)));
+            case 'warehouseplace-form':
+              return MaterialPageRoute(
+                  builder: (context) => WarehousePlacePage(id: int.parse(id)));
             case WarehousePlacePage.url:
               if (id == 'new') {
                 return MaterialPageRoute(
@@ -89,9 +96,6 @@ class MyApp extends StatelessWidget {
               store: store,
             ),
         ProductPage.url: (context) => ProductPage(
-              store: store,
-            ),
-        ProductFormPage.url: (context) => ProductFormPage(
               store: store,
             ),
         WarhouseForm.url: (context) => WarhouseForm(

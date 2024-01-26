@@ -27,11 +27,11 @@ class _ProductMainDataFormState extends State<ProductMainDataForm> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: const EdgeInsets.all(20),
+        // padding: const EdgeInsets.all(20),
         child: Card(
-            margin: const EdgeInsets.all(8.0),
+            margin: const EdgeInsets.all(0.0),
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(15.0),
               child: Form(
                   key: widget.formKey,
                   child: Column(
