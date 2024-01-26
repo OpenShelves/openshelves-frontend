@@ -14,6 +14,7 @@ import 'package:openshelves/scanner/income/income_form_zebra.dart';
 import 'package:openshelves/scanner/scanner_home_page.dart';
 import 'package:openshelves/settings/settings_list_page.dart';
 import 'package:openshelves/settings/tax/tax_list_page.dart';
+import 'package:openshelves/settings/user/user_page.dart';
 import 'package:openshelves/warehouse/warehouse_form.dart';
 import 'package:openshelves/warehouse/warehouse_list_page.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_form.dart';
@@ -116,6 +117,7 @@ class MyApp extends StatelessWidget {
             ),
         SettingsListPage.url: (context) => const SettingsListPage(),
         TaxListPage.url: (context) => const TaxListPage(),
+        UserPage.url: (context) => const UserPage(),
         ScannerHomePage.url: (context) => const ScannerHomePage(),
       },
     );

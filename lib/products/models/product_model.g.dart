@@ -16,7 +16,7 @@ Product _$ProductFromJson(Map<String, dynamic> json) => Product(
       width: (json['width'] as num?)?.toDouble(),
       weight: (json['weight'] as num?)?.toDouble(),
       active: Product._boolFromInt(json['active'] as int),
-      price: (json['price'] as num?)?.toDouble(),
+      price: Product._doubleFormNull(json['price']),
       sku: json['sku'] as String?,
       updatedAt: json['updated_at'] == null
           ? null

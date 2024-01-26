@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:openshelves/settings/tax/tax_list_page.dart';
+import 'package:openshelves/settings/user/user_page.dart';
 import 'package:openshelves/widgets/drawer.dart';
 
 class SettingsListPage extends StatefulWidget {
@@ -29,6 +30,13 @@ class _SettingsListPageState extends State<SettingsListPage> {
                         title: const Text('T A X'),
                         onTap: () {
                           Navigator.pushNamed(context, TaxListPage.url);
+                        },
+                      ),
+                      ListTile(
+                        leading: const Icon(Icons.person),
+                        title: const Text('U S E R'),
+                        onTap: () {
+                          Navigator.pushNamed(context, UserPage.url);
                         },
                       ),
                     ],

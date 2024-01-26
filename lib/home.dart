@@ -35,91 +35,99 @@ class _HomePageState extends State<HomePage> {
             const OpenShelvesDrawer(),
             Container(
                 padding: const EdgeInsets.all(20),
-                child: Column(children: [
-                  Row(
+                child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      FutureBuilder(
-                        future: totalProductsFuture,
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            if (snapshot.hasData) {
-                              final totalProducts =
-                                  snapshot.data as ProductsTotal;
-                              return StatCard(
-                                  headline:
-                                      AppLocalizations.of(context)!.products,
-                                  body: Column(children: [
-                                    Text(AppLocalizations.of(context)!
-                                        .differentItems),
-                                    Text(
-                                      totalProducts.products.toString(),
-                                      style: const TextStyle(
-                                          fontSize: 30,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(AppLocalizations.of(context)!.inStock),
-                                    Text(
-                                      totalProducts.quantity.toString(),
-                                      style: const TextStyle(
-                                          fontSize: 30,
-                                          fontWeight: FontWeight.bold),
-                                    )
-                                  ]),
-                                  headlineColor: Colors.blue);
-                            } else {
-                              return const Center(child: Text('No data found'));
-                            }
-                          } else {
-                            return const Center(
-                                child: StatCard(
-                              headline: 'Products',
-                              body: Center(
-                                child: CircularProgressIndicator(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          FutureBuilder(
+                            future: totalProductsFuture,
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.done) {
+                                if (snapshot.hasData) {
+                                  final totalProducts =
+                                      snapshot.data as ProductsTotal;
+                                  return StatCard(
+                                      headline: AppLocalizations.of(context)!
+                                          .products,
+                                      body: Column(children: [
+                                        Text(AppLocalizations.of(context)!
+                                            .differentItems),
+                                        Text(
+                                          totalProducts.products.toString(),
+                                          style: const TextStyle(
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(AppLocalizations.of(context)!
+                                            .inStock),
+                                        Text(
+                                          totalProducts.quantity.toString(),
+                                          style: const TextStyle(
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      ]),
+                                      headlineColor: Colors.blue);
+                                } else {
+                                  return const Center(
+                                      child: Text('No data found'));
+                                }
+                              } else {
+                                return const Center(
+                                    child: StatCard(
+                                  headline: 'Products',
+                                  body: Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                  headlineColor: Colors.blue,
+                                ));
+                              }
+                              // return Center(child: CircularProgressIndicator());
+                            },
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          StatCard(
+                              headline: AppLocalizations.of(context)!.orders,
+                              body: const Text(
+                                '19',
+                                style: TextStyle(
+                                    fontSize: 40, fontWeight: FontWeight.bold),
                               ),
-                              headlineColor: Colors.blue,
-                            ));
-                          }
-                          // return Center(child: CircularProgressIndicator());
-                        },
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      StatCard(
-                          headline: AppLocalizations.of(context)!.orders,
-                          body: const Text(
-                            '19',
-                            style: TextStyle(
-                                fontSize: 40, fontWeight: FontWeight.bold),
+                              headlineColor: Colors.green),
+                          const SizedBox(
+                            width: 10,
                           ),
-                          headlineColor: Colors.green),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      StatCard(
-                          headline: AppLocalizations.of(context)!.earnings,
-                          body: const Text(
-                            "2402\$",
-                            style: TextStyle(
-                                fontSize: 40, fontWeight: FontWeight.bold),
+                          StatCard(
+                              headline: AppLocalizations.of(context)!.earnings,
+                              body: const Text(
+                                "2402\$",
+                                style: TextStyle(
+                                    fontSize: 40, fontWeight: FontWeight.bold),
+                              ),
+                              headlineColor: Colors.purple),
+                          const SizedBox(
+                            width: 10,
                           ),
-                          headlineColor: Colors.purple),
-                      const SizedBox(
-                        width: 10,
+                          StatCard(
+                              headline: AppLocalizations.of(context)!.expenses,
+                              body: const Text(
+                                "-1241\$",
+                                style: TextStyle(
+                                    fontSize: 40, fontWeight: FontWeight.bold),
+                              ),
+                              headlineColor: Colors.red),
+                        ],
                       ),
-                      StatCard(
-                          headline: AppLocalizations.of(context)!.expenses,
-                          body: const Text(
-                            "-1241\$",
-                            style: TextStyle(
-                                fontSize: 40, fontWeight: FontWeight.bold),
-                          ),
-                          headlineColor: Colors.red),
-                    ],
-                  )
-                ]))
+                      Card(
+                          child: Text('Hello There !',
+                              style: Theme.of(context).textTheme.headlineLarge))
+                    ]))
           ]),
         ));
   }
