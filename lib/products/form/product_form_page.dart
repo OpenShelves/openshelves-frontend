@@ -177,18 +177,20 @@ class _ProductFormPageState extends State<ProductFormPage> {
                                 label: 'EAN', value: product.ean.toString()),
                           ],
                         ),
-                        const Row(
+                        Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Column(
+                              const Column(
                                 children: [],
                               ),
                               SizedBox(
                                 width: 600,
                                 height: 400,
                                 child: Image(
-                                    image: NetworkImage(
-                                        'https://picsum.photos/600/400')),
+                                    image: product.image != null
+                                        ? NetworkImage(product.image!)
+                                        : const NetworkImage(
+                                            'https://picsum.photos/id/1/200/300')),
                               ),
                             ]),
                         Row(

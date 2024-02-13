@@ -109,7 +109,7 @@ class _IncomePageState extends State<IncomePage> {
                 break;
             }
           },
-          items: [
+          items: const [
             BottomNavigationBarItem(icon: Icon(Icons.save), label: 'Save'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.camera), label: 'Take Picture'),

@@ -65,7 +65,7 @@ class _WarehousePlaceFormOnlyState extends State<WarehousePlaceFormOnly> {
                 onSaved: (value) => widget.warehousePlace.name = value!,
               ),
               DropdownButtonFormField<int>(
-                value: widget.warehousePlace.warehouse.id ??
+                value: widget.warehousePlace.warehouse!.id ??
                     widget.warehouses[0].id,
                 decoration: const InputDecoration(
                     icon: Icon(Icons.warehouse),
@@ -137,7 +137,6 @@ class _WarehousePlaceFormOnlyState extends State<WarehousePlaceFormOnly> {
 
                       storeWarehousePlace(widget.warehousePlace)
                           .then((warehousePlaceServer) {
-                        print(warehousePlaceServer.toJson());
                         setState(() {
                           idController.text =
                               warehousePlaceServer.id.toString();

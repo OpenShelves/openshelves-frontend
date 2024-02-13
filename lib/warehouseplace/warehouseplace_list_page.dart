@@ -50,9 +50,9 @@ class _WarehousePlaceListPageState extends State<WarehousePlaceListPage> {
                                   warehousePlace.id.toString());
                         },
                         title: Text(warehousePlace.name),
-                        subtitle: Text(warehousePlace.warehouse.name +
+                        subtitle: Text(warehousePlace.warehouse!.name +
                             " / " +
-                            warehousePlace.warehouse.address.city.toString()),
+                            warehousePlace.warehouse!.address.city.toString()),
                       );
                     },
                   );
@@ -93,10 +93,11 @@ class _WarehousePlaceListPageState extends State<WarehousePlaceListPage> {
                                             warehousePlace.id.toString());
                                   },
                                   title: Text(warehousePlace.name),
-                                  subtitle: Text(warehousePlace.warehouse.name +
-                                      " / " +
-                                      warehousePlace.warehouse.address.city
-                                          .toString()),
+                                  subtitle: Text(
+                                      warehousePlace.warehouse!.name +
+                                          " / " +
+                                          warehousePlace.warehouse!.address.city
+                                              .toString()),
                                 );
                               },
                             );

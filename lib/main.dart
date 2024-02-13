@@ -76,9 +76,9 @@ class MyApp extends StatelessWidget {
             case 'product-form':
               return MaterialPageRoute(
                   builder: (context) => ProductFormPage(id: int.parse(id)));
-            case 'warehouseplace-form':
-              return MaterialPageRoute(
-                  builder: (context) => WarehousePlacePage(id: int.parse(id)));
+            // case 'warehouseplace-form':
+            //   return MaterialPageRoute(
+            //       builder: (context) => WarehousePlacePage(id: int.parse(id)));
             case WarehousePlacePage.url:
               if (id == 'new') {
                 return MaterialPageRoute(

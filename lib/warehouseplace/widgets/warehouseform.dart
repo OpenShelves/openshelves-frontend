@@ -64,9 +64,9 @@ class _WarehouseFormState extends State<WarehouseForm> {
                         ]))
                     : ListTile(
                         title: Text(widget.wp.name),
-                        subtitle: Text(widget.wp.warehouse.name +
+                        subtitle: Text(widget.wp.warehouse!.name +
                             ' / ' +
-                            widget.wp.warehouse.address.city.toString()),
+                            widget.wp.warehouse!.address.city.toString()),
                         trailing: Switch(
                           value: editMode,
                           onChanged: (val) {

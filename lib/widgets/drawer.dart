@@ -69,13 +69,13 @@ class OpenShelvesDrawer extends StatelessWidget {
                   Navigator.pushNamed(context, WarehousePlaceListPage.url);
                 },
               ),
-              ListTile(
-                leading: const Icon(Icons.qr_code),
-                title: const Text('I N C O M I N G'),
-                onTap: () {
-                  Navigator.pushNamed(context, IncomePage.url);
-                },
-              ),
+              // ListTile(
+              //   leading: const Icon(Icons.qr_code),
+              //   title: const Text('I N C O M I N G'),
+              //   onTap: () {
+              //     Navigator.pushNamed(context, IncomePage.url);
+              //   },
+              // ),
               ListTile(
                 leading: const Icon(Icons.file_open),
                 title: const Text('D O C U M E N T S'),

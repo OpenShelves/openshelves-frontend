@@ -59,7 +59,6 @@ class InventoryTable extends StatelessWidget {
                 : [] as Future<List<InventoryLevel>>,
             builder: (context, snapshot) {
               if (snapshot.hasError) {
-                print(snapshot.error);
                 return const Text('Something went wrong');
               }
               if (snapshot.connectionState == ConnectionState.done) {

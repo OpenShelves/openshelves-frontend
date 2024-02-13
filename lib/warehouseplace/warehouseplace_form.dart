@@ -9,6 +9,7 @@ import 'package:openshelves/warehouseplace/models/inventory_level_model.dart';
 import 'package:openshelves/warehouseplace/models/warehouseplace_model.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_list_page.dart';
 import 'package:openshelves/warehouseplace/warehouseplaces_service.dart';
+import 'package:openshelves/warehouseplace/widgets/inventory_changes_table.dart';
 import 'package:openshelves/warehouseplace/widgets/inventory_table.dart';
 import 'package:openshelves/warehouseplace/widgets/invetory_list.dart';
 import 'package:openshelves/warehouseplace/widgets/warehouseform.dart';
@@ -85,7 +86,7 @@ class _WarehousePlacePageState extends State<WarehousePlacePage> {
         tabletBody: Scaffold(
             appBar: openShelvesAppBar,
             drawer: const OpenShelvesDrawer(),
-            body: ListView(children: [
+            body: ListView(children: const [
               // WarehouseForm(wp: wp),
               // InventoryList(wp: wp, store: widget.store)
             ])),
@@ -97,7 +98,10 @@ class _WarehousePlacePageState extends State<WarehousePlacePage> {
             WarehouseForm(wp: wp),
             wp.id != null
                 ? InventoryTable(widget: widget, wp: wp)
-                : const Text('Noch Keine Daten')
+                : const Text('Noch Keine Daten'),
+            wp.id != null
+                ? InventoryChangesTable(warehousePlaceId: wp.id!)
+                : const Text('Noch Keine Daten'),
           ]))
         ])));
   }

@@ -4,8 +4,9 @@ part 'user_model.g.dart';
 @JsonSerializable()
 class User {
   int? id;
-  final String name;
-  final String email;
+  String? password;
+  String name;
+  String email;
 
   User({required this.name, required this.email});
 

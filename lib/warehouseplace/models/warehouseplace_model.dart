@@ -7,7 +7,8 @@ part 'warehouseplace_model.g.dart';
 class WarehousePlace {
   int? id;
   String name;
-  Warehouse warehouse;
+  Warehouse? warehouse;
+  @JsonKey(name: 'parent_warehouse_place')
   WarehousePlace? parent;
   String barcode;
 

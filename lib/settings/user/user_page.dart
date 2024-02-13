@@ -40,16 +40,34 @@ class _UserPageState extends State<UserPage> {
                   child: Column(children: [
                 TextFormField(
                   controller: TextEditingController(text: user.name),
+                  onChanged: (value) => user.name = value,
                   decoration: const InputDecoration(
                     hintText: 'Enter your username',
                   ),
                 ),
                 TextFormField(
                   controller: TextEditingController(text: user.email),
+                  onChanged: (value) => user.email = value,
                   decoration: const InputDecoration(
                     hintText: 'Enter your email',
                   ),
                 ),
+                TextFormField(
+                  controller: TextEditingController(text: user.password),
+                  onChanged: (value) => user.password = value,
+                  decoration: const InputDecoration(
+                    hintText: 'Enter your password',
+                  ),
+                ),
+                ElevatedButton(
+                    child: Text('save'),
+                    onPressed: () {
+                      storeUser(user).then((value) {
+                        setState(() {
+                          user = value;
+                        });
+                      });
+                    })
               ]))))
     ]));
   }

@@ -23,3 +23,21 @@ Future<User> getUser() async {
     throw Exception('Failed to load product');
   }
 }
+
+Future<User> storeUser(User user) async {
+  var token = await getToken();
+  final response = await http.post(Uri.parse(URL + '/user/create'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer ' + token
+      },
+      body: jsonEncode(user));
+
+  if (response.statusCode == 200 || response.statusCode == 201) {
+    return User.fromJson(jsonDecode(response.body));
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to store product');
+  }
+}

@@ -13,12 +13,13 @@ class Product {
   double? weight;
   @JsonKey(fromJson: _boolFromInt, toJson: _boolToInt)
   bool? active;
-  @JsonKey(fromJson: _doubleFormNull)
+  @JsonKey(fromJson: checkDouble)
   double? price;
   String? sku;
   @JsonKey(name: 'updated_at')
   DateTime? updatedAt;
   String? quantity;
+  String? image;
 
   @override
   String toString() {
@@ -41,7 +42,17 @@ class Product {
       this.updatedAt,
       this.quantity});
 
-  static double? _doubleFormNull(dynamic value) => value == null ? 0 : value;
+  static double checkDouble(dynamic value) {
+    if (value is String) {
+      return double.parse(value);
+    }
+    if (value is int) {
+      return value.toDouble();
+    } else {
+      return 0;
+    }
+  }
+
   static bool _boolFromInt(int active) => active == 1;
   static int _boolToInt(bool? active) => active != null && active ? 1 : 0;
 
