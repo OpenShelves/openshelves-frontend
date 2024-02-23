@@ -1,3 +1,4 @@
+import 'package:dynamic_tabbar/dynamic_tabbar.dart';
 import 'package:flutter/material.dart';
 import 'package:openshelves/address_model.dart';
 import 'package:openshelves/constants.dart';
@@ -96,12 +97,32 @@ class _WarehousePlacePageState extends State<WarehousePlacePage> {
           Expanded(
               child: ListView(children: [
             WarehouseForm(wp: wp),
-            wp.id != null
-                ? InventoryTable(widget: widget, wp: wp)
-                : const Text('Noch Keine Daten'),
-            wp.id != null
-                ? InventoryChangesTable(warehousePlaceId: wp.id!)
-                : const Text('Noch Keine Daten'),
+            Container(
+                height: 700,
+                child: DynamicTabBarWidget(
+                  onTabChanged: (p0) => {},
+                  dynamicTabs: [
+                    TabData(
+                      index: 0,
+                      title: const Tab(
+                        child: Text('Inventar'),
+                      ),
+                      content: wp.id != null
+                          ? InventoryTable(widget: widget, wp: wp)
+                          : const Text('Noch Keine Daten'),
+                    ),
+                    TabData(
+                      index: 1,
+                      title: const Tab(
+                        child: Text('Bestandsänderung'),
+                      ),
+                      content: wp.id != null
+                          ? InventoryChangesTable(warehousePlaceId: wp.id!)
+                          : const Text('Noch Keine Daten'),
+                    ),
+                  ],
+                  onTabControllerUpdated: (p0) {},
+                )),
           ]))
         ])));
   }

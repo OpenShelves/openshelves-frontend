@@ -16,7 +16,7 @@ class InventoryChangeTableSource extends DataTableSource {
       DataCell(Text(inventory.quantity.toString())),
       DataCell(Text(inventory.product.name)),
       DataCell(Text(inventory.createdAt.toString())),
-      DataCell(Text('')),
+      DataCell(Text(inventory.updatedAt.toString())),
 //       DataCell(Text(inventory.productsName)),
 //       DataCell(Text(inventory.warehousePlacesName)),
 //       DataCell(IconButton(
@@ -67,12 +67,15 @@ class _InventoryChangesTableState extends State<InventoryChangesTable> {
               return const Center(child: Text('No Products found'));
             }
 
-            return PaginatedDataTable(columns: const [
-              DataColumn(label: Text('Quantity')),
-              DataColumn(label: Text('Product')),
-              DataColumn(label: Text('Warehouse Place')),
-              DataColumn(label: Text('Action'))
-            ], source: InventoryChangeTableSource(data: snapshot.data!));
+            return PaginatedDataTable(
+                // rowsPerPage: 50,
+                columns: const [
+                  DataColumn(label: Text('Quantity')),
+                  DataColumn(label: Text('Product')),
+                  DataColumn(label: Text('createdAt')),
+                  DataColumn(label: Text('updatedAt'))
+                ],
+                source: InventoryChangeTableSource(data: snapshot.data!));
           } else {
             return const Center(child: Text('No Products found'));
           }

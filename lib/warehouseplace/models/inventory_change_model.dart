@@ -1,7 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:openshelves/address_model.dart';
 import 'package:openshelves/products/models/product_model.dart';
-import 'package:openshelves/warehouse/warehouse_model.dart';
+
 import 'package:openshelves/warehouseplace/models/warehouseplace_model.dart';
 part 'inventory_change_model.g.dart';
 

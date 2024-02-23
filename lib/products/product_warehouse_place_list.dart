@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:openshelves/state/appstate.dart';
 import 'package:openshelves/warehouseplace/models/inventory_level_model.dart';
 import 'package:openshelves/warehouseplace/warehouseplace_form.dart';
-import 'package:redux/redux.dart';
 
 class WarehousePlaceList extends StatelessWidget {
   final List<InventoryLevel> inventoryLevels;

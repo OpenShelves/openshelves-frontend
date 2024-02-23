@@ -3,7 +3,6 @@ import 'package:openshelves/document/document_list_page.dart';
 import 'package:openshelves/home.dart';
 import 'package:openshelves/login/login.dart';
 import 'package:openshelves/products/list/product_list_page.dart';
-import 'package:openshelves/scanner/income/income_form.dart';
 import 'package:openshelves/scanner/scanner_home_page.dart';
 import 'package:openshelves/settings/settings_list_page.dart';
 import 'package:openshelves/warehouse/warehouse_list_page.dart';

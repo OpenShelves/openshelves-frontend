@@ -56,11 +56,15 @@ class MyApp extends StatelessWidget {
         Locale('de'), // German
       ],
       title: 'OpenShelves',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData.from(colorScheme: const ColorScheme.light()).copyWith(
+          elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ButtonStyle(
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(2.0))),
+        backgroundColor: MaterialStateProperty.all(Colors.blue),
+        foregroundColor: MaterialStateProperty.all(Colors.white),
+      ))),
       onGenerateRoute: (settings) {
-        print(settings);
         var uri = Uri.parse(settings.name!);
 
         var id = uri.pathSegments[1];

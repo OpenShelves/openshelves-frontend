@@ -7,8 +7,8 @@ import 'package:openshelves/products/product_warehouse_place_list.dart';
 import 'package:openshelves/products/services/product_service.dart';
 import 'package:openshelves/products/widgets/product_inventory_table.dart';
 import 'package:openshelves/responsive/responsive_layout.dart';
-import 'package:openshelves/warehouseplace/inventory_service.dart';
 import 'package:openshelves/warehouseplace/models/inventory_level_model.dart';
+import 'package:openshelves/widgets/desktop_card.dart';
 import 'package:openshelves/widgets/drawer.dart';
 import 'package:openshelves/widgets/label_detail.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -151,83 +151,84 @@ class _ProductFormPageState extends State<ProductFormPage> {
               child: const Icon(Icons.add), onPressed: () {}),
           body: Row(children: [
             const OpenShelvesDrawer(),
-            Expanded(
-                child: Container(
-                    padding: const EdgeInsets.all(30.0),
-                    child: ListView(
+            DesktopCard(
+                title: "Edit Product",
+                primaryActions: [
+                  ElevatedButton(
+                      onPressed: () {
+                        var valid = mainFormStateKey.currentState!.validate();
+                        var valid2 = techFormStateKey.currentState!.validate();
+                        if (valid && valid2) {
+                          storeProduct(product).then((productBackend) {
+                            setState(() {
+                              product = productBackend;
+                            });
+                          });
+                        }
+                      },
+                      child: const Text('speichern')),
+                  ElevatedButton(
+                      onPressed: () {}, child: const Text('löschen')),
+                ],
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(product.name,
+                        overflow: TextOverflow.fade,
+                        softWrap: true,
+                        style: Theme.of(context).textTheme.headlineLarge),
+                    Wrap(
+                      spacing: 50,
                       children: [
-                        Text(product.name,
-                            overflow: TextOverflow.fade,
-                            softWrap: true,
-                            style: Theme.of(context).textTheme.headlineLarge),
-                        const Divider(),
-                        Wrap(
-                          spacing: 50,
-                          children: [
-                            LabelDetail(
-                                label: 'OSID',
-                                value: product.id.toString().padLeft(6, '0')),
-                            LabelDetail(
-                                label: AppLocalizations.of(context)!.quantity,
-                                value: product.quantity.toString()),
-                            LabelDetail(
-                                label: AppLocalizations.of(context)!.quantity,
-                                value: total.toString()),
-                            LabelDetail(
-                                label: 'EAN', value: product.ean.toString()),
-                          ],
-                        ),
-                        Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Column(
-                                children: [],
-                              ),
-                              SizedBox(
-                                width: 600,
-                                height: 400,
-                                child: Image(
-                                    image: product.image != null
-                                        ? NetworkImage(product.image!)
-                                        : const NetworkImage(
-                                            'https://picsum.photos/id/1/200/300')),
-                              ),
-                            ]),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                                flex: 1,
-                                child: ProductMainDataForm(
-                                    formKey: mainFormStateKey,
-                                    product: product,
-                                    onSubmit: (Product product) {})),
-                            Expanded(
-                                flex: 1,
-                                child: ProductTechDataForm(
-                                  product: product,
-                                  formKey: techFormStateKey,
-                                )),
-                          ],
-                        ),
-                        IconButton(
-                            onPressed: () {
-                              var valid =
-                                  mainFormStateKey.currentState!.validate();
-                              var valid2 =
-                                  techFormStateKey.currentState!.validate();
-                              if (valid && valid2) {
-                                storeProduct(product).then((productBackend) {
-                                  setState(() {
-                                    product = productBackend;
-                                  });
-                                });
-                              }
-                            },
-                            icon: const Icon(Icons.save)),
-                        ProductInventoryTable(product: product, widget: widget)
+                        LabelDetail(
+                            label: 'OSID',
+                            value: product.id.toString().padLeft(6, '0')),
+                        LabelDetail(
+                            label: AppLocalizations.of(context)!.quantity,
+                            value: product.quantity.toString()),
+                        LabelDetail(
+                            label: AppLocalizations.of(context)!.quantity,
+                            value: total.toString()),
+                        LabelDetail(
+                            label: 'EAN', value: product.ean.toString()),
                       ],
-                    )))
+                    ),
+                    Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Column(
+                            children: [],
+                          ),
+                          SizedBox(
+                            width: 600,
+                            height: 400,
+                            child: Image(
+                                image: product.image != null
+                                    ? NetworkImage(product.image!)
+                                    : const NetworkImage(
+                                        'https://picsum.photos/id/1/200/300')),
+                          ),
+                        ]),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                            flex: 1,
+                            child: ProductMainDataForm(
+                                formKey: mainFormStateKey,
+                                product: product,
+                                onSubmit: (Product product) {})),
+                        Expanded(
+                            flex: 1,
+                            child: ProductTechDataForm(
+                              product: product,
+                              formKey: techFormStateKey,
+                            )),
+                      ],
+                    ),
+                    ProductInventoryTable(product: product, widget: widget)
+                  ],
+                ))
           ])),
     );
   }
